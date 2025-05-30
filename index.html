@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科科 AI Shorts - 用 AI 創造無限可能</title>
+    <meta name="description" content="探索 AI 的奇妙世界，每週為您帶來最新最有趣的 AI 應用和教學">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* 漸層背景動畫 */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 浮動粒子效果 */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 200px 200px, 150px 150px, 100px 100px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+            100% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.5); }
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.9s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255,107,107,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #ff5252, #ff7979);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* 內容區塊 */
+        .content-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-text {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 統計數據區塊 */
+        .stats-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 頁尾 */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+            }
+            
+            .content-section {
+                padding: 4rem 1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 滾動動畫 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 主視覺區 -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">🤖</div>
+            <h1 class="title">科科 AI Shorts</h1>
+            <p class="subtitle">用 AI 創造無限可能</p>
+            <p class="tagline">每週為您帶來最新最有趣的 AI 應用教學與實用技巧</p>
+            
+            <div class="cta-buttons">
+                <a href="https://www.youtube.com/@your-channel" class="btn btn-primary" target="_blank">
+                    🎬 訂閱頻道
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    ✨ 了解更多
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色內容 -->
+    <section id="features" class="content-section">
+        <h2 class="section-title fade-in-up">頻道特色</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">AI 工具實測</h3>
+                <p class="feature-text">深度評測最新的 AI 工具，為您篩選出真正實用的應用，節省您寶貴的時間與精力。</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">💡</div>
+                <h3 class="feature-title">創意應用分享</h3>
+                <p class="feature-text">分享創新的 AI 應用方法，激發您的創作靈感，讓 AI 成為您最得力的助手。</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">實用教學</h3>
+                <p class="feature-text">Step by step 教學，即使是 AI 新手也能輕鬆上手，快速提升工作效率。</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">短影音格式</h3>
+                <p class="feature-text">精簡有力的短影音內容，在最短時間內獲得最大價值，適合忙碌的現代生活。</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🔥</div>
+                <h3 class="feature-title">趨勢追蹤</h3>
+                <p class="feature-text">緊跟 AI 發展趨勢，第一時間為您報導最新技術動態與應用案例。</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">互動交流</h3>
+                <p class="feature-text">歡迎留言討論，分享您的使用心得，一起探索 AI 的無限可能。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 統計數據 -->
+    <section class="stats-section">
+        <h2 class="section-title" style="color: white;">頻道數據</h2>
+        <div class="stats-grid">
+            <div class="stat-item fade-in-up">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">AI 工具評測</span>
+            </div>
+            <div class="stat-item fade-in-up">
+                <span class="stat-number">1000+</span>
+                <span class="stat-label">訂閱者</span>
+            </div>
+            <div class="stat-item fade-in-up">
+                <span class="stat-number">週更</span>
+                <span class="stat-label">更新頻率</span>
+            </div>
+            <div class="stat-item fade-in-up">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">原創內容</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.youtube.com/@your-channel" class="social-link" target="_blank">
+                    📺
+                </a>
+                <a href="mailto:your-email@gmail.com" class="social-link">
+                    ✉️
+                </a>
+                <a href="#" class="social-link">
+                    💬
+                </a>
+            </div>
+            
+            <p>&copy; 2025 科科 AI Shorts. 用 AI 創造無限可能。</p>
+            <p style="margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;">
+                讓我們一起探索 AI 的奇妙世界 🌟
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 滾動動畫效果
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // 平滑滾動
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 數字動畫效果
+        function animateNumbers() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const text = stat.textContent;
+                const hasPlus = text.includes('+');
+                const hasPercent = text.includes('%');
+                const number = parseInt(text.replace(/[^\d]/g, ''));
+                
+                if (number && !isNaN(number)) {
+                    let current = 0;
+                    const increment = number / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= number) {
+                            current = number;
+                            clearInterval(timer);
+                        }
+                        
+                        let displayText = Math.floor(current).toString();
+                        if (hasPlus) displayText += '+';
+                        if (hasPercent) displayText += '%';
+                        
+                        stat.textContent = displayText;
+                    }, 50);
+                }
+            });
+        }
+
+        // 檢查元素是否在視窗中
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // 當統計區塊進入視窗時啟動數字動畫
+        function checkStatsAnimation() {
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection && isInViewport(statsSection) && !statsSection.dataset.animated) {
+                statsSection.dataset.animated = 'true';
+                setTimeout(animateNumbers, 500);
+            }
+        }
+
+        // 事件監聽器
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+            checkStatsAnimation();
+        });
+
+        window.addEventListener('load', () => {
+            handleScrollAnimation();
+            smoothScroll();
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            handleScrollAnimation();
+            smoothScroll();
+        });
+    </script>
+</body>
+</html>
