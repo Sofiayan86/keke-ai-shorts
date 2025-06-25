@@ -1,571 +1,248 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>科科 AI Shorts - 用 AI 創造無限可能</title>
-    <meta name="description" content="探索 AI 的奇妙世界，每週為您帶來最新最有趣的 AI 應用和教學">
-    
+    <title>科科 AI Shorts | 官方網站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* 使用 Noto Sans TC 作為主要中文字體，Inter 作為英文字體 */
         body {
-            font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
         }
-
-        /* 漸層背景動畫 */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        /* 自定義青綠色 */
+        .text-custom-teal {
+            color: #00f2c3;
         }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .bg-custom-teal {
+            background-color: #00f2c3;
         }
-
-        /* 浮動粒子效果 */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 2px, transparent 2px),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
-                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 200px 200px, 150px 150px, 100px 100px;
-            animation: float 20s linear infinite;
+        .border-custom-teal {
+            border-color: #00f2c3;
         }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-20px) rotate(360deg); }
+        /* 標題字體 */
+        h1, h2, h3 {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            font-weight: 900;
         }
-
-        .hero-content {
-            text-align: center;
-            color: white;
-            z-index: 2;
-            position: relative;
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.2);
-            animation: pulse 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-            100% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.5); }
-        }
-
-        .title {
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: slideInUp 1s ease-out;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: slideInUp 1s ease-out 0.3s both;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            font-weight: 300;
-            animation: slideInUp 1s ease-out 0.6s both;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeIn 1s ease-out 0.9s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            box-shadow: 0 8px 20px rgba(255,107,107,0.3);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #ff5252, #ff7979);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* 內容區塊 */
-        .content-section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #333;
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            margin: 1rem auto 0;
-            border-radius: 2px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .feature-text {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* 統計數據區塊 */
-        .stats-section {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            padding: 1rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* 頁尾 */
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-link {
-            display: inline-block;
-            padding: 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-3px);
-        }
-
-        /* 響應式設計 */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 200px;
-            }
-            
-            .content-section {
-                padding: 4rem 1rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* 滾動動畫 */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* 導覽列模糊背景效果 */
+        .backdrop-blur-sm {
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
-<body>
-    <!-- 主視覺區 -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="logo">🤖</div>
-            <h1 class="title">科科 AI Shorts</h1>
-            <p class="subtitle">用 AI 創造無限可能</p>
-            <p class="tagline">每週為您帶來最新最有趣的 AI 應用教學與實用技巧</p>
-            
-            <div class="cta-buttons">
-                <a href="https://www.youtube.com/@kekeAIShorts" class="btn btn-primary" target="_blank">
-                    🎬 訂閱頻道
-                </a>
-                <a href="#features" class="btn btn-secondary">
-                    ✨ 了解更多
-                </a>
+<body class="bg-black text-gray-200">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-black/80 backdrop-blur-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-black text-white">科科 <span class="bg-custom-teal text-black px-2 rounded-md">AI</span> Shorts</a>
+                </div>
+                <!-- Navigation Links -->
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#intro" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium">關於頻道</a>
+                        <a href="#playlists" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium">精選播放清單</a>
+                        <a href="#reading" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium">延伸閱讀</a>
+                        <a href="#contact" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium">聯絡我們</a>
+                    </div>
+                </nav>
+                <!-- Mobile Menu Button (Optional) -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- 特色內容 -->
-    <section id="features" class="content-section">
-        <h2 class="section-title fade-in-up">頻道特色</h2>
-        
-        <div class="features-grid">
-            <div class="feature-card fade-in-up">
-                <div class="feature-icon">🚀</div>
-                <h3 class="feature-title">AI 工具實測</h3>
-                <p class="feature-text">深度評測最新的 AI 工具，為您篩選出真正實用的應用，節省您寶貴的時間與精力。</p>
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-black pt-16 pb-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white">
+                    科科 <span class="bg-custom-teal text-black px-4 rounded-xl">AI</span> Shorts
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-400">
+                    AI tool hacks for SME founders
+                </p>
             </div>
-            
-            <div class="feature-card fade-in-up">
-                <div class="feature-icon">💡</div>
-                <h3 class="feature-title">創意應用分享</h3>
-                <p class="feature-text">分享創新的 AI 應用方法，激發您的創作靈感，讓 AI 成為您最得力的助手。</p>
-            </div>
-            
-            <div class="feature-card fade-in-up">
-                <div class="feature-icon">🎯</div>
-                <h3 class="feature-title">實用教學</h3>
-                <p class="feature-text">Step by step 教學，即使是 AI 新手也能輕鬆上手，快速提升工作效率。</p>
-            </div>
-            
-            <div class="feature-card fade-in-up">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">短影音格式</h3>
-                <p class="feature-text">精簡有力的短影音內容，在最短時間內獲得最大價值，適合忙碌的現代生活。</p>
-            </div>
-            
-            <div class="feature-card fade-in-up">
-                <div class="feature-icon">🔥</div>
-                <h3 class="feature-title">趨勢追蹤</h3>
-                <p class="feature-text">緊跟 AI 發展趨勢，第一時間為您報導最新技術動態與應用案例。</p>
-            </div>
-            
-            <div class="feature-card fade-in-up">
-                <div class="feature-icon">💬</div>
-                <h3 class="feature-title">互動交流</h3>
-                <p class="feature-text">歡迎留言討論，分享您的使用心得，一起探索 AI 的無限可能。</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 統計數據 -->
-    <section class="stats-section">
-        <h2 class="section-title" style="color: white;">頻道數據</h2>
-        <div class="stats-grid">
-            <div class="stat-item fade-in-up">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">AI 工具評測</span>
+        <!-- Introduction Section -->
+        <section id="intro" class="py-20 bg-gray-900">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-extrabold text-white">5 分鐘看懂 AI 新工具，陪你獨自升級</h2>
+                <p class="mt-4 text-lg text-gray-300">
+                    本頻道由直立猿與 AI Agent 共同創作。</p>不定時更新短片 Demo 或科技新趨勢，先踩雷幫你省時間。
+                </p>
             </div>
-            <div class="stat-item fade-in-up">
-                <span class="stat-number">1000+</span>
-                <span class="stat-label">訂閱者</span>
-            </div>
-            <div class="stat-item fade-in-up">
-                <span class="stat-number">週更</span>
-                <span class="stat-label">更新頻率</span>
-            </div>
-            <div class="stat-item fade-in-up">
-                <span class="stat-number">100%</span>
-                <span class="stat-label">原創內容</span>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 頁尾 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://www.youtube.com/@kekeAIShorts" class="social-link" target="_blank">
-                    📺
+        <!-- Playlists Section -->
+        <section id="playlists" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl">精選播放清單</h2>
+                    <p class="mt-4 text-lg text-gray-400">從趨勢洞見到工具實測，給你最真實的 AI 成果展示。</p>
+                </div>
+
+                <!-- Playlist: Pod 精讀筆記 -->
+                <div class="mb-20">
+                    <div class="mb-8 p-6 bg-gray-900 rounded-xl">
+                        <h3 class="text-2xl font-bold text-custom-teal">Pod 精讀筆記</h3>
+                        <p class="mt-2 text-gray-400">用 5 分鐘中文影片，快速拆解 30–60 分鐘的英文 Podcast 重點，給你結論、實用範例與行動清單，一次補齊 AI × 產品 × 成長思維的最新洞見。</p>
+                    </div>
+                    <!-- YouTube Embeds -->
+                    <!-- NOTE: 這邊的影片是範例，請替換成您播放清單最新的影片ID -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/SmaY7238i9E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/n6jA539G-NE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/lQtSz3a9m7Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    </div>
+                </div>
+
+                <!-- Playlist: AI 對決實驗室 -->
+                <div class="mb-20">
+                    <div class="mb-8 p-6 bg-gray-900 rounded-xl">
+                        <h3 class="text-2xl font-bold text-custom-teal">AI 對決實驗室</h3>
+                        <p class="mt-2 text-gray-400">AI 工具百百種，哪個才是真本事？我們把兩到三款 AI 工具放上擂台，實測同一個任務，從畫圖、寫文、剪影片到生成動畫，全程公開對比、毫不護航。</p>
+                    </div>
+                     <!-- YouTube Embeds -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/jwxN8sJYq60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/2z5c5S1A-mU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/XAGL4xq0PSY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    </div>
+                </div>
+
+                <!-- Playlist: 新手 Vibe Coder 進階指南 -->
+                <div class="mb-20">
+                    <div class="mb-8 p-6 bg-gray-900 rounded-xl">
+                        <h3 class="text-2xl font-bold text-custom-teal">新手 Vibe Coder 進階指南</h3>
+                        <p class="mt-2 text-gray-400">一行 code 都不會寫？只給你最聽得懂的教學、最實用的基礎應用！</p>
+                    </div>
+                     <!-- YouTube Embeds -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/WJq5n8tYHeI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/A6X_A30n-a4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/uAom221Fv_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    </div>
+                </div>
+                
+                <!-- Playlist: AI 工具踩雷實測 -->
+                <div>
+                    <div class="mb-8 p-6 bg-gray-900 rounded-xl">
+                        <h3 class="text-2xl font-bold text-custom-teal">AI 工具踩雷實測</h3>
+                        <p class="mt-2 text-gray-400">開箱、評比、Live demo 各種最新 AI 模型、工具，我們花錢訂閱搶先測試，直接說真話、只給你乾貨。</p>
+                    </div>
+                     <!-- YouTube Embeds -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/zOa-F-a3mYQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/F14_06a0O-M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><iframe class="w-full h-full" src="https://www.youtube.com/embed/7VdYQ2M_YqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extended Reading Section -->
+        <section id="reading" class="py-20 bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-extrabold text-white">延伸閱讀</h2>
+                <p class="mt-4 text-lg text-gray-400">更多深度文章與資源，即將推出，敬請期待！</p>
+                <!-- You can add links or content here later -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer / Contact Section -->
+    <footer id="contact" class="bg-black">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-white">聯絡我們</h2>
+                <p class="text-gray-400 mt-2">在這些平台追蹤我們，或透過 Email 聯絡</p>
+            </div>
+            <div class="flex justify-center space-x-6">
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@kekeAIShorts" target="_blank" class="text-gray-400 hover:text-custom-teal">
+                    <span class="sr-only">YouTube</span>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.814.42-7.814.42s-6.22 0-7.814-.42a2.506 2.506 0 0 1-1.768-1.768C2.002 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.78 5.002 12 5 12 5s6.22 0 7.814.418zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" clip-rule="evenodd" />
+                    </svg>
                 </a>
-                <a href="mailto:hi@webbrain.app" class="social-link">
-                    ✉️
+                <!-- Email -->
+                <a href="mailto:sofia@webbrain.app" class="text-gray-400 hover:text-custom-teal">
+                    <span class="sr-only">Email</span>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2.5 4A1.5 1.5 0 0 0 1 5.5v13A1.5 1.5 0 0 0 2.5 20h19a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 21.5 4H2.5Zm19 1.155L12 11.83 2.5 5.155h19ZM2.5 18.5V6.845l9.052 6.11a.5.5 0 0 0 .896 0L21.5 6.845v11.655H2.5Z"/>
+                    </svg>
                 </a>
-                <a href="#" class="social-link">
-                    💬
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/kekeaishorts/" class="text-gray-400 hover:text-custom-teal">
+                    <span class="sr-only">Instagram</span>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2c-2.717 0-3.056.01-4.122.06-1.065.05-1.79.217-2.428.465a4.898 4.898 0 0 0-1.772 1.153 4.9 4.9 0 0 0-1.153 1.772c-.247.638-.415 1.363-.465 2.428C2.013 8.944 2 9.283 2 12s.01 3.056.06 4.122c.05 1.065.218 1.79.465 2.428a4.898 4.898 0 0 0 1.153 1.772 4.9 4.9 0 0 0 1.772 1.153c.638.247 1.363.415 2.428.465C8.944 21.987 9.283 22 12 22s3.056-.01 4.122-.06c1.065-.05 1.79-.218 2.428-.465a4.898 4.898 0 0 0 1.772-1.153 4.9 4.9 0 0 0 1.153-1.772c.247-.638.415-1.363.465-2.428C21.987 15.056 22 14.717 22 12s-.01-3.056-.06-4.122c-.05-1.065-.218-1.79-.465-2.428a4.898 4.898 0 0 0-1.153-1.772 4.9 4.9 0 0 0-1.772-1.153c-.638-.247-1.363-.415-2.428-.465C15.056 2.013 14.717 2 12 2zm0 1.8c2.673 0 2.987.01 4.042.058.975.048 1.505.207 1.858.344.466.182.799.399 1.15.748.35.351.566.683.748 1.15.137.353.296.883.344 1.858.048 1.054.058 1.37.058 4.042s-.01 2.987-.058 4.042c-.048.975-.207 1.505-.344 1.858a3.097 3.097 0 0 1-.748 1.15 3.097 3.097 0 0 1-1.15.748c-.353.137-.883.296-1.858.344-1.054.048-1.37.058-4.042.058s-2.987-.01-4.042-.058c-.975-.048-1.505-.207-1.858-.344a3.097 3.097 0 0 1-1.15-.748 3.097 3.097 0 0 1-.748-1.15c-.137-.353-.296-.883-.344-1.858C4.01 15.013 4 14.629 4 12s.01-2.987.058-4.042c.048-.975.207-1.505.344-1.858.182-.466.399-.799.748-1.15.351-.35.683-.566 1.15-.748.353-.137.883-.296 1.858-.344C9.013 3.99 9.371 4 12 4zm0 2.85a5.15 5.15 0 1 0 0 10.3 5.15 5.15 0 0 0 0-10.3zm0 1.8a3.35 3.35 0 1 1 0 6.7 3.35 3.35 0 0 1 0-6.7zM16.965 6.575a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <!-- Threads -->
+                <a href="https://www.threads.com/@kekeaishorts" class="text-gray-400 hover:text-custom-teal">
+                    <span class="sr-only">Threads</span>
+                    <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 440 511.43"><path fill="#fff" fill-rule="nonzero" d="M342.383 237.038a177.282 177.282 0 00-6.707-3.046c-3.948-72.737-43.692-114.379-110.429-114.805-38.505-.255-72.972 15.445-94.454 48.041l36.702 25.178c15.265-23.159 39.221-28.096 56.864-28.096.204 0 .408 0 .61.002 21.974.14 38.555 6.529 49.287 18.987 7.81 9.071 13.034 21.606 15.621 37.425-19.483-3.311-40.553-4.329-63.077-3.038-63.45 3.655-104.24 40.661-101.501 92.08 1.391 26.083 14.385 48.523 36.587 63.181 18.772 12.391 42.95 18.45 68.077 17.079 33.183-1.819 59.215-14.48 77.377-37.63 13.793-17.58 22.516-40.363 26.368-69.069 15.814 9.544 27.535 22.103 34.007 37.2 11.006 25.665 11.648 67.84-22.764 102.223-30.15 30.121-66.392 43.151-121.164 43.554-60.758-.45-106.708-19.935-136.583-57.915-27.976-35.562-42.434-86.93-42.973-152.674.539-65.746 14.997-117.114 42.973-152.676 29.875-37.979 75.824-57.463 136.582-57.914 61.197.455 107.948 20.033 138.967 58.195 15.21 18.713 26.676 42.248 34.236 69.688L440 161.532c-9.163-33.775-23.582-62.881-43.203-87.017C357.031 25.59 298.872.519 223.936 0h-.3C148.851.518 91.344 25.683 52.709 74.795 18.331 118.499.598 179.308.002 255.535l-.002.18.002.18c.596 76.225 18.329 137.037 52.707 180.741 38.635 49.11 96.142 74.277 170.927 74.794h.3c66.486-.462 113.352-17.868 151.96-56.442 50.51-50.463 48.99-113.718 32.342-152.549-11.945-27.847-34.716-50.463-65.855-65.401zM227.587 344.967c-27.808 1.567-56.699-10.916-58.124-37.651-1.056-19.823 14.108-41.942 59.831-44.577a266.87 266.87 0 0115.422-.45c16.609 0 32.145 1.613 46.271 4.701-5.268 65.798-36.172 76.483-63.4 77.977z"/></svg>
                 </a>
             </div>
-            
-            <p>&copy; 2025 科科 AI Shorts. 用 AI 創造無限可能。</p>
-            <p style="margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;">
-                讓我們一起探索 AI 的奇妙世界 🌟
-            </p>
+            <div class="mt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2025 科科 AI Shorts. All Rights Reserved.</p>
+                <p>由直立猿與 AI Agent 共同創作。</p>
+            </div>
         </div>
     </footer>
-
+    
     <script>
-        // 滾動動畫效果
-        function handleScrollAnimation() {
-            const elements = document.querySelectorAll('.fade-in-up');
-            const windowHeight = window.innerHeight;
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.classList.add('visible');
-                }
+        // NOTE: 自動更新影片的功能說明
+        // 要讓播放清單自動抓取最新的三支影片，通常需要後端程式的協助。
+        // 流程如下：
+        // 1. 後端伺服器 (例如使用 Node.js, Python) 定期 (例如每天一次) 透過 YouTube Data API 取得每個播放清單的影片列表。
+        // 2. API 會回傳該播放清單所有影片的資訊，按發布日期排序。
+        // 3. 後端伺服器選取最新的三支影片，取出它們的影片 ID。
+        // 4. 後端伺服器將這三組 ID 儲存成一個簡單的 JSON 檔案，並提供一個 API 端點讓前端網頁讀取。
+        // 5. 這個前端網頁在載入時，使用 JavaScript 的 fetch() 功能去讀取後端提供的 JSON 檔案，然後動態地將影片 ID 填入 <iframe> 的 src 屬性中。
+        //
+        // 由於這個環境無法執行後端程式，目前是手動放入影片ID作為展示。
+        // 若未來您架設自己的伺服器，可以依照上述邏輯來實現自動更新。
+
+        // 簡易的行動版選單開關
+        const btn = document.querySelector("button[aria-controls='mobile-menu']");
+        const mobileMenu = document.querySelector(".md\\:hidden nav"); // This selector is a placeholder
+
+        if (btn) {
+            btn.addEventListener("click", () => {
+                const isExpanded = btn.getAttribute("aria-expanded") === "true";
+                btn.setAttribute("aria-expanded", !isExpanded);
+                // A proper implementation would show/hide a mobile menu overlay.
+                // This is a simplified example.
+                const icons = btn.querySelectorAll('svg');
+                icons[0].classList.toggle('hidden');
+                icons[1].classList.toggle('hidden');
             });
         }
-
-        // 平滑滾動
-        function smoothScroll() {
-            const links = document.querySelectorAll('a[href^="#"]');
-            
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        }
-
-        // 數字動畫效果
-        function animateNumbers() {
-            const statNumbers = document.querySelectorAll('.stat-number');
-            
-            statNumbers.forEach(stat => {
-                const text = stat.textContent;
-                const hasPlus = text.includes('+');
-                const hasPercent = text.includes('%');
-                const number = parseInt(text.replace(/[^\d]/g, ''));
-                
-                if (number && !isNaN(number)) {
-                    let current = 0;
-                    const increment = number / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= number) {
-                            current = number;
-                            clearInterval(timer);
-                        }
-                        
-                        let displayText = Math.floor(current).toString();
-                        if (hasPlus) displayText += '+';
-                        if (hasPercent) displayText += '%';
-                        
-                        stat.textContent = displayText;
-                    }, 50);
-                }
-            });
-        }
-
-        // 檢查元素是否在視窗中
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
-
-        // 當統計區塊進入視窗時啟動數字動畫
-        function checkStatsAnimation() {
-            const statsSection = document.querySelector('.stats-section');
-            if (statsSection && isInViewport(statsSection) && !statsSection.dataset.animated) {
-                statsSection.dataset.animated = 'true';
-                setTimeout(animateNumbers, 500);
-            }
-        }
-
-        // 事件監聽器
-        window.addEventListener('scroll', () => {
-            handleScrollAnimation();
-            checkStatsAnimation();
-        });
-
-        window.addEventListener('load', () => {
-            handleScrollAnimation();
-            smoothScroll();
-        });
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            handleScrollAnimation();
-            smoothScroll();
-        });
     </script>
+
 </body>
 </html>
