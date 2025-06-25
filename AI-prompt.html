@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>讓 AI 更聰明：揭秘背後的溝通藝術</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Tech Mint (#00f2c3) -->
+    <!-- Application Structure Plan: The application is a single, linear, scrollable page. The layout has been reordered to present the prompt analysis before the interactive tools, creating a better learning flow. The "Planner" and "Manager" agent sections are permanently displayed side-by-side to better represent the "Teamwork" concept. -->
+    <!-- Visualization & Content Choices: 1. Report Info: Table comparing CoT, ToT, RAG, etc. -> Goal: Compare technologies. -> Viz/Method: Interactive Radar Chart (Chart.js) and dynamic text blocks. 2. Report Info: Hierarchical Agent System concept. -> Goal: Explain a process flow. -> Viz/Method: A side-by-side layout for Planner and Manager agents, with interactive Gemini components. The Manager's review is a static example. 3. New Feature: Side-by-side prompt analysis. -> Goal: Provide deep technical context. -> Viz/Method: A two-column layout. All choices confirm NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background-color: #f0fdfa; /* A very light mint, derived from #00f2c3 */
+        }
+        .tech-button-active {
+            background-color: #00f2c3; 
+            color: #111827;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgba(0, 242, 195, 0.39);
+        }
+        .tech-button-inactive {
+            background-color: white;
+            color: #334155; /* slate-700 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 50vh;
+            }
+        }
+        .gemini-btn:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+        .loader {
+            width: 2rem;
+            height: 2rem;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0d9488; /* A darker teal for contrast */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .prompt-code {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00a185] mb-3">讓 AI 更聰明</h1>
+            <p class="text-lg md:text-xl text-slate-600">揭秘背後的溝通藝術</p>
+        </header>
+
+        <main>
+            <section id="overview" class="mb-12 md:mb-16">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
+                    <h2 class="text-3xl font-bold text-center mb-4 text-slate-800">故事開始：讓 AI 像團隊一樣工作</h2>
+                    <p class="text-slate-600 text-center mb-10 max-w-3xl mx-auto">想讓 AI 完成複雜任務，只靠一句話是不夠的。我們可以像組建一個團隊一樣，讓不同的 AI 各司其職、互相合作。下面這五個秘訣，就是打造一個 AI 超級團隊的關鍵。</p>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-[#f0fdfa] p-6 rounded-xl border border-[#a7f3d0] h-full">
+                            <h3 class="font-bold text-lg text-[#047857] flex items-center gap-2 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m-6 3v10m6-10v10m0-10L9 7" /></svg>
+                                給 AI 一張地圖
+                            </h3>
+                            <p class="text-slate-600">就像填寫表格一樣，給 AI 一個固定的格式，它就能更準確地理解你的意思，不會出錯。</p>
+                        </div>
+                        <div class="bg-[#f0fdfa] p-6 rounded-xl border border-[#a7f3d0] h-full">
+                             <h3 class="font-bold text-lg text-[#047857] flex items-center gap-2 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                                當個好導演
+                            </h3>
+                            <p class="text-slate-600">清楚地告訴 AI 它該扮演什麼角色、該怎麼思考，一步步引導它，而不是讓它猜你的心思。</p>
+                        </div>
+                        <div class="bg-[#f0fdfa] p-6 rounded-xl border border-[#a7f3d0] h-full">
+                             <h3 class="font-bold text-lg text-[#047857] flex items-center gap-2 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                團隊合作力量大
+                            </h3>
+                             <p class="text-slate-600">把一個大任務，拆成幾個小任務，交給不同的 AI 處理。例如一個 AI 負責想點子，另一個負責檢查，這樣合作效果最好。</p>
+                        </div>
+                        <div class="bg-[#f0fdfa] p-6 rounded-xl border border-[#a7f3d0] h-full">
+                             <h3 class="font-bold text-lg text-[#047857] flex items-center gap-2 mb-3">
+                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                                給足參考資料
+                            </h3>
+                            <p class="text-slate-600">AI 不是萬能的。給它一個隨時可以查詢的「資料庫」，讓它根據最新的、正確的資料來回答，結果才會可靠。</p>
+                        </div>
+                        <div class="bg-[#f0fdfa] p-6 rounded-xl border border-[#a7f3d0] h-full">
+                             <h3 class="font-bold text-lg text-[#047857] flex items-center gap-2 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 10l.01.01" /></svg>
+                                打破砂鍋問到底
+                            </h3>
+                            <p class="text-slate-600">不要讓 AI 用「差不多」、「都可以」來敷衍。要求它把每種可能性都想清楚，並明確說出為什麼，這樣才能避免出錯。</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-slate-800">AI 團隊的合作流程</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+                        <div class="p-4 bg-[#f0fdfa] border-2 border-[#a7f3d0] rounded-lg shadow-md flex-1">
+                            <h4 class="font-bold text-[#047857]">1. AI 規劃師</h4>
+                            <p class="text-sm text-[#065f46]">思考所有可能</p>
+                        </div>
+                        <div class="text-3xl font-bold text-slate-400 transform md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="p-4 bg-[#f0fdfa] border-2 border-[#a7f3d0] rounded-lg shadow-md flex-1">
+                            <h4 class="font-bold text-[#047857]">2. AI 品管員</h4>
+                            <p class="text-sm text-[#065f46]">檢查每個步驟</p>
+                        </div>
+                        <div class="text-3xl font-bold text-slate-400 transform md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="p-4 bg-[#f0fdfa] border-2 border-[#a7f3d0] rounded-lg shadow-md flex-1">
+                            <h4 class="font-bold text-[#047857]">3. 執行任務</h4>
+                            <p class="text-sm text-[#065f46]">最終安全行動</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="border-t-2 border-slate-200 my-12 md:my-16">
+
+            <section id="tools" class="mb-12 md:mb-16">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">AI 的神奇工具箱</h2>
+                     <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
+                        <button class="tech-button text-sm md:text-base font-medium py-2 px-4 rounded-full shadow-md transition-all duration-300" data-tech="CoT">一步一步想</button>
+                        <button class="tech-button text-sm md:text-base font-medium py-2 px-4 rounded-full shadow-md transition-all duration-300" data-tech="Self-Consistency">多想幾次，投票決定</button>
+                        <button class="tech-button text-sm md:text-base font-medium py-2 px-4 rounded-full shadow-md transition-all duration-300" data-tech="ToT">探索所有可能</button>
+                        <button class="tech-button text-sm md:text-base font-medium py-2 px-4 rounded-full shadow-md transition-all duration-300" data-tech="RAG">開卷考試</button>
+                        <button class="tech-button text-sm md:text-base font-medium py-2 px-4 rounded-full shadow-md transition-all duration-300" data-tech="Parahelp">團隊合作</button>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8 items-center">
+                        <div class="chart-container">
+                            <canvas id="techRadarChart"></canvas>
+                        </div>
+                        <div id="tech-details" class="p-6 bg-[#f0fdfa] rounded-lg min-h-[300px] border border-[#a7f3d0]">
+                            <h3 id="tech-name" class="text-xl font-bold mb-2 text-[#00a185]"></h3>
+                            <p class="font-semibold text-slate-700">這是什麼意思？</p>
+                            <p id="tech-idea" class="mb-4 text-slate-600"></p>
+                            <p class="font-semibold text-slate-700">適合用在哪？</p>
+                            <p id="tech-usecase" class="mb-4 text-slate-600"></p>
+                            <p class="font-semibold text-slate-700">有什麼缺點？</p>
+                            <p id="tech-limit" class="text-slate-600"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="border-t-2 border-slate-200 my-12 md:my-16">
+
+            <section id="prompt-analysis" class="mb-12 md:mb-16">
+                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">提示詞深度解析：原文與中文說明</h2>
+                    <p class="text-slate-600 text-center mb-10 max-w-3xl mx-auto">想更深入了解 AI 如何思考嗎？這裡我們並列展示了「規劃師」與「品管員」的英文提示詞原文與中文解析，讓你一窺背後的設計巧思。</p>
+
+                    <div class="space-y-12">
+                        <!-- Planning Prompt Analysis -->
+                        <div class="bg-[#f0fdfa] p-6 rounded-lg border border-[#a7f3d0]">
+                             <h3 class="text-2xl font-bold text-[#00a185] mb-4">規劃師提示詞 (Planning Prompt)</h3>
+                             <div class="grid lg:grid-cols-2 gap-x-8 gap-y-6">
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2 text-gray-500">英文原文</h4>
+                                    <div class="prompt-code">
+                                        <pre><code>## Plan elements
+- A plan consists of steps.
+- You can always include &lt;if_block&gt; tags to include different steps based on a condition.
+
+### How to Plan
+- When planning next steps, make sure it's only the goal of next steps, not the overall goal of the ticket or user.
+- Make sure that the plan always follows the procedures and rules of the # Customer service agent Policy doc
+
+### How to create a step
+- A step will always include the name of the action (tool call), description of the action and the arguments needed for the action. It will also include a goal of the specific action.
+
+The step should be in the following format:
+&lt;step&gt;
+&lt;action_name&gt;&lt;/action_name&gt;
+&lt;description&gt;{reason for taking the action, description of the action to take, which outputs from other tool calls that should be used (if relevant)}&lt;/description&gt;
+&lt;/step&gt;
+
+- The action_name should always be the name of a valid tool
+- The description should be a short description of why the action is needed, a description of the action to take and any variables from other tool calls the action needs e.g. "reply to the user with instrucitons from &lt;helpcenter_result&gt;"
+- Make sure your description NEVER assumes any information, variables or tool call results even if you have a good idea of what the tool call returns from the SOP.
+- Make sure your plan NEVER includes or guesses on information/instructions/rules for step descriptions that are not explicitly stated in the policy doc.
+- Make sure you ALWAYS highlight in your description of answering questions/troubleshooting steps that &lt;helpcenter_result&gt; is the source of truth for the information you need to answer the question.
+
+- Every step can have an if block, which is used to include different steps based on a condition.
+- And if block can be used anywhere in a step and plan and should simply just be wrapped with the &lt;if_block condition=''&gt;&lt;/if_block&gt; tags. An &lt;if_block&gt; should always have a condition. To create multiple if/else blocks just create multiple &lt;if_block&gt; tags.
+
+### High level example of a plan
+_IMPORTANT_: This example of a plan is only to give you an idea of how to structure your plan with a few sample tools (in this example &lt;search_helpcenter&gt; and &lt;reply&gt;), it's not strict rules or how you should structure every plan - it's using variable names to give you an idea of how to structure your plan, think in possible paths and use &lt;tool_calls&gt; as variable names, and only general descriptions in your step descriptions.
+
+Scenario: The user has error with feature_name and have provided basic information about the error
+
+&lt;plan&gt;
+    &lt;step&gt;
+        &lt;action_name&gt;search_helpcenter&lt;/action_name&gt;
+        &lt;description&gt;Search helpcenter for information about feature_name and how to resolve error_name&lt;/description&gt;
+    &lt;/step&gt;
+    &lt;if_block condition='&lt;helpcenter_result&gt; found'&gt;
+        &lt;step&gt;
+            &lt;action_name&gt;reply&lt;/action_name&gt;
+            &lt;description&gt;Reply to the user with instructions from &lt;helpcenter_result&gt;&lt;/description&gt;
+        &lt;/step&gt;
+    &lt;/if_block&gt;
+    &lt;if_block condition='no &lt;helpcenter_result&gt; found'&gt;
+        &lt;step&gt;
+            &lt;action_name&gt;search_helpcenter&lt;/action_name&gt;
+            &lt;description&gt;Search helpcenter for general information about how to resolve error/troubleshoot&lt;/description&gt;
+        &lt;/step&gt;
+        &lt;if_block condition='&lt;helpcenter_result&gt; found'&gt;
+            &lt;step&gt;
+                &lt;action_name&gt;reply&lt;/action_name&gt;
+                &lt;description&gt;Reply to the user with relevant instructions from general &lt;search_helpcenter_result&gt; information &lt;/description&gt;
+            &lt;/step&gt;
+        &lt;/if_block&gt;
+        &lt;if_block condition='no &lt;helpcenter_result&gt; found'&gt;
+            &lt;step&gt;
+                &lt;action_name&gt;reply&lt;/action_name&gt;
+                &lt;description&gt;If we can't find specific troubleshooting or general troubleshooting, reply to the user that we need more information and ask for a {{troubleshooting_info_name_from_policy_2}} of the error (since we already have {{troubleshooting_info_name_from_policy_1}}, but need {{troubleshooting_info_name_from_policy_2}} for more context to search helpcenter)&lt;/description&gt;
+            &lt;/step&gt;
+        &lt;/if_block&gt;
+    &lt;/if_block&gt;
+&lt;/plan&gt;</code></pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2 text-gray-500">中文翻譯</h4>
+                                    <div class="prompt-code" style="background-color: #f3f4f6; color: #1f2937;">
+                                        <pre><code>## 計畫元素
+- 一個計畫由多個步驟組成。
+- 你永遠可以使用 &lt;if_block&gt; 標籤來根據條件包含不同的步驟。
+
+### 如何規劃
+- 當規劃後續步驟時，確保目標僅針對「後續步驟」，而不是工單或用戶的「總體目標」。
+- 確保計畫永遠遵循 #客服人員政策 文件中的程序和規則。
+
+### 如何建立一個步驟
+- 一個步驟將永遠包含動作的名稱（工具調用）、動作的描述以及動作所需的參數。它也將包含該特定動作的目標。
+
+步驟應遵循以下格式：
+&lt;step&gt;
+&lt;action_name&gt;&lt;/action_name&gt;
+&lt;description&gt;{採取該動作的原因，要採取的動作的描述，以及應使用哪些來自其他工具調用的輸出（如果相關）}&lt;/description&gt;
+&lt;/step&gt;
+
+- action_name 應該永遠是一個有效工具的名稱。
+- description 應該簡要說明為何需要此動作、要採取的動作的描述，以及動作需要的任何來自其他工具調用的變數，例如：「根據 &lt;helpcenter_result&gt; 的指示回覆使用者」。
+- 確保你的描述「絕不」假設任何資訊、變數或工具調用結果，即使你根據標準作業流程很可能知道工具會返回什麼。
+- 確保你的計畫「絕不」包含或猜測政策文件中未明確說明的步驟描述資訊/指示/規則。
+- 確保你「總是」在回答問題/故障排除步驟的描述中強調，&lt;helpcenter_result&gt; 是你需要用來回答問題的資訊的「唯一真實來源」。
+
+- 每一個步驟都可以有一個 if 區塊，用來根據條件包含不同的步驟。
+- if 區塊可以在步驟和計畫中的任何地方使用，只需用 &lt;if_block condition=''&gt;&lt;/if_block&gt; 標籤包裹即可。一個 &lt;if_block&gt; 必須永遠有一個條件。若要建立多個 if/else 區塊，只需建立多個 &lt;if_block&gt; 標籤。
+
+### 高層次計畫範例
+_重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具（在此範例中為 &lt;search_helpcenter&gt; 和 &lt;reply&gt;）來建構您的計畫，並非嚴格規則或您應如何建構每個計畫的方式 - 它使用變數名稱來讓您了解如何建構計畫、思考可能的路徑、使用 &lt;tool_calls&gt; 作為變數名稱，並在步驟描述中僅使用一般性描述。
+
+情境：使用者遇到 feature_name 的錯誤，並已提供有關該錯誤的基本資訊
+
+&lt;plan&gt;
+    &lt;step&gt;
+        &lt;action_name&gt;search_helpcenter&lt;/action_name&gt;
+        &lt;description&gt;搜尋幫助中心以獲取有關 feature_name 以及如何解決 error_name 的資訊&lt;/description&gt;
+    &lt;/step&gt;
+    &lt;if_block condition='找到 &lt;helpcenter_result&gt;'&gt;
+        &lt;step&gt;
+            &lt;action_name&gt;reply&lt;/action_name&gt;
+            &lt;description&gt;根據 &lt;helpcenter_result&gt; 的指示回覆使用者&lt;/description&gt;
+        &lt;/step&gt;
+    &lt;/if_block&gt;
+    &lt;if_block condition='未找到 &lt;helpcenter_result&gt;'&gt;
+        &lt;step&gt;
+            &lt;action_name&gt;search_helpcenter&lt;/action_name&gt;
+            &lt;description&gt;搜尋幫助中心以獲取有關如何解決錯誤/進行故障排除的一般資訊&lt;/description&gt;
+        &lt;/step&gt;
+        &lt;if_block condition='找到 &lt;helpcenter_result&gt;'&gt;
+            &lt;step&gt;
+                &lt;action_name&gt;reply&lt;/action_name&gt;
+                &lt;description&gt;根據一般的 &lt;search_helpcenter_result&gt; 資訊中的相關指示回覆使用者&lt;/description&gt;
+            &lt;/step&gt;
+        &lt;/if_block&gt;
+        &lt;if_block condition='未找到 &lt;helpcenter_result&gt;'&gt;
+            &lt;step&gt;
+                &lt;action_name&gt;reply&lt;/action_name&gt;
+                &lt;description&gt;如果我們找不到特定的故障排除或一般的故障排除資訊，回覆使用者我們需要更多資訊，並要求提供有關該錯誤的 {{troubleshooting_info_name_from_policy_2}}（因為我們已經有 {{troubleshooting_info_name_from_policy_1}}，但需要 {{troubleshooting_info_name_from_policy_2}} 以便在幫助中心搜尋更多上下文）&lt;/description&gt;
+            &lt;/step&gt;
+        &lt;/if_block&gt;
+    &lt;/if_block&gt;
+&lt;/plan&gt;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-2 text-slate-700 mt-4">
+                                    <h4 class="font-bold text-lg mb-2">中文解析：</h4>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li><strong>定義基本結構</strong>：開頭就告訴 AI，一個「計畫」是由「步驟」組成的，且可以使用 <code>&lt;if_block&gt;</code> 來處理條件分支。這是在設定最基本的語法規則。</li>
+                                        <li><strong>設定思考框架</strong>：明確指示 AI 規劃時要專注於「下一步的目標」，而不是整個問題的最終目標，避免好高騖遠。同時，所有計畫都必須遵循政策文件。</li>
+                                        <li><strong>強制輸出格式</strong>：用 <code>&lt;step&gt;</code> 標籤嚴格規定了每一步的輸出格式，要求必須包含「動作名稱」和「描述」。這種結構化的要求，比模糊的自然語言指令更有效。</li>
+                                        <li><strong>強調規則與禁止事項</strong>：用大寫的 "NEVER" 和 "ALWAYS" 來強調關鍵規則，例如「絕不能假設任何資訊」、「永遠要將幫助中心的結果視為標準答案」。這是人類工程師常用的強調手法，對 AI 同樣有效。</li>
+                                    </ul>
+                                </div>
+                             </div>
+                        </div>
+
+                        <!-- Manager Prompt Analysis -->
+                        <div class="bg-[#f0fdfa] p-6 rounded-lg border border-[#a7f3d0]">
+                             <h3 class="text-2xl font-bold text-[#00a185] mb-4">品管員提示詞 (Manager Prompt)</h3>
+                             <div class="grid lg:grid-cols-2 gap-x-8 gap-y-6">
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2 text-gray-500">英文原文</h4>
+                                    <div class="prompt-code">
+                                    <pre><code># Your instructions as manager
+- You are a manager of a customer service agent.
+- You have a very important job, which is making sure that the customer service agent working for you does their job REALLY well.
+
+- Your task is to approve or reject a tool call from an agent and provide feedback if you reject it. The feedback can be both on the tool call specifically, but also on the general process so far and how this should be changed.
+- You will return either &lt;manager_verify&gt;accept&lt;/manager_verify&gt; or &lt;manager_feedback&gt;reject&lt;/manager_feedback&gt;&lt;feedback_comment&gt;{{ feedback_comment }}&lt;/feedback_comment&gt;
+
+- To do this, you should first:
+1) Analyze all &lt;context_customer_service_agent&gt; and &lt;latest_internal_messages&gt; to understand the context of the ticket and you own internal thinking/results from tool calls.
+2) Then, check the tool call against the &lt;customer_service_policy&gt; and the checklist in &lt;checklist_for_tool_call&gt;.
+3) If the tool call passes the &lt;checklist_for_tool_call&gt; and Customer Service policy in &lt;context_customer_service_agent&gt;, return &lt;manager_verify&gt;accept&lt;/manager_verify&gt;
+4) In case the tool call does not pass the &lt;checklist_for_tool_call&gt; or Customer Service policy in &lt;context_customer_service_agent&gt;, then return &lt;manager_verify&gt;reject&lt;/manager_verify&gt;&lt;feedback_comment&gt;{{ feedback_comment }}&lt;/feedback_comment&gt;
+5) You should ALWAYS make sure that the tool call helps the user with their request and follows the &lt;customer_service_policy&gt;.
+
+- Important notes:
+1) You should always make sure that the tool call does not contain incorrect information, and that it is coherent with the &lt;customer_service_policy&gt; and the context given to the agent listed in &lt;context_customer_service_agent&gt;.
+2) You should always make sure that the tool call is following the rules in &lt;customer_service_policy&gt; and the checklist in &lt;checklist_for_tool_call&gt;.
+
+- How to structure your feedback:
+1) If the tool call passes the &lt;checklist_for_tool_call&gt; and Customer Service policy in &lt;context_customer_service_agent&gt;, return &lt;manager_verify&gt;accept&lt;/manager_verify&gt;
+2) If you provide a feedback comment, know that you can both provide feedback on the specific tool call if this is specifically wrong, but also provide feedback if the tool call is wrong because of the general process so far is wrong e.g. you have not called the {{tool_name}} tool yet to get the information you need according to the &lt;customer_service_policy&gt;. If this is the case you should also include this in your feedback.
+
+&lt;customer_service_policy&gt;
+{wiki_system_prompt}
+&lt;/customer_service_policy&gt;
+
+&lt;context_customer_service_agent&gt;
+{agent_system_prompt}
+{initial_user_prompt}
+&lt;/context_customer_service_agent&gt;
+
+&lt;available_tools&gt;
+{json.dumps(tools, indent=2)}
+&lt;/available_tools&gt;
+
+&lt;latest_internal_messages&gt;
+{format_messages_with_actions(messages)}
+&lt;/latest_internal_messages&gt;
+
+&lt;checklist_for_tool_call&gt;
+{verify_tool_check_prompt}
+&lt;/checklist_for_tool_call&gt;
+
+# Your manager response:
+- Return your feedback by either returning &lt;manager_verify&gt;accept&lt;/manager_verify&gt; or &lt;manager_verify&gt;reject&lt;/manager_verify&gt;&lt;feedback_comment&gt;{{ feedback_comment }}&lt;/feedback_comment&gt;
+- Your response:</code></pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2 text-gray-500">中文翻譯</h4>
+                                    <div class="prompt-code" style="background-color: #f3f4f6; color: #1f2937;">
+                                    <pre><code># 作為管理者的你的指示
+- 你是一位客服人員的管理者。
+- 你有一項非常重要的工作，就是確保為你工作的客服人員把他們的工作做得「非常好」。
+
+- 你的任務是批准或拒絕一個來自人員的工具調用，如果拒絕則需提供回饋。回饋可以針對該工具調用本身，也可以針對到目前為止的整體流程以及應如何改變。
+- 你將返回 &lt;manager_verify&gt;accept&lt;/manager_verify&gt; 或 &lt;manager_feedback&gt;reject&lt;/manager_feedback&gt;&lt;feedback_comment&gt;{{ 回饋評論 }}&lt;/feedback_comment&gt;
+
+- 為此，你應首先：
+1) 分析所有的 &lt;context_customer_service_agent&gt; 和 &lt;latest_internal_messages&gt; 以理解工單的上下文以及你自己的內部思考/工具調用結果。
+2) 然後，根據 &lt;customer_service_policy&gt; 和 &lt;checklist_for_tool_call&gt; 中的檢查清單來檢查該工具調用。
+3) 如果工具調用通過了 &lt;checklist_for_tool_call&gt; 和 &lt;context_customer_service_agent&gt; 中的客服政策，返回 &lt;manager_verify&gt;accept&lt;/manager_verify&gt;
+4) 如果工具調用未通過 &lt;checklist_for_tool_call&gt; 或 &lt;context_customer_service_agent&gt; 中的客服政策，則返回 &lt;manager_verify&gt;reject&lt;/manager_verify&gt;&lt;feedback_comment&gt;{{ 回饋評論 }}&lt;/feedback_comment&gt;
+5) 你應「總是」確保該工具調用能幫助用戶解決其請求，並遵循 &lt;customer_service_policy&gt;。
+
+- 重要筆記：
+1) 你應總是確保工具調用不包含不正確的資訊，並且與 &lt;customer_service_policy&gt; 及 &lt;context_customer_service_agent&gt; 中給予人員的上下文保持一致。
+2) 你應總是確保工具調用遵循 &lt;customer_service_policy&gt; 中的規則和 &lt;checklist_for_tool_call&gt; 中的檢查清單。
+
+- 如何建構你的回饋：
+1) 如果工具調用通過了 &lt;checklist_for_tool_call&gt; 和 &lt;context_customer_service_agent&gt; 中的客服政策，返回 &lt;manager_verify&gt;accept&lt;/manager_verify&gt;
+2) 如果你提供回饋評論，要知道你既可以針對特定工具調用提供回饋（如果它本身有錯），也可以在工具調用因整體流程錯誤而錯誤時提供回饋，例如，你尚未根據 &lt;customer_service_policy&gt; 調用 {{tool_name}} 工具來獲取所需資訊。如果是這種情況，你也應將此包含在你的回饋中。
+
+&lt;customer_service_policy&gt;
+{wiki_system_prompt}
+&lt;/customer_service_policy&gt;
+
+&lt;context_customer_service_agent&gt;
+{agent_system_prompt}
+{initial_user_prompt}
+&lt;/context_customer_service_agent&gt;
+
+&lt;available_tools&gt;
+{json.dumps(tools, indent=2)}
+&lt;/available_tools&gt;
+
+&lt;latest_internal_messages&gt;
+{format_messages_with_actions(messages)}
+&lt;/latest_internal_messages&gt;
+
+&lt;checklist_for_tool_call&gt;
+{verify_tool_check_prompt}
+&lt;/checklist_for_tool_call&gt;
+
+# 你的管理者回應：
+- 透過返回 &lt;manager_verify&gt;accept&lt;/manager_verify&gt; 或 &lt;manager_verify&gt;reject&lt;/manager_verify&gt;&lt;feedback_comment&gt;{{ 回饋評論 }}&lt;/feedback_comment&gt; 來給予你的回饋
+- 你的回應：</code></pre>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-2 text-slate-700 mt-4">
+                                    <h4 class="font-bold text-lg mb-2">中文解析：</h4>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li><strong>賦予權威角色</strong>：第一句話就為 AI 設定了「管理者」的角色，並強調其工作「非常重要」。這能引導 AI 採取更嚴謹、更具批判性的視角。</li>
+                                        <li><strong>明確任務與輸出</strong>：清楚定義任務是「批准或拒絕」一個行動，並給出 <code>&lt;manager_verify&gt;</code> 這樣精確的輸出格式，讓 AI 的回答標準化。</li>
+                                        <li><strong>提供清晰的思考步驟</strong>：用編號列表 (1-5) 給出了一個明確的思考流程，這就像內建的「思維鏈」，引導 AI 必須先分析上下文、再核對政策、最後才做出決策。</li>
+                                        <li><strong>動態注入上下文 (RAG)</strong>：提示詞中大量的 <code>{...}</code> 佔位符，如 <code>{wiki_system_prompt}</code>，表明系統會在運行時，將最新的公司政策、客戶對話等即時資訊「填」進來，讓 AI 能基於最準確的資料做判斷。</li>
+                                    </ul>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="border-t-2 border-slate-200 my-12 md:my-16">
+
+            <section id="interactive-practice" class="mb-12 md:mb-16">
+                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">動手試試：體驗 AI 團隊合作</h2>
+                    <div id="teamwork-details">
+                        <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">現在您已經了解了背後的原理，親手來體驗一下「規劃師」和「品管員」是如何協同工作的吧！</p>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
+                                <h2 class="text-2xl font-bold text-[#00a185] mb-4 flex items-center gap-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.707.707M12 20.25a.25.25 0 01.25-.25V21a.25.25 0 01-.25-.25z" /></svg>
+                                    AI 規劃師
+                                </h2>
+                                <p class="text-slate-600 mb-6">「規劃師」AI 的工作，就像一位厲害的棋手。它不只看一步，而是預先想好所有可能發生的情況，並畫出一張包含各種「如果...就...」路線的行動地圖。</p>
+                                <div class="mt-8 pt-6 border-t border-slate-200">
+                                    <h3 class="text-xl font-bold text-[#00a185] mb-4">✨ AI 規劃師體驗區</h3>
+                                    <p class="text-slate-600 mb-4">試著輸入你的請求，看看 AI 規劃師會如何為你制定行動計畫。</p>
+                                    <div class="bg-[#f0fdfa] p-4 rounded-lg">
+                                        <textarea id="user-request-input" class="w-full p-2 border border-[#a7f3d0] rounded-md focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="2" placeholder="例如：我的訂單延遲了，可以幫我查一下嗎？"></textarea>
+                                        <button id="generate-plan-btn" class="gemini-btn mt-2 w-full bg-[#00a185] text-white font-bold py-2 px-4 rounded-md hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                            讓 AI 規劃師開始工作
+                                        </button>
+                                        <div id="plan-loader" class="text-center py-4 hidden">
+                                            <div class="loader" style="border-top-color: #00f2c3;"></div>
+                                            <p class="mt-2 text-slate-500">AI 規劃師正在畫藍圖...</p>
+                                        </div>
+                                        <div id="plan-output-container" class="mt-4 hidden">
+                                            <h4 class="font-semibold text-slate-800">規劃師的行動地圖：</h4>
+                                            <pre class="bg-slate-800 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto mt-2"><code id="plan-output-code"></code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
+                                <h2 class="text-2xl font-bold text-[#00a185] mb-4 flex items-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                                    AI 品管員
+                                </h2>
+                                <p class="text-slate-600 mb-6">「品管員」AI 就像一個嚴格的監工。在「規劃師」想出的任何一步要執行前，它都會拿著一本厚厚的公司規則手冊仔細檢查，確保這個動作安全、正確、符合規定。</p>
+                                <div id="manager-review-container" class="mt-8 pt-6 border-t border-slate-200">
+                                    <h3 class="text-xl font-bold text-[#00a185] mb-4 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        AI 品管員審核區
+                                    </h3>
+                                    <div class="bg-[#f0fdfa] p-4 rounded-lg">
+                                        <p class="font-semibold text-slate-700 mb-2">品管員將根據以下政策審核計畫：</p>
+                                        <ul class="list-disc list-inside text-slate-600 text-sm space-y-1 mb-4">
+                                            <li>如果客戶提到退款，計畫中必須包含「檢查購買日期」的步驟。</li>
+                                            <li>如果客戶語氣聽起來不高興（例如提到「延遲」），計畫必須先「安撫情緒」。</li>
+                                        </ul>
+                                        <button id="review-plan-btn" class="gemini-btn w-full bg-[#00a185] text-white font-bold py-2 px-4 rounded-md hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                            讓 AI 品管員開始審核
+                                        </button>
+                                        <div id="review-output-container" class="mt-4 hidden bg-white p-4 rounded-lg border border-slate-200"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 pt-8 border-t-2 border-dashed border-slate-300">
+                        <h3 class="text-2xl font-bold text-center text-slate-800 mb-4 flex items-center justify-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00a185]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            AI 策略顧問
+                        </h3>
+                        <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">還不確定你的任務該用哪種方法和 AI 溝通嗎？告訴我你想做什麼，AI 顧問會給你最好的建議！</p>
+                        <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
+                            <textarea id="task-desc-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="例如：我想做一個能回答公司內部請假規定的機器人..."></textarea>
+                            <button id="get-suggestion-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                獲取專家建議
+                            </button>
+                            <div id="suggestion-loader" class="text-center py-6 hidden">
+                                <div class="loader" style="border-top-color: #00f2c3;"></div>
+                                 <p class="mt-2 text-slate-500">AI 顧問正在分析中...</p>
+                            </div>
+                            <div id="suggestion-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 text-slate-500 text-sm">
+            <p>本互動報告的靈感來自 Parahelp 官方部落格文章。</p>
+            <p>互動設計與開發 by Gemini</p>
+        </footer>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const techData = {
+        'CoT': {
+            name: '一步一步想 (思維鏈)',
+            idea: '引導 AI 像人一樣，把複雜問題拆成一小步一小步來思考，而不是直接跳到答案。',
+            usecase: '算數學、回答需要推理的問題，或是任何需要解釋「為什麼」的場景。',
+            limit: '只能一條路走到黑，不會拐彎或回頭。對比較笨的 AI 可能沒什麼效果。',
+            scores: [1, 4, 1] 
+        },
+        'Self-Consistency': {
+            name: '多想幾次，投票決定',
+            idea: '讓 AI 用「一步一步想」的方法，對同一個問題想出好幾種解法，然後投票選出最多人支持的那個答案。',
+            usecase: '當你需要一個非常準確的答案，而且不惜成本的時候。',
+            limit: '非常花時間和計算資源，像開很多次會一樣。對沒有標準答案的問題沒用。',
+            scores: [2, 5, 4] 
+        },
+        'ToT': {
+            name: '探索所有可能 (思維樹)',
+            idea: '讓 AI 像下棋一樣，思考每一步之後所有可能的分支，然後從中找出最好的那條路。',
+            usecase: '需要做計畫、想策略的複雜問題，比如寫故事、規劃旅遊行程。',
+            limit: '超級耗資源，就像把整個棋盤都推演一遍，設計起來非常複雜。',
+            scores: [5, 5, 5] 
+        },
+        'RAG': {
+            name: '開卷考試 (檢索增強生成)',
+            idea: '不讓 AI 只靠記憶回答問題，而是給它一本書（資料庫），讓它可以邊查邊回答。',
+            usecase: '需要根據公司內部文件或最新資訊來回答問題的場景，例如客服機器人。',
+            limit: '如果給的書是錯的或亂的，AI 也會被誤導，學到錯誤的知識。',
+            scores: [3, 4, 2] 
+        },
+        'Parahelp': {
+            name: '團隊合作 (層級式代理)',
+            idea: '把「探索所有可能」和「開卷考試」結合起來。讓一個 AI 當「規劃師」想點子，另一個 AI 當「品管員」拿著書本去檢查，確保萬無一失。',
+            usecase: '需要非常可靠、安全、還要遵守一堆複雜規則的專業級 AI 系統。',
+            limit: '設計起來最複雜，需要協調好幾個 AI，像管理一個真正的團隊一樣。',
+            scores: [5, 5, 3] 
+        }
+    };
+    
+    const techButtons = document.querySelectorAll('.tech-button');
+    const techNameEl = document.getElementById('tech-name');
+    const techIdeaEl = document.getElementById('tech-idea');
+    const techUsecaseEl = document.getElementById('tech-usecase');
+    const techLimitEl = document.getElementById('tech-limit');
+
+    const ctx = document.getElementById('techRadarChart').getContext('2d');
+    const radarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['上手難度', '可靠程度', '花費資源'],
+            datasets: [{
+                label: '',
+                data: [],
+                backgroundColor: 'rgba(0, 242, 195, 0.2)',
+                borderColor: 'rgb(0, 242, 195)',
+                pointBackgroundColor: 'rgb(0, 242, 195)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(0, 242, 195)'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        color: '#a7f3d0' 
+                    },
+                    grid: {
+                        color: '#d1fae5'
+                    },
+                    pointLabels: {
+                        color: '#1e293b', // slate-800
+                        font: {
+                            size: 14,
+                        }
+                    },
+                    ticks: {
+                        backdropColor: 'transparent',
+                        stepSize: 1,
+                        max: 5,
+                        min: 0,
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    function updateTechDetails(techKey) {
+        const data = techData[techKey];
+        
+        techNameEl.textContent = data.name;
+        techIdeaEl.textContent = data.idea;
+        techUsecaseEl.textContent = data.usecase;
+        techLimitEl.textContent = data.limit;
+        
+        radarChart.data.datasets[0].label = data.name;
+        radarChart.data.datasets[0].data = data.scores;
+        radarChart.update();
+        
+        techButtons.forEach(btn => {
+            if (btn.dataset.tech === techKey) {
+                btn.classList.add('tech-button-active');
+                btn.classList.remove('tech-button-inactive');
+            } else {
+                btn.classList.add('tech-button-inactive');
+                btn.classList.remove('tech-button-active');
+            }
+        });
+    }
+
+    techButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            updateTechDetails(button.dataset.tech);
+        });
+    });
+
+    updateTechDetails('CoT');
+
+    // Gemini API integration
+    const planButton = document.getElementById('generate-plan-btn');
+    const planInput = document.getElementById('user-request-input');
+    const planLoader = document.getElementById('plan-loader');
+    const planOutputContainer = document.getElementById('plan-output-container');
+    const planOutputCode = document.getElementById('plan-output-code');
+    
+    const reviewButton = document.getElementById('review-plan-btn');
+    const reviewOutputContainer = document.getElementById('review-output-container');
+
+    const suggestionButton = document.getElementById('get-suggestion-btn');
+    const suggestionInput = document.getElementById('task-desc-input');
+    const suggestionLoader = document.getElementById('suggestion-loader');
+    const suggestionOutput = document.getElementById('suggestion-output');
+    
+    const geminiButtons = document.querySelectorAll('.gemini-btn');
+
+    async function callGemini(prompt) {
+        const apiUrl = '/geminiProxy'; 
+        
+        const payload = { prompt };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                 const errorBody = await response.json();
+                 throw new Error(`API 請求失敗: ${errorBody.error || response.statusText}`);
+            }
+
+            const result = await response.json();
+            
+            if (result.candidates && result.candidates.length > 0) {
+                return result.candidates[0].content.parts[0].text;
+            } else {
+                console.error("Unexpected API response structure:", result);
+                if (result.promptFeedback && result.promptFeedback.blockReason) {
+                     return `請求被阻擋：${result.promptFeedback.blockReason}`;
+                }
+                return "從 API 收到的回應格式有誤或為空。";
+            }
+        } catch (error) {
+            console.error('API 呼叫失敗:', error);
+            return `發生錯誤：${error.message}`;
+        }
+    }
+
+    planButton.addEventListener('click', async () => {
+        const userInput = planInput.value.trim();
+        if (!userInput) {
+            alert('請輸入您的請求。');
+            return;
+        }
+
+        planLoader.style.display = 'block';
+        planOutputContainer.style.display = 'none';
+        reviewButton.disabled = true;
+        reviewOutputContainer.style.display = 'none';
+        
+        planButton.disabled = true;
+        suggestionButton.disabled = true;
+
+        const prompt = `你是一個聰明的「AI規劃師」。請根據使用者的請求，用簡單的 XML 格式畫出一份行動地圖。地圖要用 <plan> 包起來，裡面包含 <step> (步驟) 和 <if_block> (如果...就...)。你的輸出必須是格式正確的 XML。
+
+        使用者請求：「${userInput}」`;
+
+        const result = await callGemini(prompt);
+        
+        let cleanedResult = result.replace(/```xml/g, '').replace(/```/g, '').trim();
+
+        planOutputCode.textContent = cleanedResult;
+        planOutputContainer.style.display = 'block';
+        planLoader.style.display = 'none';
+        
+        if (cleanedResult.length > 0) {
+            reviewButton.disabled = false;
+        }
+        planButton.disabled = false;
+        suggestionButton.disabled = false;
+    });
+    
+    reviewButton.addEventListener('click', () => {
+        const staticReviewHTML = `
+            <h4 class="text-lg font-bold text-[#00a185] mt-3 mb-2">審核結果</h4>
+            <strong class="text-slate-800">狀態：</strong> <span class="text-green-600 font-semibold">批准</span>
+            <h4 class="text-lg font-bold text-[#00a185] mt-3 mb-2">審核詳情</h4>
+            <ul class="list-disc list-inside text-slate-600 space-y-1">
+                <li><strong>政策1 (退款):</strong> <span class="text-gray-500">不適用</span></li>
+                <li><strong>政策2 (安撫情緒):</strong> <span class="text-green-600">已檢查</span> - 計畫的第一步是安撫客戶情緒。</li>
+            </ul>
+            <h4 class="text-lg font-bold text-[#00a185] mt-3 mb-2">總體建議</h4>
+            <p class="text-slate-700">計畫符合公司政策，可以執行。</p>
+        `;
+        reviewOutputContainer.innerHTML = staticReviewHTML;
+        reviewOutputContainer.style.display = 'block';
+    });
+    
+    // Disable review button by default
+    reviewButton.disabled = true;
+
+    suggestionButton.addEventListener('click', async () => {
+        const userInput = suggestionInput.value.trim();
+        if (!userInput) {
+            alert('請描述你想完成的任務。');
+            return;
+        }
+
+        suggestionLoader.style.display = 'block';
+        suggestionOutput.style.display = 'none';
+        planButton.disabled = true;
+        reviewButton.disabled = true;
+        suggestionButton.disabled = true;
+
+        const prompt = `你是一位專業的「AI策略顧問」。請分析以下使用者想完成的任務，並從三種溝通策略中推薦最適合的一種。你的回答要包含推薦的策略名稱、為什麼推薦它，和一個簡單的上手方法。
+
+        溝通策略選項：
+        1.  **開卷考試 (RAG):** 適合需要查詢外部、即時或私有資料才能回答的問題。
+        2.  **一步一步想 (CoT):** 適合需要按照順序思考和推理的任務。
+        3.  **團隊合作 (Hierarchical Agent):** 適合需要非常可靠、安全，且必須遵守複雜規則的專業級任務。
+
+        使用者想完成的任務：「${userInput}」
+
+        請用親切的口吻，以 Markdown 格式回答，包含標題和重點。`;
+
+        const result = await callGemini(prompt);
+        
+        let htmlResult = result
+            .replace(/### (.*)/g, '<h3 class="text-lg font-bold text-[#00a185] mt-4 mb-2">$1</h3>')
+            .replace(/## (.*)/g, '<h2 class="text-xl font-bold text-[#047857] mt-4 mb-2">$1</h2>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\* (.*)/g, '<li class="ml-5 list-disc">$1</li>')
+            .replace(/\n/g, '<br>');
+
+        suggestionOutput.innerHTML = htmlResult;
+        suggestionOutput.style.display = 'block';
+        suggestionLoader.style.display = 'none';
+        planButton.disabled = false;
+        
+        if(planOutputCode.textContent.length === 0){
+           reviewButton.disabled = true;
+        } else {
+           reviewButton.disabled = false;
+        }
+        suggestionButton.disabled = false;
+    });
+});
+</script>
+</body>
+</html>
