@@ -582,20 +582,20 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-1">姓名</label>
-                            <input type="text" id="name" name="entry.839045837" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                            <input type="text" id="name" name="name" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required>
                         </div>
                         <div>
                             <label for="company" class="block text-sm font-medium text-gray-300 mb-1">公司名稱</label>
-                            <input type="text" id="company" name="entry.2104197200" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500">
+                            <input type="text" id="company" name="company" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-300 mb-1">電子郵件</label>
-                        <input type="email" id="email" name="entry.1232968207" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        <input type="email" id="email" name="email" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required>
                     </div>
                     <div>
                         <label for="needs" class="block text-sm font-medium text-gray-300 mb-1">您的需求</label>
-                        <textarea id="needs" name="entry.1178616482" rows="4" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required></textarea>
+                        <textarea id="needs" name="needs" rows="4" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required></textarea>
                     </div>
                     <div class="flex justify-end">
                         <button type="submit" class="px-6 py-2 bg-teal-500 text-black font-medium rounded-md hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200">立即獲取免費諮詢</button>
@@ -995,90 +995,66 @@ ${taskDesc}
                     formStatus.style.display = "block";
                     
                     const submitButton = webbrainForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.textContent;
+                    submitButton.textContent = '提交中...';
                     submitButton.disabled = true;
                     
-                    // 使用正確的 Google Form URL
-                    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdYkVwpCu0Serh_-b9X7oGeV5TopScoVEjvFIkfUkZx1D6Dsg/formResponse";
+                    // 獲取表單數據
+                    const formData = new FormData(webbrainForm);
+                    const data = {
+                        name: formData.get('name'),
+                        company: formData.get('company') || '未提供',
+                        email: formData.get('email'),
+                        message: formData.get('needs'),
+                        timestamp: new Date().toISOString(),
+                        page: window.location.pathname
+                    };
                     
-                    // 從表單中獲取數據
-                    const name = document.getElementById('name').value;
-                    const company = document.getElementById('company').value || '未提供';
-                    const email = document.getElementById('email').value;
-                    const needs = document.getElementById('needs').value;
+                    // Google Apps Script 部署的 URL
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbz5Y_YKDDXJmxfadctFIq9FN7TP9_0BXVCAsuZqYu1oz6zMx_nlGEhxJH11ydDiv57r/exec';
                     
-                    // 創建一個隱藏的 iframe
-                    const iframeName = 'hidden_iframe_' + Date.now();
-                    const iframe = document.createElement('iframe');
-                    iframe.name = iframeName;
-                    iframe.id = iframeName;
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-                    
-                    // 創建一個表單並設置為在 iframe 中提交
-                    const form = document.createElement('form');
-                    form.action = googleFormUrl;
-                    form.method = 'POST';
-                    form.target = iframeName;
-                    form.style.display = 'none';
-                    
-                    // 添加表單字段
-                    const nameField = document.createElement('input');
-                    nameField.type = 'text';
-                    nameField.name = 'entry.839045837';
-                    nameField.value = name;
-                    form.appendChild(nameField);
-                    
-                    const companyField = document.createElement('input');
-                    companyField.type = 'text';
-                    companyField.name = 'entry.2104197200';
-                    companyField.value = company;
-                    form.appendChild(companyField);
-                    
-                    const emailField = document.createElement('input');
-                    emailField.type = 'email';
-                    emailField.name = 'entry.1232968207';
-                    emailField.value = email;
-                    form.appendChild(emailField);
-                    
-                    const needsField = document.createElement('textarea');
-                    needsField.name = 'entry.1178616482';
-                    needsField.value = needs;
-                    form.appendChild(needsField);
-                    
-                    document.body.appendChild(form);
-                    
-                    // 提交完成或發生錯誤時的處理
-                    iframe.onload = function() {
-                        // 重設表單
-                        webbrainForm.reset();
-                        
+                    // 發送數據到 Google Apps Script
+                    fetch(scriptURL, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(data).toString()
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('提交失敗，請稍後再試');
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        console.log('成功:', result);
                         // 顯示成功訊息
                         formStatus.textContent = "表單已成功提交！我們將盡快與您聯絡。";
                         formStatus.className = "text-center mt-4 text-green-400";
                         formStatus.style.display = "block";
+                        
+                        // 重設表單
+                        webbrainForm.reset();
+                    })
+                    .catch(error => {
+                        console.error('錯誤:', error);
+                        formStatus.textContent = "提交失敗：" + error.message;
+                        formStatus.className = "text-center mt-4 text-red-500";
+                        formStatus.style.display = "block";
+                    })
+                    .finally(() => {
+                        // 恢復按鈕狀態
+                        submitButton.textContent = originalButtonText;
                         submitButton.disabled = false;
                         
-                        // 移除動態創建的元素
+                        // 5秒後隱藏訊息
                         setTimeout(() => {
-                            document.body.removeChild(form);
-                            document.body.removeChild(iframe);
-                        }, 1000);
-                    };
-
-                    // 處理可能的錯誤 (超時等)
-                    setTimeout(() => {
-                        if (submitButton.disabled) {
-                            submitButton.disabled = false;
-                        }
-                    }, 5000);
-                    
-                    // 提交表單
-                    form.submit();
-                    
-                    // 5秒後隱藏訊息
-                    setTimeout(() => {
-                        formStatus.style.display = "none";
-                    }, 5000);
+                            formStatus.style.display = "none";
+                        }, 5000);
+                    });
                 });
             }
         });
