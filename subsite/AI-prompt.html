@@ -1002,15 +1002,23 @@ ${taskDesc}
                     
                     // 從表單中獲取數據
                     const name = document.getElementById('name').value;
-                    const company = document.getElementById('company').value;
+                    const company = document.getElementById('company').value || '未提供';
                     const email = document.getElementById('email').value;
                     const needs = document.getElementById('needs').value;
                     
-                    // 直接使用現有頁面和一個新窗口來提交表單
+                    // 創建一個隱藏的 iframe
+                    const iframeName = 'hidden_iframe_' + Date.now();
+                    const iframe = document.createElement('iframe');
+                    iframe.name = iframeName;
+                    iframe.id = iframeName;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    
+                    // 創建一個表單並設置為在 iframe 中提交
                     const form = document.createElement('form');
-                    form.method = 'POST';
                     form.action = googleFormUrl;
-                    form.target = '_blank'; // 在新窗口中打開
+                    form.method = 'POST';
+                    form.target = iframeName;
                     form.style.display = 'none';
                     
                     // 添加表單字段
@@ -1039,27 +1047,38 @@ ${taskDesc}
                     
                     document.body.appendChild(form);
                     
+                    // 提交完成或發生錯誤時的處理
+                    iframe.onload = function() {
+                        // 重設表單
+                        webbrainForm.reset();
+                        
+                        // 顯示成功訊息
+                        formStatus.textContent = "表單已成功提交！我們將盡快與您聯絡。";
+                        formStatus.className = "text-center mt-4 text-green-400";
+                        formStatus.style.display = "block";
+                        submitButton.disabled = false;
+                        
+                        // 移除動態創建的元素
+                        setTimeout(() => {
+                            document.body.removeChild(form);
+                            document.body.removeChild(iframe);
+                        }, 1000);
+                    };
+
+                    // 處理可能的錯誤 (超時等)
+                    setTimeout(() => {
+                        if (submitButton.disabled) {
+                            submitButton.disabled = false;
+                        }
+                    }, 5000);
+                    
                     // 提交表單
                     form.submit();
-                    
-                    // 重設表單
-                    webbrainForm.reset();
-                    
-                    // 顯示成功訊息
-                    formStatus.textContent = "表單已提交！我們將盡快與您聯絡。";
-                    formStatus.className = "text-center mt-4 text-green-400";
-                    formStatus.style.display = "block";
-                    submitButton.disabled = false;
                     
                     // 5秒後隱藏訊息
                     setTimeout(() => {
                         formStatus.style.display = "none";
                     }, 5000);
-                    
-                    // 移除動態創建的表單
-                    setTimeout(() => {
-                        document.body.removeChild(form);
-                    }, 1000);
                 });
             }
         });
