@@ -562,7 +562,51 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
             </section>
         </main>
         
-        <footer id="contact" class="bg-transparent">
+        <!-- WebBrain 聯絡表單 -->
+        <section class="py-16 bg-gray-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white">需要企業級 AI 落地方案？</h2>
+                <p class="mt-4 text-xl text-gray-300">
+                    WebBrain – Team of AI Experts 提供企業級 AI 顧問服務，從流程自動化、內部培訓到生成式 AI 整合，全面陪伴你的 AI 轉型之旅。
+                </p>
+            </div>
+
+            <div class="bg-gray-900 rounded-lg p-8 shadow-lg">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">填寫表單，獲得免費諮詢</h3>
+                    <p class="text-gray-400">我們的 AI 專家將在 24 小時內與您聯繫，了解您的需求並提供專業建議。</p>
+                </div>
+
+                <form id="webbrainForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">姓名</label>
+                            <input type="text" id="name" name="entry.839045837" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        </div>
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-gray-300 mb-1">公司名稱</label>
+                            <input type="text" id="company" name="entry.2104197200" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">電子郵件</label>
+                        <input type="email" id="email" name="entry.1232968207" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="needs" class="block text-sm font-medium text-gray-300 mb-1">您的需求</label>
+                        <textarea id="needs" name="entry.1178616482" rows="4" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-teal-500" required></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-2 bg-teal-500 text-black font-medium rounded-md hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200">立即獲取免費諮詢</button>
+                    </div>
+                    <p id="formStatus" class="text-center mt-4 hidden"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-transparent">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-8">
                 <h2 class="text-2xl font-bold text-black"><span class="interactive-emoji mr-3">📨</span>聯絡我們</h2>
@@ -629,6 +673,8 @@ document.addEventListener('DOMContentLoaded', () => {
             scores: [5, 5, 5] 
         },
         'RAG': {
+
+
             name: '開卷考試 (檢索增強生成)',
             idea: '不讓 AI 只靠記憶回答問題，而是給它一本書（資料庫），讓它可以邊查邊回答。',
             usecase: '需要根據公司內部文件或最新資訊來回答問題的場景，例如客服機器人。',
@@ -931,7 +977,64 @@ ${taskDesc}
     // Initialize with the first tech
     updateTechDetails('CoT');
 });
-</script>
+
+        // 已有的 JavaScript 程式碼會在這裡
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // WebBrain 表單處理
+            const webbrainForm = document.getElementById('webbrainForm');
+            const formStatus = document.getElementById('formStatus');
+
+            if (webbrainForm) {
+                webbrainForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // 顯示處理中狀態
+                    formStatus.textContent = "提交中...";
+                    formStatus.className = "text-center mt-4 text-teal-400";
+                    formStatus.style.display = "block";
+                    
+                    // 使用您實際的 Google Form URL
+                    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdYkVwpCu0Serh_-b9X7oGeV5TopScoVEjvFIkfUkZx1D6Dsg/formResponse";
+                    
+                    // 收集表單數據
+                    const formData = new FormData(webbrainForm);
+                    const submitButton = webbrainForm.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    
+                    // 創建一個隱藏的 iframe 來提交表單，這樣可以避免頁面跳轉
+                    const iframe = document.createElement('iframe');
+                    iframe.name = "hidden_iframe";
+                    iframe.style.display = "none";
+                    document.body.appendChild(iframe);
+                    
+                    // 設置表單的目標和提交方法
+                    webbrainForm.target = "hidden_iframe";
+                    webbrainForm.action = googleFormUrl;
+                    webbrainForm.method = "post";
+                    
+                    // 當 iframe 載入時，表示表單已提交
+                    iframe.onload = function() {
+                        // 重設表單
+                        webbrainForm.reset();
+                        
+                        // 顯示成功訊息
+                        formStatus.textContent = "感謝您的提交！我們將盡快與您聯絡。";
+                        formStatus.className = "text-center mt-4 text-green-400";
+                        submitButton.disabled = false;
+                        
+                        // 5秒後隱藏訊息
+                        setTimeout(() => {
+                            formStatus.style.display = "none";
+                        }, 5000);
+                    };
+                    
+                    // 提交表單
+                    webbrainForm.submit();
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
