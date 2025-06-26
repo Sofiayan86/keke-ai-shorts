@@ -14,6 +14,9 @@
     <!-- Visualization & Content Choices: 1. Report Info: Table comparing CoT, ToT, RAG, etc. -> Goal: Compare technologies. -> Viz/Method: Interactive Radar Chart (Chart.js) and dynamic text blocks. 2. Report Info: Hierarchical Agent System concept. -> Goal: Explain a process flow. -> Viz/Method: A side-by-side layout for Planner and Manager agents, with interactive Gemini components. The Manager's review is a static example. 3. New Feature: Side-by-side prompt analysis. -> Goal: Provide deep technical context. -> Viz/Method: A two-column layout. All choices confirm NO SVG/Mermaid. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body { 
             font-family: 'Noto Sans TC', sans-serif; 
             background-color: #f0fdfa; /* A very light mint, derived from #00f2c3 */
@@ -83,7 +86,16 @@
 
         <header class="text-center mb-12 md:mb-16">
             <h1 class="text-4xl md:text-5xl font-bold text-[#00a185] mb-3">讓 AI 更聰明</h1>
-            <p class="text-lg md:text-xl text-slate-600">揭秘背後的溝通藝術</p>
+            <p class="text-lg md:text-xl text-slate-600 mb-8">揭秘背後的溝通藝術</p>
+            <nav class="bg-white/80 backdrop-blur-md rounded-full shadow-lg sticky top-4 z-50 inline-block">
+                <ul class="flex items-center justify-center p-2 space-x-1">
+                    <li><a href="#overview" class="text-sm md:text-base px-4 py-2 rounded-full text-slate-600 hover:bg-[#f0fdfa] hover:text-[#00a185] font-medium transition-colors duration-300">AI 團隊</a></li>
+                    <li><a href="#tools" class="text-sm md:text-base px-4 py-2 rounded-full text-slate-600 hover:bg-[#f0fdfa] hover:text-[#00a185] font-medium transition-colors duration-300">工具箱</a></li>
+                    <li><a href="#prompt-analysis" class="text-sm md:text-base px-4 py-2 rounded-full text-slate-600 hover:bg-[#f0fdfa] hover:text-[#00a185] font-medium transition-colors duration-300">提示詞解析</a></li>
+                    <li><a href="#interactive-practice" class="text-sm md:text-base px-4 py-2 rounded-full text-slate-600 hover:bg-[#f0fdfa] hover:text-[#00a185] font-medium transition-colors duration-300">互動練習</a></li>
+                    <li><a href="#webbrain-contact" class="text-sm md:text-base px-4 py-2 rounded-full text-slate-600 hover:bg-[#f0fdfa] hover:text-[#00a185] font-medium transition-colors duration-300">企業方案</a></li>
+                </ul>
+            </nav>
         </header>
 
         <main>
@@ -515,18 +527,6 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
                                         <div id="review-output-container" class="mt-4 hidden bg-white p-4 rounded-lg border border-slate-200"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-12 grid md:grid-cols-2 gap-8">
-                        <div class="pt-8 border-t-2 border-dashed border-slate-300">
-                            <h3 class="text-2xl font-bold text-center text-slate-800 mb-4 flex items-center justify-center gap-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00a185]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            AI 策略顧問
-                        </h3>
-                        <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">還不確定你的任務該用哪種方法和 AI 溝通嗎？告訴我你想做什麼，AI 顧問會給你最好的建議！</p>
-                        <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
-                            <textarea id="task-desc-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="例如：我想做一個能回答公司內部請假規定的機器人..."></textarea>
                             <button id="get-suggestion-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
                                 獲取專家建議
                             </button>
@@ -672,7 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
             idea: '讓 AI 像下棋一樣，思考每一步之後所有可能的分支，然後從中找出最好的那條路。',
             usecase: '需要做計畫、想策略的複雜問題，比如寫故事、規劃旅遊行程。',
             limit: '超級耗資源，就像把整個棋盤都推演一遍，設計起來非常複雜。',
-            scores: [5, 5, 5] 
+                       scores: [5, 5, 5] 
         },
         'RAG': {
 
