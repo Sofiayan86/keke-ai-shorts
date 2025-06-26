@@ -533,45 +533,48 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
                 </div>
             </section>
 
-            <!-- 還原 AI 策略顧問區塊 -->
-            <section id="ai-strategy-advisor" class="mb-12 md:mb-16">
-                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
-                    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">AI 策略顧問</h2>
-                    <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">還不確定你的任務該用哪種方法和 AI 溝通嗎？告訴我你想做什麼，AI 顧問會給你最好的建議！</p>
-                    <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
-                        <textarea id="task-desc-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="例如：我想做一個能回答公司內部請假規定的機器人..."></textarea>
-                        <button id="get-suggestion-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
-                            獲取專家建議
-                        </button>
-                        <div id="suggestion-loader" class="text-center py-6 hidden">
-                            <div class="loader" style="border-top-color: #00f2c3;"></div>
-                            <p class="mt-2 text-slate-500">AI 顧問正在分析中...</p>
-                        </div>
-                        <div id="suggestion-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+            <!-- Wrapper for side-by-side sections -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-12 md:mb-16">
+                <!-- AI 策略顧問區塊 -->
+                <section id="ai-strategy-advisor">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3] h-full">
+                        <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">AI 策略顧問</h2>
+                        <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">還不確定你的任務該用哪種方法和 AI 溝通嗎？告訴我你想做什麼，AI 顧問會給你最好的建議！</p>
+                        <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
+                            <textarea id="task-desc-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="例如：我想做一個能回答公司內部請假規定的機器人..."></textarea>
+                            <button id="get-suggestion-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                獲取專家建議
+                            </button>
+                            <div id="suggestion-loader" class="text-center py-6 hidden">
+                                <div class="loader" style="border-top-color: #00f2c3;"></div>
+                                <p class="mt-2 text-slate-500">AI 顧問正在分析中...</p>
+                            </div>
+                            <div id="suggestion-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 還原 優化你的提示詞 區塊 -->
-            <section id="prompt-optimizer" class="mb-12 md:mb-16">
-                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3]">
-                    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">優化你的提示詞</h2>
-                    <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">寫好提示詞了嗎？讓 AI 專家幫你檢查和改寫，學習如何更精準地向 AI 下達指令！</p>
-                    <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
-                        <textarea id="prompt-to-optimize-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="請在這裡貼上你的提示詞..."></textarea>
-                        <button id="optimize-prompt-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
-                            開始優化
-                        </button>
-                        <div id="optimize-loader" class="text-center py-6 hidden">
-                            <div class="loader" style="border-top-color: #00f2c3;"></div>
-                            <p class="mt-2 text-slate-500">AI 專家正在思考中...</p>
-                        </div>
-                        <div id="optimized-prompt-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+                <!-- 優化你的提示詞 區塊 -->
+                <section id="prompt-optimizer">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00f2c3] h-full">
+                        <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">優化你的提示詞</h2>
+                        <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">寫好提示詞了嗎？讓 AI 專家幫你檢查和改寫，學習如何更精準地向 AI 下達指令！</p>
+                        <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
+                            <textarea id="prompt-to-optimize-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="請在這裡貼上你的提示詞..."></textarea>
+                            <button id="optimize-prompt-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                開始優化
+                            </button>
+                            <div id="optimize-loader" class="text-center py-6 hidden">
+                                <div class="loader" style="border-top-color: #00f2c3;"></div>
+                                <p class="mt-2 text-slate-500">AI 專家正在思考中...</p>
+                            </div>
+                            <div id="optimized-prompt-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </main>
         
         <!-- WebBrain 聯絡表單 -->
