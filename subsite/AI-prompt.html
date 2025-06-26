@@ -248,7 +248,7 @@ Scenario: The user has error with feature_name and have provided basic informati
             &lt;step&gt;
                 &lt;action_name&gt;reply&lt;/action_name&gt;
                 &lt;description&gt;If we can't find specific troubleshooting or general troubleshooting, reply to the user that we need more information and ask for a {{troubleshooting_info_name_from_policy_2}} of the error (since we already have {{troubleshooting_info_name_from_policy_1}}, but need {{troubleshooting_info_name_from_policy_2}} for more context to search helpcenter)&lt;/description&gt;
-            &lt;/step&gt;
+            &lt;step&gt;
         &lt;/if_block&gt;
     &lt;/if_block&gt;
 &lt;/plan&gt;</code></pre>
@@ -314,7 +314,7 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
             &lt;step&gt;
                 &lt;action_name&gt;reply&lt;/action_name&gt;
                 &lt;description&gt;如果我們找不到特定的故障排除或一般的故障排除資訊，回覆使用者我們需要更多資訊，並要求提供有關該錯誤的 {{troubleshooting_info_name_from_policy_2}}（因為我們已經有 {{troubleshooting_info_name_from_policy_1}}，但需要 {{troubleshooting_info_name_from_policy_2}} 以便在幫助中心搜尋更多上下文）&lt;/description&gt;
-            &lt;/step&gt;
+            &lt;step&gt;
         &lt;/if_block&gt;
     &lt;/if_block&gt;
 &lt;/plan&gt;</code></pre>
@@ -383,7 +383,7 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
 &lt;/checklist_for_tool_call&gt;
 
 # Your manager response:
-- Return your feedback by either returning &lt;manager_verify&gt;accept&lt;/manager_verify&gt; or &lt;manager_verify&gt;reject&lt;/manager_verify&gt;&lt;feedback_comment&gt;{{ feedback_comment }}&lt;/feedback_comment&gt;
+- Return your feedback by either returning &lt;manager_verify&gt;accept&lt;/manager_verify&gt; or &lt;manager_feedback&gt;reject&lt;/manager_feedback&gt;&lt;feedback_comment&gt;{{ feedback_comment }}&lt;/feedback_comment&gt;
 - Your response:</code></pre>
                                     </div>
                                 </div>
@@ -503,7 +503,9 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
                                             <li>如果客戶提到退款，計畫中必須包含「檢查購買日期」的步驟。</li>
                                             <li>如果客戶語氣聽起來不高興（例如提到「延遲」），計畫必須先「安撫情緒」。</li>
                                         </ul>
-                                        <button id="review-plan-btn" class="gemini-btn w-full bg-[#00a185] text-white font-bold py-2 px-4 rounded-md hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                        <p class="font-semibold text-slate-700 mb-2 mt-4">待審核的計畫：</p>
+                                        <textarea id="plan-input" class="w-full p-2 border border-slate-300 bg-slate-50 rounded-md" rows="4" readonly placeholder="請先讓 AI 規劃師產生計畫..."></textarea>
+                                        <button id="review-plan-btn" class="gemini-btn w-full bg-[#00a185] text-white font-bold py-2 px-4 rounded-md hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2 mt-2">
                                             讓 AI 品管員開始審核
                                         </button>
                                         <div id="review-output-container" class="mt-4 hidden bg-white p-4 rounded-lg border border-slate-200"></div>
@@ -512,9 +514,10 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
                             </div>
                         </div>
                     </div>
-                    <div class="mt-12 pt-8 border-t-2 border-dashed border-slate-300">
-                        <h3 class="text-2xl font-bold text-center text-slate-800 mb-4 flex items-center justify-center gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00a185]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <div class="mt-12 grid md:grid-cols-2 gap-8">
+                        <div class="pt-8 border-t-2 border-dashed border-slate-300">
+                            <h3 class="text-2xl font-bold text-center text-slate-800 mb-4 flex items-center justify-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00a185]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             AI 策略顧問
                         </h3>
                         <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">還不確定你的任務該用哪種方法和 AI 溝通嗎？告訴我你想做什麼，AI 顧問會給你最好的建議！</p>
@@ -531,13 +534,52 @@ _重要事項_：此計畫範例僅為讓您了解如何使用幾個範例工具
                             </div>
                         </div>
                     </div>
+                        <div class="pt-8 border-t-2 border-dashed border-slate-300">
+                            <h3 class="text-2xl font-bold text-center text-slate-800 mb-4 flex items-center justify-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00a185]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.707.707M12 20.25a.25.25 0 01.25-.25V21a.25.25 0 01-.25-.25z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            AI 策略顧問
+                        </h3>
+                        <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">還不確定你的任務該用哪種方法和 AI 溝通嗎？告訴我你想做什麼，AI 顧問會給你最好的建議！</p>
+                        <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
+                            <textarea id="task-desc-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="例如：我想做一個能回答公司內部請假規定的機器人..."></textarea>
+                            <button id="get-suggestion-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                獲取專家建議
+                            </button>
+                            <div id="suggestion-loader" class="text-center py-6 hidden">
+                                <div class="loader" style="border-top-color: #00f2c3;"></div>
+                                 <p class="mt-2 text-slate-500">AI 顧問正在分析中...</p>
+                            </div>
+                            <div id="suggestion-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+                            </div>
+                        </div>
+                    </div>
+                        <div class="pt-8 border-t-2 border-dashed border-slate-300">
+                            <h3 class="text-2xl font-bold text-center text-slate-800 mb-4 flex items-center justify-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00a185]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.707.707M12 20.25a.25.25 0 01.25-.25V21a.25.25 0 01-.25-.25z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                優化你的提示詞
+                            </h3>
+                            <p class="text-slate-600 text-center mb-6 max-w-2xl mx-auto">寫好提示詞了嗎？讓 AI 專家幫你檢查和改寫，學習如何更精準地向 AI 下達指令！</p>
+                            <div class="max-w-3xl mx-auto bg-[#f0fdfa] p-6 rounded-xl shadow-inner border border-[#a7f3d0]">
+                                <textarea id="prompt-to-optimize-input" class="w-full p-3 border border-[#a7f3d0] rounded-lg focus:ring-[#00f2c3] focus:border-[#00f2c3]" rows="3" placeholder="請在這裡貼上你的提示詞..."></textarea>
+                                <button id="optimize-prompt-btn" class="gemini-btn mt-4 w-full bg-[#00a185] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#047857] transition-colors duration-300 flex items-center justify-center gap-2">
+                                    開始優化
+                                </button>
+                                <div id="optimize-loader" class="text-center py-6 hidden">
+                                    <div class="loader" style="border-top-color: #00f2c3;"></div>
+                                     <p class="mt-2 text-slate-500">AI 專家正在思考中...</p>
+                                </div>
+                                <div id="optimized-prompt-output" class="mt-6 hidden bg-white p-4 rounded-lg border border-slate-200">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                  </div>
             </section>
         </main>
         
         <footer class="text-center mt-12 text-slate-500 text-sm">
-            <p>本互動報告的靈感來自 Parahelp 官方部落格文章。</p>
-            <p>互動設計與開發 by Gemini</p>
+            <p>本互動報告的靈感來自 <a href="https://parahelp.com/blog/prompt-design" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-blue-600 underline">Parahelp 官方部落格文章</a></p>
+            <p>由直立猿與 Gemini AI 共同設計與開發 /p>
         </footer>
     </div>
 
@@ -605,57 +647,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }]
         },
         options: {
+            responsive: true,
             maintainAspectRatio: false,
-            scales: {
-                r: {
-                    angleLines: {
-                        color: '#a7f3d0' 
-                    },
-                    grid: {
-                        color: '#d1fae5'
-                    },
-                    pointLabels: {
-                        color: '#1e293b', // slate-800
-                        font: {
-                            size: 14,
-                        }
-                    },
-                    ticks: {
-                        backdropColor: 'transparent',
-                        stepSize: 1,
-                        max: 5,
-                        min: 0,
-                        display: false
-                    }
-                }
-            },
             plugins: {
                 legend: {
                     display: false
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        color: '#e2e8f0'
+                    },
+                    grid: {
+                        color: '#e2e8f0'
+                    },
+                    pointLabels: {
+                        font: {
+                            size: 14,
+                            family: 'inherit'
+                        },
+                        color: '#475569'
+                    },
+                    ticks: {
+                        backdropColor: 'rgba(255, 255, 255, 0.75)',
+                        color: '#64748b',
+                        stepSize: 1,
+                        font: {
+                            size: 10
+                        }
+                    },
+                    min: 0,
+                    max: 5
                 }
             }
         }
     });
 
-    function updateTechDetails(techKey) {
-        const data = techData[techKey];
+    function updateTechDetails(techId) {
+        const tech = techData[techId];
+        techNameEl.textContent = tech.name;
+        techIdeaEl.textContent = tech.idea;
+        techUsecaseEl.textContent = tech.usecase;
+        techLimitEl.textContent = tech.limit;
         
-        techNameEl.textContent = data.name;
-        techIdeaEl.textContent = data.idea;
-        techUsecaseEl.textContent = data.usecase;
-        techLimitEl.textContent = data.limit;
-        
-        radarChart.data.datasets[0].label = data.name;
-        radarChart.data.datasets[0].data = data.scores;
+        radarChart.data.datasets[0].data = tech.scores;
+        radarChart.data.datasets[0].label = tech.name;
         radarChart.update();
-        
+
         techButtons.forEach(btn => {
-            if (btn.dataset.tech === techKey) {
-                btn.classList.add('tech-button-active');
-                btn.classList.remove('tech-button-inactive');
+            if (btn.dataset.tech === techId) {
+                btn.classList.add('bg-[#00a185]', 'text-white');
+                btn.classList.remove('bg-white', 'text-slate-700');
             } else {
-                btn.classList.add('tech-button-inactive');
-                btn.classList.remove('tech-button-active');
+                btn.classList.remove('bg-[#00a185]', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
             }
         });
     }
@@ -666,158 +712,205 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    updateTechDetails('CoT');
+    // --- Gemini API Call Logic ---
+    console.log("Initializing interactive components...");
 
-    // Gemini API integration
-    const planButton = document.getElementById('generate-plan-btn');
-    const planInput = document.getElementById('user-request-input');
+    const generatePlanBtn = document.getElementById('generate-plan-btn');
+    console.log('Found generate-plan-btn:', !!generatePlanBtn);
+    const userRequestInput = document.getElementById('user-request-input');
+    console.log('Found user-request-input:', !!userRequestInput);
     const planLoader = document.getElementById('plan-loader');
+    console.log('Found plan-loader:', !!planLoader);
     const planOutputContainer = document.getElementById('plan-output-container');
+    console.log('Found plan-output-container:', !!planOutputContainer);
     const planOutputCode = document.getElementById('plan-output-code');
-    
-    const reviewButton = document.getElementById('review-plan-btn');
+    console.log('Found plan-output-code:', !!planOutputCode);
+    const planInputForReview = document.getElementById('plan-input');
+    console.log('Found plan-input:', !!planInputForReview);
+
+    const reviewPlanBtn = document.getElementById('review-plan-btn');
+    console.log('Found review-plan-btn:', !!reviewPlanBtn);
     const reviewOutputContainer = document.getElementById('review-output-container');
+    console.log('Found review-output-container:', !!reviewOutputContainer);
 
-    const suggestionButton = document.getElementById('get-suggestion-btn');
-    const suggestionInput = document.getElementById('task-desc-input');
+    const getSuggestionBtn = document.getElementById('get-suggestion-btn');
+    console.log('Found get-suggestion-btn:', !!getSuggestionBtn);
+    const taskDescInput = document.getElementById('task-desc-input');
+    console.log('Found task-desc-input:', !!taskDescInput);
     const suggestionLoader = document.getElementById('suggestion-loader');
+    console.log('Found suggestion-loader:', !!suggestionLoader);
     const suggestionOutput = document.getElementById('suggestion-output');
-    
-    const geminiButtons = document.querySelectorAll('.gemini-btn');
+    console.log('Found suggestion-output:', !!suggestionOutput);
 
-    async function callGemini(prompt) {
-        const apiUrl = '/geminiProxy'; 
-        
-        const payload = { prompt };
+    const optimizePromptBtn = document.getElementById('optimize-prompt-btn');
+    console.log('Found optimize-prompt-btn:', !!optimizePromptBtn);
+    const promptToOptimizeInput = document.getElementById('prompt-to-optimize-input');
+    console.log('Found prompt-to-optimize-input:', !!promptToOptimizeInput);
+    const optimizeLoader = document.getElementById('optimize-loader');
+    console.log('Found optimize-loader:', !!optimizeLoader);
+    const optimizedPromptOutput = document.getElementById('optimized-prompt-output');
+    console.log('Found optimized-prompt-output:', !!optimizedPromptOutput);
 
+
+    // URL of your deployed Firebase Function
+    const functionUrl = 'https://us-central1-gemini-app-for-keke.cloudfunctions.net/generateContent';
+
+    async function callFirebaseFunction(prompt) {
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(functionUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt: prompt })
             });
 
             if (!response.ok) {
-                 const errorBody = await response.json();
-                 throw new Error(`API 請求失敗: ${errorBody.error || response.statusText}`);
+                const errorText = await response.text();
+                throw new Error(`Function returned an error: ${response.status} ${errorText}`);
             }
 
             const result = await response.json();
-            
-            if (result.candidates && result.candidates.length > 0) {
-                return result.candidates[0].content.parts[0].text;
-            } else {
-                console.error("Unexpected API response structure:", result);
-                if (result.promptFeedback && result.promptFeedback.blockReason) {
-                     return `請求被阻擋：${result.promptFeedback.blockReason}`;
-                }
-                return "從 API 收到的回應格式有誤或為空。";
-            }
+            return result.data; // The function returns { message: "...", data: "..." }
         } catch (error) {
-            console.error('API 呼叫失敗:', error);
-            return `發生錯誤：${error.message}`;
+            console.error('Error calling Firebase Function:', error);
+            return '對不起，呼叫 AI 失敗了。請檢查瀏覽器開發者工具的主控台以獲取更多資訊。';
         }
     }
 
-    planButton.addEventListener('click', async () => {
-        const userInput = planInput.value.trim();
-        if (!userInput) {
-            alert('請輸入您的請求。');
-            return;
-        }
+    if (generatePlanBtn) {
+        generatePlanBtn.addEventListener('click', async () => {
+            const userRequest = userRequestInput.value;
+            if (!userRequest.trim()) {
+                alert('請先輸入你的請求！');
+                return;
+            }
 
-        planLoader.style.display = 'block';
-        planOutputContainer.style.display = 'none';
-        reviewButton.disabled = true;
-        reviewOutputContainer.style.display = 'none';
-        
-        planButton.disabled = true;
-        suggestionButton.disabled = true;
+            generatePlanBtn.disabled = true;
+            planLoader.classList.remove('hidden');
+            planOutputContainer.classList.add('hidden');
 
-        const prompt = `你是一個聰明的「AI規劃師」。請根據使用者的請求，用簡單的 XML 格式畫出一份行動地圖。地圖要用 <plan> 包起來，裡面包含 <step> (步驟) 和 <if_block> (如果...就...)。你的輸出必須是格式正確的 XML。
+            const prompt = `你是一位頂尖的 AI 系統規劃師，專門將使用者模糊的請求轉化為清晰、可執行的結構化計畫。
+你的任務是根據使用者的請求，設計一個詳細、包含條件分支的執行計畫。
+請嚴格使用 XML 格式（<plan>, <step>, <if_block>）來表示計畫的結構，就像頁面上「規劃師提示詞」範例一樣。
 
-        使用者請求：「${userInput}」`;
+使用者請求：
+"""
+${userRequest}
+"""
 
-        const result = await callGemini(prompt);
-        
-        let cleanedResult = result.replace(/```xml/g, '').replace(/```/g, '').trim();
+你的 XML 執行計畫：`;
 
-        planOutputCode.textContent = cleanedResult;
-        planOutputContainer.style.display = 'block';
-        planLoader.style.display = 'none';
-        
-        if (cleanedResult.length > 0) {
-            reviewButton.disabled = false;
-        }
-        planButton.disabled = false;
-        suggestionButton.disabled = false;
-    });
-    
-    reviewButton.addEventListener('click', () => {
-        const staticReviewHTML = `
-            <h4 class="text-lg font-bold text-[#00a185] mt-3 mb-2">審核結果</h4>
-            <strong class="text-slate-800">狀態：</strong> <span class="text-green-600 font-semibold">批准</span>
-            <h4 class="text-lg font-bold text-[#00a185] mt-3 mb-2">審核詳情</h4>
-            <ul class="list-disc list-inside text-slate-600 space-y-1">
-                <li><strong>政策1 (退款):</strong> <span class="text-gray-500">不適用</span></li>
-                <li><strong>政策2 (安撫情緒):</strong> <span class="text-green-600">已檢查</span> - 計畫的第一步是安撫客戶情緒。</li>
-            </ul>
-            <h4 class="text-lg font-bold text-[#00a185] mt-3 mb-2">總體建議</h4>
-            <p class="text-slate-700">計畫符合公司政策，可以執行。</p>
-        `;
-        reviewOutputContainer.innerHTML = staticReviewHTML;
-        reviewOutputContainer.style.display = 'block';
-    });
-    
-    // Disable review button by default
-    reviewButton.disabled = true;
+            const result = await callFirebaseFunction(prompt);
 
-    suggestionButton.addEventListener('click', async () => {
-        const userInput = suggestionInput.value.trim();
-        if (!userInput) {
-            alert('請描述你想完成的任務。');
-            return;
-        }
+            planOutputCode.textContent = result;
+            planInputForReview.value = result; // Populate the manager's textarea
 
-        suggestionLoader.style.display = 'block';
-        suggestionOutput.style.display = 'none';
-        planButton.disabled = true;
-        reviewButton.disabled = true;
-        suggestionButton.disabled = true;
+            planLoader.classList.add('hidden');
+            planOutputContainer.classList.remove('hidden');
+            generatePlanBtn.disabled = false;
+        });
+    }
 
-        const prompt = `你是一位專業的「AI策略顧問」。請分析以下使用者想完成的任務，並從三種溝通策略中推薦最適合的一種。你的回答要包含推薦的策略名稱、為什麼推薦它，和一個簡單的上手方法。
+    if (reviewPlanBtn) {
+        reviewPlanBtn.addEventListener('click', async () => {
+            const planText = planInputForReview.value;
+            if (!planText.trim()) {
+                alert('請先讓 AI 規劃師產生計畫！');
+                return;
+            }
 
-        溝通策略選項：
-        1.  **開卷考試 (RAG):** 適合需要查詢外部、即時或私有資料才能回答的問題。
-        2.  **一步一步想 (CoT):** 適合需要按照順序思考和推理的任務。
-        3.  **團隊合作 (Hierarchical Agent):** 適合需要非常可靠、安全，且必須遵守複雜規則的專業級任務。
+            reviewPlanBtn.disabled = true;
+            reviewPlanBtn.textContent = 'AI 正在審核中...';
+            reviewOutputContainer.classList.add('hidden');
 
-        使用者想完成的任務：「${userInput}」
+            const prompt = `你是一位專業的客服品管員。請根據以下政策，審核這份由客服人員撰寫的執行計畫。請直接輸出審核結果，不要有任何開頭。
 
-        請用親切的口吻，以 Markdown 格式回答，包含標題和重點。`;
+政策：
+1. 如果客戶提到退款，計畫中必須包含「檢查購買日期」的步驟。
+2. 如果客戶語氣聽起來不高興（例如提到「延遲」），計畫必須先「安撫情緒」。
 
-        const result = await callGemini(prompt);
-        
-        let htmlResult = result
-            .replace(/### (.*)/g, '<h3 class="text-lg font-bold text-[#00a185] mt-4 mb-2">$1</h3>')
-            .replace(/## (.*)/g, '<h2 class="text-xl font-bold text-[#047857] mt-4 mb-2">$1</h2>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\* (.*)/g, '<li class="ml-5 list-disc">$1</li>')
-            .replace(/\n/g, '<br>');
+執行計畫：
+"""
+${planText}
+"""
 
-        suggestionOutput.innerHTML = htmlResult;
-        suggestionOutput.style.display = 'block';
-        suggestionLoader.style.display = 'none';
-        planButton.disabled = false;
-        
-        if(planOutputCode.textContent.length === 0){
-           reviewButton.disabled = true;
-        } else {
-           reviewButton.disabled = false;
-        }
-        suggestionButton.disabled = false;
-    });
+審核結果：`;
+
+            const result = await callFirebaseFunction(prompt);
+            
+            reviewOutputContainer.innerHTML = result.replace(/\n/g, '<br>');
+            reviewOutputContainer.classList.remove('hidden');
+            reviewPlanBtn.disabled = false;
+            reviewPlanBtn.textContent = '讓 AI 品管員開始審核';
+        });
+    }
+
+    if (getSuggestionBtn) {
+        getSuggestionBtn.addEventListener('click', async () => {
+            const taskDesc = taskDescInput.value;
+            if (!taskDesc.trim()) {
+                alert('請先描述你的任務！');
+                return;
+            }
+
+            getSuggestionBtn.classList.add('hidden');
+            suggestionLoader.classList.remove('hidden');
+            suggestionOutput.classList.add('hidden');
+
+            const prompt = `你是一位頂尖的 AI 策略顧問。我想要解決一個問題，請你根據我描述的任務，從以下幾種 AI 溝通策略中，推薦最適合的一種，並說明為什麼。請用親切但專業的口吻回答。
+
+可選策略：
+- 一步一步想 (思維鏈)
+- 多想幾次，投票決定 (Self-Consistency)
+- 探索所有可能 (思維樹)
+- 開卷考試 (RAG)
+- 團隊合作 (層級式代理)
+
+我的任務：
+"""
+${taskDesc}
+"""
+
+你的建議：`;
+
+            const result = await callFirebaseFunction(prompt);
+
+            suggestionOutput.innerHTML = result.replace(/\n/g, '<br>');
+            suggestionLoader.classList.add('hidden');
+            suggestionOutput.classList.remove('hidden');
+            getSuggestionBtn.classList.remove('hidden');
+        });
+    }
+
+    if (optimizePromptBtn) {
+        optimizePromptBtn.addEventListener('click', async () => {
+            const userPrompt = promptToOptimizeInput.value;
+            if (!userPrompt.trim()) {
+                alert('請先貼上你想優化的提示詞！');
+                return;
+            }
+
+            optimizePromptBtn.disabled = true;
+            optimizeLoader.classList.remove('hidden');
+            optimizedPromptOutput.classList.add('hidden');
+
+            const prompt = `你是一位世界級的提示詞工程師 (Prompt Engineer)，你的任務是分析並優化使用者提供的提示詞。\n\n請遵循以下原則來優化提示詞：\n1. **明確角色 (Persona)**：如果不明確，為 AI 設定一個清晰的專家角色。\n2. **清晰任務 (Task)**：確保任務描述是具體、可執行的，避免模糊不清的詞語。\n3. **提供上下文 (Context)**：如果任務需要背景知識，建議加入相關的上下文。\n4. **指定格式 (Format)**：建議使用更結構化的輸出格式，例如 Markdown、JSON 或 XML，讓 AI 的回答更穩定。\n5. **增加範例 (Examples)**：如果合適，加入一兩個「好的範例」和「壞的範例」(few-shot)，讓 AI 更能掌握要求。\n6. **強化約束 (Constraints)**：加入更明確的規則或限制，例如「不要超過 200 字」、「只回答最相關的三點」。\n\n請將優化後的提示詞，以及你為什麼這麼優化的原因，一併回傳。請用 Markdown 格式來美化你的回覆。\n\n使用者提供的提示詞：\n\"\"\"\n${userPrompt}\n\"\"\"\n\n你的優化版本與說明：`;
+
+            const result = await callFirebaseFunction(prompt);
+
+            optimizedPromptOutput.innerHTML = result.replace(/\n/g, '<br>');
+            optimizeLoader.classList.add('hidden');
+            optimizedPromptOutput.classList.remove('hidden');
+            optimizePromptBtn.disabled = false;
+        });
+    }
+
+
+    // Initialize with the first tech
+    updateTechDetails('CoT');
 });
 </script>
+
 </body>
 </html>
