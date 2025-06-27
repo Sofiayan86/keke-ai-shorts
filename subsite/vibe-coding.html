@@ -295,11 +295,91 @@
         </div>
     </main>
 
+    <!-- WebBrain 聯絡表單 -->
+    <section id="webbrain-contact" class="mb-12 md:mb-16 max-w-4xl mx-auto p-4 sm:p-6 lg:p-10">
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border-t-4 border-[#00A99D]">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-slate-800" data-lang-key="contactTitle">需要企業級 AI 落地方案？</h2>
+                    <p class="mt-4 text-lg text-slate-600" data-lang-key="contactDesc1">
+                        WebBrain – Team of AI Experts 提供企業級 AI 顧問服務</p><p class="mt-1 text-lg text-slate-600" data-lang-key="contactDesc2">從流程自動化、內部培訓到生成式 AI 整合，全面陪伴你的 AI 轉型之旅。</p>
+                    </p>
+                </div>
+
+                <div class="bg-[#F0F9F8] p-6 md:p-8 rounded-lg border border-[#A7F3D0]">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-[#00A99D] mb-2" data-lang-key="formTitle">填寫表單，預約免費諮詢</h3>
+                        <p class="text-slate-600" data-lang-key="formDesc">我們的 AI 專家將在 5個工作天內與您聯繫，了解您的需求並提供專業建議。</p>
+                    </div>
+
+                    <form id="webbrainForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700 mb-1" data-lang-key="formName">姓名</label>
+                                <input type="text" id="name" name="name" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#00A99D] focus:border-[#00A99D]" required>
+                            </div>
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-slate-700 mb-1" data-lang-key="formCompany">公司名稱</label>
+                                <input type="text" id="company" name="company" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#00A99D] focus:border-[#00A99D]">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1" data-lang-key="formEmail">電子郵件</label>
+                            <input type="email" id="email" name="email" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#00A99D] focus:border-[#00A99D]" required>
+                        </div>
+                        <div>
+                            <label for="needs" class="block text-sm font-medium text-slate-700 mb-1" data-lang-key="formNeeds">您的需求</label>
+                            <textarea id="needs" name="needs" rows="4" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#00A99D] focus:border-[#00A99D]" required></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-6 py-2 bg-[#00A99D] text-white font-bold rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[#00A99D] focus:ring-offset-2 focus:ring-offset-white transition-colors duration-300" data-lang-key="formSubmit">立即獲取免費諮詢</button>
+                        </div>
+                        <p id="formStatus" class="text-center mt-4 hidden"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="bg-gray-50 text-gray-600 py-6 px-4 sm:px-6 lg:px-10 mt-12" style="background-color: #E0F2F1; border-top: 1px solid #A7F3D0;">
-        <div class="max-w-6xl mx-auto text-center text-sm md:text-base">
-            <p id="footer_copyright">&copy; 2025 Vibe Coding 互動式報告. All rights reserved.</p>
-            <p id="footer_text" class="mt-2">本報告基於公開資料編纂，旨在提供 Vibe Coding 的概覽與趨勢分析。</p>
+    <footer id="contact" class="bg-transparent text-slate-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold"><span class="mr-3">📨</span><span data-lang-key="footerContact">聯絡我們</span></h2>
+                <p class="mt-2" data-lang-key="footerFollow">在這些平台追蹤我們，或透過 Email 聯絡</p>
+            </div>
+            <div class="flex justify-center space-x-6">
+                <!-- Email -->
+                <a href="mailto:sofia@webbrain.app" target="_blank" rel="noopener noreferrer" class="footer-icon hover:text-gray-700">
+                    <span class="sr-only">Email</span>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2.5 4A1.5 1.5 0 0 0 1 5.5v13A1.5 1.5 0 0 0 2.5 20h19a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 21.5 4H2.5Zm19 1.155L12 11.83 2.5 5.155h19ZM2.5 18.5V6.845l9.052 6.11a.5.5 0 0 0 .896 0L21.5 6.845v11.655H2.5Z"/>
+                    </svg>
+                </a>
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@kekeAIShorts" target="_blank" rel="noopener noreferrer" class="footer-icon hover:text-gray-700">
+                    <span class="sr-only">YouTube</span>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.814.42-7.814.42s-6.22 0-7.814-.42a2.506 2.506 0 0 1-1.768-1.768C2.002 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.78 5.002 12 5 12 5s6.22 0 7.814.418zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/kekeaishorts/" target="_blank" rel="noopener noreferrer" class="footer-icon hover:text-gray-700">
+                    <span class="sr-only">Instagram</span>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2c-2.717 0-3.056.01-4.122.06-1.065.05-1.79.217-2.428.465a4.898 4.898 0 0 0-1.772 1.153 4.9 4.9 0 0 0-1.153 1.772c-.247.638-.415 1.363-.465 2.428C2.013 8.944 2 9.283 2 12s.01 3.056.06 4.122c.05 1.065.218 1.79.465 2.428a4.898 4.898 0 0 0 1.153 1.772 4.9 4.9 0 0 0 1.772 1.153c.638.247 1.363.415 2.428.465C8.944 21.987 9.371 22 12 22s3.056-.01 4.122-.06c1.065-.05 1.79-.218 2.428-.465a4.898 4.898 0 0 0 1.772-1.153 4.9 4.9 0 0 0 1.153-1.772c.247-.638.415-1.363-.465-2.428C21.987 15.056 22 14.717 22 12s-.01-3.056-.06-4.122c-.05-1.065-.218-1.79-.465-2.428a4.898 4.898 0 0 0-1.153-1.772 4.9 4.9 0 0 0-1.772-1.153c-.638-.247-1.363-.415-2.428-.465C15.056 2.013 14.717 2 12 2zm0 1.8c2.673 0 2.987.01 4.042.058.975.048 1.505.207 1.858.344.466.182.799.399 1.15.748.35.351.566.683.748 1.15.137.353.296.883.344 1.858.048 1.054.058 1.37.058 4.042s-.01 2.987-.058 4.042c-.05 1.065-.218 1.79-.465 2.428a3.097 3.097 0 0 1-.748 1.15 3.097 3.097 0 0 1-1.15.748c-.353.137-.883.296-1.858-.344C9.013 3.99 9.371 4 12 4zm0 2.85a5.15 5.15 0 1 0 0 10.3 5.15 5.15 0 0 0 0-10.3zm0 1.8a3.35 3.35 0 1 1 0 6.7 3.35 3.35 0 0 1 0-6.7zM16.965 6.575a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <!-- Threads -->
+                <a href="https://www.threads.com/@kekeaishorts" target="_blank" rel="noopener noreferrer" class="footer-icon hover:text-gray-700">
+                    <span class="sr-only">Threads</span>
+                    <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 440 511.43"><path fill="currentColor" fill-rule="nonzero" d="M342.383 237.038a177.282 177.282 0 00-6.707-3.046c-3.948-72.737-43.692-114.379-110.429-114.805-38.505-.255-72.972 15.445-94.454 48.041l36.702 25.178c15.265-23.159 39.221-28.096 56.864-28.096.204 0 .408 0 .61.002 21.974.14 38.555 6.529 49.287 18.987 7.81 9.071 13.034 21.606 15.621 37.425-19.483-3.311-40.553-4.329-63.077-3.038-63.45 3.655-104.24 40.661-101.501 92.08 1.391 26.083 14.385 48.523 36.587 63.181 18.772 12.391 42.95 18.45 68.077 17.079 33.183-1.819 59.215-14.48 77.377-37.63 13.793-17.58 22.516-40.363 26.368-69.069 15.814 9.544 27.535 22.103 34.007 37.2 11.006 25.665 11.648 67.84-22.764 102.223-30.15 30.121-66.392 43.151-121.164 43.554-60.758-.45-106.708-19.935-136.583-57.915-27.976-35.562-42.434-86.93-42.973-152.674.539-65.746 14.997-117.114 42.973-152.676 29.875-37.979 75.824-57.463 136.582-57.914 61.197.455 107.948 20.033 138.967 58.195 15.21 18.713 26.676 42.248 34.236 69.688L440 161.532c-9.163-33.775-23.582-62.881-43.203-87.017C357.031 25.59 298.872.519 223.936 0h-.3C148.851.518 91.344 25.683 52.709 74.795 18.331 118.499.598 179.308.002 255.535l-.002.18.002.18c.596 76.225 18.329 137.037 52.707 180.741 38.635 49.11 96.142 74.277 170.927 74.794h.3c66.486-.462 113.352-17.868 151.96-56.442 50.51-50.463 48.99-113.718 32.342-152.549-11.945-27.847-34.716-50.463-65.855-65.401zM227.587 344.967c-27.808 1.567-56.699-10.916-58.124-37.651-1.056-19.823 14.108-41.942 59.831-44.577a266.87 266.87 0 0115.422-.45c16.609 0 32.145 1.613 46.271 4.701-5.268 65.798-36.172 76.483-63.4 77.977z"/></svg>
+                </a>
+            </div>
+            <div class="mt-8 text-center text-sm">
+                <p data-lang-key="footerRights">&copy; 2025 科科 AI Shorts. All Rights Reserved.</p>
+                <p data-lang-key="footerCredits">由直立猿與 AI Agent 共同創作。</p>
+            </div>
         </div>
     </footer>
 
@@ -424,6 +504,23 @@ document.addEventListener('DOMContentLoaded', function() {
             chart_speed_label_long: '剩餘時間',
             chart_automation_label_short: '自動化任務',
             chart_automation_label_long: '手動任務',
+            contactTitle: '需要企業級 AI 落地方案？',
+            contactDesc1: 'WebBrain – Team of AI Experts 提供企業級 AI 顧問服務',
+            contactDesc2: '從流程自動化、內部培訓到生成式 AI 整合，全面陪伴你的 AI 轉型之旅。',
+            formTitle: '填寫表單，預約免費諮詢',
+            formDesc: '我們的 AI 專家將在 5個工作天內與您聯繫，了解您的需求並提供專業建議。',
+            formName: '姓名',
+            formCompany: '公司名稱',
+            formEmail: '電子郵件',
+            formNeeds: '您的需求',
+            formSubmit: '立即獲取免費諮詢',
+            formSubmitting: '提交中...',
+            formSuccess: '表單已成功提交！我們將盡快與您聯絡。',
+            formError: '提交失敗，請稍後再試',
+            footerContact: '聯絡我們',
+            footerFollow: '在這些平台追蹤我們，或透過 Email 聯絡',
+            footerRights: '© 2025 科科 AI Shorts. All Rights Reserved.',
+            footerCredits: '由直立猿與 AI Agent 共同創作。'
         },
         'en': {
             docTitle: 'Vibe Coding: Interactive Exploration Guide',
@@ -500,47 +597,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 { title: 'Over-reliance & Skill Erosion', text: 'Over-reliance on AI may hinder the development of core coding and problem-solving abilities; developers need to strategically "offload cognitive burden."', icon: '🧠' },
                 { title: 'Enterprise Scalability', text: 'Currently best suited for simpler applications or prototypes. For large, complex systems, its effectiveness may diminish.', icon: '🏢' }
             ],
-            future_title: 'Future Trajectory',
-            future_subtitle: 'Evolution of Developer Roles (to 2030)',
-            future_text: 'Vibe Coding is driving a fundamental evolution in the developer role. In the future, the developer\'s value will shift from manually writing every line of code to higher-level strategic work. The chart below illustrates this trend: the proportion of traditional coding skills will decrease, while "meta-skills" such as system architecture design, prompt engineering, and AI orchestration will become crucial. Developers will become architects guiding AI, rather than just craftsmen.',
-            futureChartLabels: ['Traditional Coding Skills', 'System Architecture Design', 'AI Orchestration & Prompt Engineering', 'Human-AI Collaboration & Review'],
-            futureChartCurrent: 'Current Skill Share',
-            futureChartPredicted: 'Predicted Skill Share by 2030',
-            tools_title: 'Key Tool Ecosystem',
-            tools_subtitle: 'Platforms Driving the Vibe Coding Revolution',
-            tools_text: 'A vibrant tool ecosystem is forming around Vibe Coding. From general-purpose code suggestion tools to specialized UI generators and full-stack application building platforms, these tools are the vehicles for putting Vibe Coding principles into practice. Here are some leading tools in the market, each addressing different development needs, collectively driving this AI-powered development revolution.',
+            future_title: '未來軌跡',
+            future_subtitle: '開發者角色的演變 (至 2030年)',
+            future_text: 'Vibe Coding 正在推動開發人員角色的根本性演變。未來，開發人員的價值將從手動編寫每一行程式碼，轉變為更高層次的策略性工作。下圖展示了這種趨勢：傳統的編碼技能佔比將會下降，而如系統架構設計、提示工程和 AI 協調等「元技能」將變得至關重要。開發人員將成為引導 AI 的建築師，而非僅僅是工匠。',
+            futureChartLabels: ['傳統編碼技能', '系統架構設計', 'AI 協調與提示工程', '人機協作與審查'],
+            futureChartCurrent: '當前技能佔比',
+            futureChartPredicted: '2030 預測技能佔比',
+            tools_title: '關鍵工具生態系',
+            tools_subtitle: '驅動 Vibe Coding 革命的平台',
+            tools_text: '一個充滿活力的工具生態系正在圍繞 Vibe Coding 形成。從通用的程式碼建議工具到專門的 UI 生成器和全端應用構建平台，這些工具是將 Vibe Coding 理念付諸實踐的載體。以下是一些市場上領先的工具，它們各自針對不同的開發需求，共同推動著這場由 AI 驅動的開發革命。',
             toolsData: [
-                { name: 'GitHub Copilot', desc: 'Real-time code suggestions' },
-                { name: 'Replit AI', desc: 'Full-stack web/mobile apps' },
-                { name: 'v0 by Vercel', desc: 'UI component generation' },
-                { name: 'Lovable', desc: 'Simplifies software development' },
-                { name: 'Anysphere', desc: 'AI-driven coding' },
-                { name: 'Windsurf', desc: 'AI coding assistant' },
-                { name: 'Rork App', desc: 'Mobile app building' },
-                { name: 'Stitch', desc: 'Rapid prototyping' },
+                { name: 'GitHub Copilot', desc: '即時程式碼建議' },
+                { name: 'Replit AI', desc: '全端網頁/行動應用' },
+                { name: 'v0 by Vercel', desc: 'UI 組件生成' },
+                { name: 'Lovable', desc: '簡化軟體開發' },
+                { name: 'Anysphere', desc: 'AI 驅動編碼' },
+                { name: 'Windsurf', desc: 'AI 編碼助手' },
+                { name: 'Rork App', desc: '行動應用構建' },
+                { name: 'Stitch', desc: '快速原型設計' },
             ],
-            strategy_title: 'Adoption Strategy',
-            strategy_subtitle: 'Advice for Individuals and Organizations',
-            strategy_text: 'Successful adoption of Vibe Coding requires strategic planning. For individual developers, this means cultivating new skills; for organizations, it requires establishing governance and training systems. This section provides actionable advice to help you thrive in this new era, whether you are an independent developer or a leader of a large team.',
-            strategy_individual_title: '🚀 Individual Developers',
+            strategy_title: '採用策略',
+            strategy_subtitle: '給個人與組織的建議',
+            strategy_text: '成功採用 Vibe Coding 需要策略性的規劃。對於個人開發者而言，這意味著培養新技能；對於組織而言，則需要建立治理和培訓體系。本節提供可操作的建議，幫助您在這個新時代中蓬勃發展，無論您是獨立開發者還是大型團隊的領導者。',
+            strategy_individual_title: '🚀 個人開發者',
             individual_strategy: [
-                "Cultivate clear prompt engineering skills", "Balance AI productivity with core coding fundamentals", "Practice critical thinking and code review", "Focus on architectural-level thinking", "Stay flexible and explore the AI tool ecosystem"
+                "培養清晰的提示工程技能", "平衡 AI 生產力與核心編碼基礎", "實踐批判性思維和程式碼審查", "專注於架構層次的思維", "保持靈活性並探索 AI 工具"
             ],
-            strategy_org_title: '🏢 Organizational Teams',
+            strategy_org_title: '🏢 組織團隊',
             organization_strategy: [
-                "Establish AI tool usage governance", "Embed code review and scanning in pipelines", "Train teams to use AI safely", "Adopt a pragmatic hybrid approach", "Foster a Vibe Coding culture"
+                "建立 AI 工具使用治理", "在管線中嵌入程式碼審查和掃描", "培訓團隊安全地使用 AI", "務實地採用混合方法", "培養 Vibe Coding 文化"
             ],
-            links_title: 'Important Links',
-            links_subtitle: 'Here you can find the original full analysis report that this dashboard content is based on, for your reference.',
-            links_report_title: 'Full Vibe Coding Analysis Report',
-            links_button: 'Click here to read the full report',
-            links_new_tab_text: 'Will open document in a new tab',
-            footer_copyright: '&copy; 2025 Vibe Coding Interactive Report. All rights reserved.',
-            footer_text: 'This report is compiled based on publicly available data, aiming to provide an overview and trend analysis of Vibe Coding.',
-            chart_speed_label_short: 'Dev Time Reduction',
-            chart_speed_label_long: 'Remaining Time',
-            chart_automation_label_short: 'Automated Tasks',
-            chart_automation_label_long: 'Manual Tasks',
+            links_title: '重要連結',
+            links_subtitle: '此處提供本儀表板內容所依據的完整分析報告原文，供您參考。',
+            links_report_title: '完整 Vibe Coding 分析報告',
+            links_button: '點擊此處閱讀完整報告',
+            links_new_tab_text: '將在新分頁中開啟文件',
+            footer_copyright: '&copy; 2025 Vibe Coding 互動式報告. All rights reserved.',
+            footer_text: '本報告基於公開資料編纂，旨在提供 Vibe Coding 的概覽與趨勢分析。',
+            chart_speed_label_short: '開發時間縮短',
+            chart_speed_label_long: '剩餘時間',
+            chart_automation_label_short: '自動化任務',
+            chart_automation_label_long: '手動任務',
+            contactTitle: 'Need Enterprise-Level AI Solutions?',
+            contactDesc1: 'WebBrain – Team of AI Experts offers enterprise-level AI consulting services.',
+            contactDesc2: 'From process automation and internal training to generative AI integration, we accompany you on your entire AI transformation journey.',
+            formTitle: 'Fill Out the Form for a Free Consultation',
+            formDesc: 'Our AI experts will contact you within 5 business days to understand your needs and provide professional advice.',
+            formName: 'Name',
+            formCompany: 'Company Name',
+            formEmail: 'Email',
+            formNeeds: 'Your Needs',
+            formSubmit: 'Get Free Consultation Now',
+            formSubmitting: 'Submitting...',
+            formSuccess: 'Form submitted successfully! We will contact you soon.',
+            formError: 'Submission failed. Please try again later.',
+            footerContact: 'Contact Us',
+            footerFollow: 'Follow us on these platforms, or contact us via Email',
+            footerRights: '© 2025 Keke AI Shorts. All Rights Reserved.',
+            footerCredits: 'Co-created by uprightape and AI Agent.'
         }
     };
 
@@ -828,6 +942,71 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set active class for the initial language on page load
     document.getElementById('lang-zh').classList.toggle('active-lang', savedLang === 'zh-Hant');
     document.getElementById('lang-en').classList.toggle('active-lang', savedLang === 'en');
+
+    // --- Form Submission Script ---
+    const webbrainForm = document.getElementById('webbrainForm');
+    const formStatus = document.getElementById('formStatus');
+
+    if (webbrainForm) {
+        webbrainForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentLang = localStorage.getItem('preferredLang') || 'zh-Hant';
+            const statusMsgs = languageData[currentLang];
+            
+            formStatus.textContent = statusMsgs.formSubmitting;
+            formStatus.className = "text-center mt-4 text-teal-600";
+            formStatus.style.display = "block";
+            
+            const submitButton = webbrainForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = statusMsgs.formSubmitting;
+            submitButton.disabled = true;
+            
+            const formData = new FormData(webbrainForm);
+            const data = {
+                name: formData.get('name'),
+                company: formData.get('company') || 'N/A',
+                email: formData.get('email'),
+                message: formData.get('needs'),
+                timestamp: new Date().toISOString(),
+                page: window.location.pathname
+            };
+            
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbz5Y_YKDDXJmxfadctFIq9FN7TP9_0BXVCAsuZqYu1oz6zMx_nlGEhxJH11ydDiv57r/exec';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+                body: new URLSearchParams(data).toString()
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(statusMsgs.formError);
+                return response.json();
+            })
+            .then(result => {
+                console.log('Success:', result);
+                formStatus.textContent = statusMsgs.formSuccess;
+                formStatus.className = "text-center mt-4 text-green-600";
+                webbrainForm.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                formStatus.textContent = `${statusMsgs.formError}`;
+                formStatus.className = "text-center mt-4 text-red-500";
+            })
+            .finally(() => {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+                submitButton.setAttribute('data-lang-key', 'formSubmit');
+                submitButton.textContent = statusMsgs['formSubmit'];
+
+                setTimeout(() => { formStatus.style.display = "none"; }, 5000);
+            });
+        });
+    }
 });
 </script>
 </body>
