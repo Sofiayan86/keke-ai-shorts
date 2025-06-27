@@ -215,8 +215,7 @@
                                 <p class="text-gray-600" data-lang-key="audio_desc">完整指南，由 AI 為您朗讀。</p>
                             </div>
                         </div>
-                        <audio controls class="w-full">
-                            <source src="/assets/vibe-coding-pod.mp3" type="audio/mpeg">
+                        <audio controls class="w-full" src="../assets/vibe-coding-pod.mp3" onerror="handleAudioError(this)">
                             <span data-lang-key="audio_fallback">您的瀏覽器不支援音訊播放。</span>
                         </audio>
                     </div>
@@ -455,6 +454,31 @@
     </footer>
 
 <script>
+function handleAudioError(audioElement) {
+    console.error("Audio Error: The audio file could not be loaded.");
+    if (audioElement.error) {
+        console.error("Error Code:", audioElement.error.code);
+        let errorMessage = "Unknown error.";
+        switch (audioElement.error.code) {
+            case 1: errorMessage = "MEDIA_ERR_ABORTED: The fetching process was aborted by the user."; break;
+            case 2: errorMessage = "MEDIA_ERR_NETWORK: A network error caused the audio download to fail."; break;
+            case 3: errorMessage = "MEDIA_ERR_DECODE: The audio playback was aborted due to a corruption problem or because the audio used features your browser did not support."; break;
+            case 4: errorMessage = "MEDIA_ERR_SRC_NOT_SUPPORTED: The audio could not be loaded, either because the server or network failed or because the format is not supported. Please check the file path."; break;
+        }
+        console.error("Details:", errorMessage);
+        
+        const descElement = document.querySelector('[data-lang-key="audio_desc"]');
+        if (descElement) {
+            const currentLang = localStorage.getItem('preferredLang') || 'zh-Hant';
+            const errorText = currentLang === 'en' 
+                ? 'Error: Audio file failed to load. Please check the file path or network connection.' 
+                : '錯誤：音訊檔案載入失敗。請檢查檔案路徑或網路連線。';
+            descElement.textContent = errorText;
+            descElement.style.color = 'red';
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Language data structure
