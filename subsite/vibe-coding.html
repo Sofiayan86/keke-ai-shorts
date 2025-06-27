@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap&subset=chinese-traditional" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Custom Teal #00A99D - All Titles Unified -->
-    <!-- Application Structure Plan: A single-page, scrolling application with a fixed top navigation. This structure provides immediate access to all sections, promoting non-linear exploration. The top navigation is designed to be responsive, stacking vertically on smaller screens and horizontally on larger screens. The flow guides the user from high-level concepts to practical applications, challenges, and future trends, with interactive elements like a direct comparative table and animated charts. The 'Related Links' section is redesigned to match the provided screenshot, featuring a prominent button link. A new language toggle is added for Traditional Chinese and English. -->
+    <!-- Application Structure Plan: A single-page, scrolling application with a fixed top navigation. This structure provides immediate access to all sections, promoting non-linear exploration. The top navigation is designed to be responsive, stacking vertically on smaller screens and horizontally on larger screens. The flow guides the user from high-level concepts to practical applications, challenges, and future trends, with interactive elements like a direct comparative table and animated charts. The 'Related Links' section is redesigned to match the provided screenshot, featuring a prominent button link. A new language toggle is added for Traditional Chinese and English. A "Back to Homepage" link is added to the navigation bar. -->
     <!-- Visualization & Content Choices: 
     - Report Info: Comparison of coding paradigms (Table 1). Goal: Compare. Viz/Method: A direct columnar table displaying attributes side-by-side for easy comparison. Interaction: Direct visual comparison, no clicks needed to see different paradigms. Justification: Addresses user feedback for "at a glance" comparison, improving clarity. Library/Method: HTML/CSS/JS (grid layout).
     - Report Info: Quantifiable benefits (55% faster, 80% automation). Goal: Inform/Impact. Viz/Method: Two animated donut charts. Interaction: On-scroll animation to draw attention. Justification: Visualizes percentages effectively and adds a dynamic "wow" factor. Library/Method: Chart.js.
@@ -119,6 +119,7 @@
     <!-- Top Navigation -->
     <nav class="w-full sticky top-0 z-10 py-4 px-6 bg-gray-50 border-b border-gray-200" style="background-color: #E0F2F1; border-color: #A7F3D0;">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-8">
+            <a href="index.html" class="nav-link" data-lang-key="nav_home">回到首頁</a>
             <a href="#intro" class="nav-link" data-lang-key="nav_intro">簡介</a>
             <a href="#compare" class="nav-link" data-lang-key="nav_compare">典範比較</a>
             <a href="#benefits" class="nav-link" data-lang-key="nav_benefits">核心優勢</a>
@@ -290,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const languageData = {
         'zh-Hant': {
             docTitle: 'Vibe Coding: 互動式探索指南',
+            nav_home: '回到首頁', // Added for "Back to Homepage" link
             nav_intro: '簡介',
             nav_compare: '典範比較',
             nav_benefits: '核心優勢',
@@ -406,6 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'en': {
             docTitle: 'Vibe Coding: Interactive Exploration Guide',
+            nav_home: 'Back to Homepage', // Added for "Back to Homepage" link
             nav_intro: 'Introduction',
             nav_compare: 'Paradigm Comparison',
             nav_benefits: 'Core Benefits',
@@ -774,7 +777,10 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 navLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                    // Only apply 'active' class to internal navigation links, not 'nav_home'
+                    if (link.getAttribute('href').startsWith('#')) {
+                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                    }
                 });
             }
         });
