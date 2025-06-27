@@ -55,7 +55,7 @@
         "@type": "WebPage",
         "@id": "https://www.keke-ai-shorts.com/subsite/vibe-coding.html"
       },
-      "image": "https://www.keke-ai-shorts.com/images/og-vibe-coding.jpg",
+      "image": "https://www.keke-ai-shorts.com/assets/og-vibe-coding.jpg",
       "keywords": "Vibe Coding, AI開發, 軟體開發, AI輔助編碼, 低程式碼, No-Code, Andrej Karpathy, 開發典範, AI Orchestration, WebBrain, 科科 AI Shorts",
       "inLanguage": "zh-Hant"
     }
@@ -199,6 +199,16 @@
     <!-- Main Content -->
     <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto">
         <div class="max-w-4xl mx-auto space-y-12">
+
+            <!-- Audio Player Section -->
+            <div class="section-card">
+                <h3 id="audio_title" class="text-xl font-semibold mb-4 text-blue-600">不想閱讀嗎？用聽的！</h3>
+                <p id="audio_desc" class="text-gray-600 mb-4">我們為您準備了本頁內容的音檔版本，點擊下方播放器即可收聽 Vibe Coding 的完整介紹。</p>
+                <audio controls class="w-full">
+                    <source src="../assets/vibe-coding-pod.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
 
             <!-- Section 1: Introduction -->
             <section id="intro" class="text-center">
@@ -454,6 +464,8 @@ document.addEventListener('DOMContentLoaded', function() {
             nav_tools: '關鍵工具',
             nav_strategy: '採用策略',
             nav_links: '參考連結',
+            audio_title: '不想閱讀嗎？用聽的！',
+            audio_desc: '我們為您準備了本頁內容的音檔版本，點擊下方播放器即可收聽 Vibe Coding 的完整介紹。',
             intro_title: 'Vibe Coding',
             intro_subtitle: '軟體開發的下一個典範轉移',
             intro_text: '歡迎來到 Vibe Coding 的世界。這不只是一種新技術，更是一種全新的軟體開發哲學。本互動指南將帶您深入探索 Vibe Coding 的起源、核心概念、變革性優勢，以及它如何重塑開發的未來。您將了解此方法如何從傳統的手動編碼，轉向由 AI 輔助、以人類意圖為中心的創作過程。',
@@ -588,6 +600,8 @@ document.addEventListener('DOMContentLoaded', function() {
             nav_tools: 'Key Tools',
             nav_strategy: 'Adoption Strategy',
             nav_links: 'Important Links',
+            audio_title: 'Don\'t want to read? Listen instead!',
+            audio_desc: 'We have prepared an audio version of this page\'s content. Click the player below to listen to the full introduction to Vibe Coding.',
             intro_title: 'Vibe Coding',
             intro_subtitle: 'The Next Paradigm Shift in Software Development',
             intro_text: 'Welcome to the world of Vibe Coding. This is more than just a new technology; it\'s an entirely new philosophy of software development. This interactive guide will take you deep into the origins, core concepts, transformative benefits, and how Vibe Coding is reshaping the future of development. You will learn how this approach shifts from traditional manual coding to an AI-assisted, human-intent-centric creative process.',
@@ -728,6 +742,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update static text content by ID
         const elementsToUpdate = [
+            'audio_title', 'audio_desc',
             'intro_title', 'intro_subtitle', 'intro_text', 'intro_quote',
             'compare_title', 'compare_subtitle', 'compare_text',
             'benefits_title', 'benefits_subtitle', 'benefits_text',
