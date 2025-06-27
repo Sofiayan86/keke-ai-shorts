@@ -200,21 +200,28 @@
     <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto">
         <div class="max-w-4xl mx-auto space-y-12">
 
-            <!-- Audio Player Section -->
-            <div class="section-card">
-                <h3 id="audio_title" class="text-xl font-semibold mb-4 text-blue-600">不想閱讀嗎？用聽的！</h3>
-                <p id="audio_desc" class="text-gray-600 mb-4">我們為您準備了本頁內容的音檔版本，點擊下方播放器即可收聽 Vibe Coding 的完整介紹。</p>
-                <audio controls class="w-full">
-                    <source src="../assets/vibe-coding-pod.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-
             <!-- Section 1: Introduction -->
             <section id="intro" class="text-center">
                 <h1 id="intro_title" class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Vibe Coding</h1>
                 <p id="intro_subtitle" class="text-xl md:text-2xl text-gray-600 mb-6">軟體開發的下一個典範轉移</p>
                 
+                <!-- Audio Player Section -->
+                <div class="my-8">
+                    <div class="section-card max-w-2xl mx-auto text-left">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl mr-4">🎧</span>
+                            <div>
+                                <h3 class="text-xl font-semibold" style="color: #00A99D;" data-lang-key="audio_title">用聽的探索 Vibe Coding</h3>
+                                <p class="text-gray-600" data-lang-key="audio_desc">完整指南，由 AI 為您朗讀。</p>
+                            </div>
+                        </div>
+                        <audio controls class="w-full">
+                            <source src="../assets/vibe-coding-pod.mp3" type="audio/mpeg">
+                            <span data-lang-key="audio_fallback">您的瀏覽器不支援音訊播放。</span>
+                        </audio>
+                    </div>
+                </div>
+
                 <!-- Secondary Navigation below main title -->
                 <div class="w-full py-4 px-6 bg-white rounded-lg shadow-md mb-8" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
                     <div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-4 text-sm sm:text-base">
@@ -463,9 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nav_future: '未來軌跡',
             nav_tools: '關鍵工具',
             nav_strategy: '採用策略',
-            nav_links: '參考連結',
-            audio_title: '不想閱讀嗎？用聽的！',
-            audio_desc: '我們為您準備了本頁內容的音檔版本，點擊下方播放器即可收聽 Vibe Coding 的完整介紹。',
+            nav_links: '完整文字報告',
             intro_title: 'Vibe Coding',
             intro_subtitle: '軟體開發的下一個典範轉移',
             intro_text: '歡迎來到 Vibe Coding 的世界。這不只是一種新技術，更是一種全新的軟體開發哲學。本互動指南將帶您深入探索 Vibe Coding 的起源、核心概念、變革性優勢，以及它如何重塑開發的未來。您將了解此方法如何從傳統的手動編碼，轉向由 AI 輔助、以人類意圖為中心的創作過程。',
@@ -559,17 +564,20 @@ document.addEventListener('DOMContentLoaded', function() {
             organization_strategy: [
                 "建立 AI 工具使用治理", "在管線中嵌入程式碼審查和掃描", "培訓團隊安全地使用 AI", "務實地採用混合方法", "培養 Vibe Coding 文化"
             ],
-            links_title: '參考連結',
+            links_title: '相關連結',
             links_subtitle: '此處提供本儀表板內容所依據的完整分析報告原文，供您參考。',
             links_report_title: '完整 Vibe Coding 分析報告',
             links_button: '點擊此處閱讀完整報告',
             links_new_tab_text: '將在新分頁中開啟文件',
-            footer_copyright: '&copy; 2025 Vibe Coding 互動式報告. All rights reserved.',
+            footer_copyright: '&copy; 2025 科科 AI Shorts. All Rights Reserved.',
             footer_text: '本報告基於公開資料編纂，旨在提供 Vibe Coding 的概覽與趨勢分析。',
             chart_speed_label_short: '開發時間縮短',
             chart_speed_label_long: '剩餘時間',
             chart_automation_label_short: '自動化任務',
             chart_automation_label_long: '手動任務',
+            audio_title: '用聽的探索 Vibe Coding',
+            audio_desc: '完整指南，由 AI 為您朗讀。',
+            audio_fallback: '您的瀏覽器不支援音訊播放。',
             contactTitle: '需要企業級 AI 落地方案？',
             contactDesc1: 'WebBrain – Team of AI Experts 提供企業級 AI 顧問服務',
             contactDesc2: '從流程自動化、內部培訓到生成式 AI 整合，全面陪伴你的 AI 轉型之旅。',
@@ -599,9 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nav_future: 'Future Trajectory',
             nav_tools: 'Key Tools',
             nav_strategy: 'Adoption Strategy',
-            nav_links: 'Important Links',
-            audio_title: 'Don\'t want to read? Listen instead!',
-            audio_desc: 'We have prepared an audio version of this page\'s content. Click the player below to listen to the full introduction to Vibe Coding.',
+            nav_links: 'Full Text Report',
             intro_title: 'Vibe Coding',
             intro_subtitle: 'The Next Paradigm Shift in Software Development',
             intro_text: 'Welcome to the world of Vibe Coding. This is more than just a new technology; it\'s an entirely new philosophy of software development. This interactive guide will take you deep into the origins, core concepts, transformative benefits, and how Vibe Coding is reshaping the future of development. You will learn how this approach shifts from traditional manual coding to an AI-assisted, human-intent-centric creative process.',
@@ -695,7 +701,7 @@ document.addEventListener('DOMContentLoaded', function() {
             organization_strategy: [
                 "建立 AI 工具使用治理", "在管線中嵌入程式碼審查和掃描", "培訓團隊安全地使用 AI", "務實地採用混合方法", "培養 Vibe Coding 文化"
             ],
-            links_title: '參考連結',
+            links_title: 'Related Links',
             links_subtitle: '此處提供本儀表板內容所依據的完整分析報告原文，供您參考。',
             links_report_title: '完整 Vibe Coding 分析報告',
             links_button: '點擊此處閱讀完整報告',
@@ -706,9 +712,12 @@ document.addEventListener('DOMContentLoaded', function() {
             chart_speed_label_long: '剩餘時間',
             chart_automation_label_short: '自動化任務',
             chart_automation_label_long: '手動任務',
-            contactTitle: '需要企業級 AI 落地方案？',
-            contactDesc1: 'WebBrain – Team of AI Experts 提供企業級 AI 顧問服務',
-            contactDesc2: '從流程自動化、內部培訓到生成式 AI 整合，全面陪伴你的 AI 轉型之旅。',
+            audio_title: 'Listen to the Vibe Coding Guide',
+            audio_desc: 'The complete guide, narrated for you by AI.',
+            audio_fallback: 'Your browser does not support the audio element.',
+            contactTitle: 'Need Enterprise-Level AI Solutions?',
+            contactDesc1: 'WebBrain – Team of AI Experts offers enterprise-level AI consulting services.',
+            contactDesc2: 'From process automation and internal training to generative AI integration, we accompany you on your entire AI transformation journey.',
             formTitle: '填寫表單，預約免費諮詢',
             formDesc: '我們的 AI 專家將在 5個工作天內與您聯繫，了解您的需求並提供專業建議。',
             formName: '姓名',
@@ -741,8 +750,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Update static text content by ID
+       
         const elementsToUpdate = [
-            'audio_title', 'audio_desc',
             'intro_title', 'intro_subtitle', 'intro_text', 'intro_quote',
             'compare_title', 'compare_subtitle', 'compare_text',
             'benefits_title', 'benefits_subtitle', 'benefits_text',
@@ -754,7 +763,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'strategy_title', 'strategy_subtitle', 'strategy_text',
             'strategy_individual_title', 'strategy_org_title',
             'links_title', 'links_subtitle', 'links_report_title', 'links_button', 'links_new_tab_text',
-            'footer_copyright', 'footer_text'
+            'footer_copyright', 'footer_text',
+            'audio_title', 'audio_desc', 'audio_fallback'
         ];
         elementsToUpdate.forEach(id => {
             const element = document.getElementById(id);
