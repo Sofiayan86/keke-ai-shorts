@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap&subset=chinese-traditional" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Custom Teal #00A99D - All Titles Unified -->
-    <!-- Application Structure Plan: A single-page, scrolling application with a fixed top navigation. This structure provides immediate access to all sections, promoting non-linear exploration. The top navigation is designed to be responsive, stacking vertically on smaller screens and horizontally on larger screens. The flow guides the user from high-level concepts to practical applications, challenges, and future trends, with interactive elements like a direct comparative table and animated charts. The 'Related Links' section is redesigned to match the provided screenshot, featuring a prominent button link. A new language toggle is added for Traditional Chinese and English. A "Back to Homepage" link is added to the navigation bar. -->
+    <!-- Application Structure Plan: A single-page, scrolling application with a fixed top navigation. This structure provides immediate access to all sections, promoting non-linear exploration. The top navigation is designed to be responsive, stacking vertically on smaller screens and horizontally on larger screens. The flow guides the user from high-level concepts to practical applications, challenges, and future trends, with interactive elements like a direct comparative table and animated charts. The 'Related Links' section is redesigned to match the provided screenshot, featuring a prominent button link. A new language toggle is added for Traditional Chinese and English. A "Back to Homepage" link is added to the navigation bar. The main content navigation links are moved below the main title in the intro section. -->
     <!-- Visualization & Content Choices: 
     - Report Info: Comparison of coding paradigms (Table 1). Goal: Compare. Viz/Method: A direct columnar table displaying attributes side-by-side for easy comparison. Interaction: Direct visual comparison, no clicks needed to see different paradigms. Justification: Addresses user feedback for "at a glance" comparison, improving clarity. Library/Method: HTML/CSS/JS (grid layout).
     - Report Info: Quantifiable benefits (55% faster, 80% automation). Goal: Inform/Impact. Viz/Method: Two animated donut charts. Interaction: On-scroll animation to draw attention. Justification: Visualizes percentages effectively and adds a dynamic "wow" factor. Library/Method: Chart.js.
@@ -19,8 +19,8 @@
     - Report Info: Use cases and Tools. Goal: Organize/Inform. Viz/Method: Grid of clickable cards with icons. Interaction: Click to reveal detailed description. Justification: Organizes a large amount of information cleanly and encourages user exploration. Library/Method: HTML/CSS/JS.
     - Report Info: Original Research Report Link. Goal: Provide reference in a prominent, actionable way. Viz/Method: A styled button within a card, matching the screenshot. Interaction: Click to navigate to the original report in a new tab. Justification: Provides a clear call to action and visual consistency with user's desired style. Library/Method: HTML/CSS/JS.
     - Language Switching: Goal: Provide bilingual content. Method: JavaScript toggling content based on a data structure, using localStorage for persistence. Justification: Enhances accessibility for diverse users.
+    - Navigation Relocation: Goal: Improve layout and aesthetics. Method: Move specific navigation links from the top bar to a secondary navigation under the main title. Justification: Addresses user feedback for a cleaner top navigation and aligns with desired visual presentation.
     -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Noto Sans TC', 'Inter', sans-serif; /* Noto Sans TC for Chinese, Inter for English */
@@ -112,24 +112,28 @@
         .lang-toggle.active-lang {
             color: #00A99D;
         }
+        .sub-nav-link {
+            transition: all 0.3s ease;
+            color: #64748B; /* Grey text for sub-nav */
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+        .sub-nav-link.active, .sub-nav-link:hover {
+            color: white;
+            background-color: #00A99D;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- Top Navigation -->
     <nav class="w-full sticky top-0 z-10 py-4 px-6 bg-gray-50 border-b border-gray-200" style="background-color: #E0F2F1; border-color: #A7F3D0;">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-8">
-            <a href="index.html" class="nav-link" data-lang-key="nav_home">回到首頁</a>
-            <a href="#intro" class="nav-link" data-lang-key="nav_intro">簡介</a>
-            <a href="#compare" class="nav-link" data-lang-key="nav_compare">典範比較</a>
-            <a href="#benefits" class="nav-link" data-lang-key="nav_benefits">核心優勢</a>
-            <a href="#applications" class="nav-link" data-lang-key="nav_applications">實際應用</a>
-            <a href="#challenges" class="nav-link" data-lang-key="nav_challenges">挑戰與考量</a>
-            <a href="#future" class="nav-link" data-lang-key="nav_future">未來軌跡</a>
-            <a href="#tools" class="nav-link" data-lang-key="nav_tools">關鍵工具</a>
-            <a href="#strategy" class="nav-link" data-lang-key="nav_strategy">採用策略</a>
-            <a href="#related-links" class="nav-link" data-lang-key="nav_links">重要連結</a> 
-            <div class="flex space-x-2 ml-4">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="nav-link" data-lang-key="nav_home">回到首頁</a>
+                <a href="#related-links" class="nav-link" data-lang-key="nav_links">完整文字報告</a> 
+            </div>
+            <div class="flex space-x-2">
                 <span id="lang-zh" class="lang-toggle active-lang" data-lang="zh-Hant">繁中</span>
                 <span>/</span>
                 <span id="lang-en" class="lang-toggle" data-lang="en">EN</span>
@@ -145,6 +149,21 @@
             <section id="intro" class="text-center">
                 <h1 id="intro_title" class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Vibe Coding</h1>
                 <p id="intro_subtitle" class="text-xl md:text-2xl text-gray-600 mb-6">軟體開發的下一個典範轉移</p>
+                
+                <!-- Secondary Navigation below main title -->
+                <div class="w-full py-4 px-6 bg-white rounded-lg shadow-md mb-8" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
+                    <div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-4 text-sm sm:text-base">
+                        <a href="#intro" class="sub-nav-link" data-lang-key="nav_intro">簡介</a>
+                        <a href="#compare" class="sub-nav-link" data-lang-key="nav_compare">典範比較</a>
+                        <a href="#benefits" class="sub-nav-link" data-lang-key="nav_benefits">核心優勢</a>
+                        <a href="#applications" class="sub-nav-link" data-lang-key="nav_applications">實際應用</a>
+                        <a href="#challenges" class="sub-nav-link" data-lang-key="nav_challenges">挑戰與考量</a>
+                        <a href="#future" class="sub-nav-link" data-lang-key="nav_future">未來軌跡</a>
+                        <a href="#tools" class="sub-nav-link" data-lang-key="nav_tools">關鍵工具</a>
+                        <a href="#strategy" class="sub-nav-link" data-lang-key="nav_strategy">採用策略</a>
+                    </div>
+                </div>
+
                 <div class="section-card">
                      <p id="intro_text" class="text-lg text-left text-gray-700 leading-relaxed">
                         歡迎來到 Vibe Coding 的世界。這不只是一種新技術，更是一種全新的軟體開發哲學。本互動指南將帶您深入探索 Vibe Coding 的起源、核心概念、變革性優勢，以及它如何重塑開發的未來。您將了解此方法如何從傳統的手動編碼，轉向由 AI 輔助、以人類意圖為中心的創作過程。
@@ -262,7 +281,7 @@
 
             <!-- Section 9: Related Links - Updated to match screenshot style -->
             <section id="related-links" class="text-center">
-                <h2 id="links_title" class="text-3xl font-bold text-blue-600 mb-2">重要連結</h2>
+                <h2 id="links_title" class="text-3xl font-bold text-blue-600 mb-2">相關連結</h2>
                 <p id="links_subtitle" class="text-lg text-gray-600 mb-8">此處提供本儀表板內容所依據的完整分析報告原文，供您參考。</p>
                 <div class="section-card max-w-lg mx-auto">
                     <h3 id="links_report_title" class="text-xl font-bold text-gray-800 mb-6" style="color: #00A99D;">完整 Vibe Coding 分析報告</h3>
@@ -532,7 +551,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('docTitle').textContent = languageData[lang].docTitle;
 
         // Update nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.nav-link, .sub-nav-link').forEach(link => { // Select both nav types
             const key = link.getAttribute('data-lang-key');
             if (key) {
                 link.textContent = languageData[lang][key];
@@ -773,15 +792,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
+    const subNavLinks = document.querySelectorAll('.sub-nav-link'); // Select sub-nav links as well
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Remove active from all main nav links first
                 navLinks.forEach(link => {
                     // Only apply 'active' class to internal navigation links, not 'nav_home'
                     if (link.getAttribute('href').startsWith('#')) {
-                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        link.classList.remove('active');
                     }
                 });
+                // Then remove active from all sub-nav links
+                subNavLinks.forEach(link => link.classList.remove('active'));
+
+                // Add active to the relevant sub-nav link
+                const currentSubNavLink = document.querySelector(`.sub-nav-link[href="#${entry.target.id}"]`);
+                if (currentSubNavLink) {
+                    currentSubNavLink.classList.add('active');
+                }
             }
         });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
