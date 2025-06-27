@@ -215,9 +215,40 @@
                                 <p class="text-gray-600" data-lang-key="audio_desc">完整指南，由 AI 為您朗讀。</p>
                             </div>
                         </div>
-                        <audio controls class="w-full" src="https://www.keke-ai-shorts.com/assets/vibe-coding-pod.mp3">
+                        
+                        <!-- Audio Player with multiple format support -->
+                        <audio id="audioPlayer" controls class="w-full mb-3" onloadstart="handleAudioLoadStart()" onerror="handleAudioError()" oncanplay="handleAudioCanPlay()">
+                            <source src="https://www.keke-ai-shorts.com/assets/vibe-coding-pod.mp3" type="audio/mpeg">
+                            <source src="https://www.keke-ai-shorts.com/assets/vibe-coding-pod.ogg" type="audio/ogg">
+                            <source src="../assets/vibe-coding-pod.mp3" type="audio/mpeg">
+                            <source src="../assets/vibe-coding-pod.ogg" type="audio/ogg">
                             <span data-lang-key="audio_fallback">您的瀏覽器不支援音訊播放。</span>
                         </audio>
+                        
+                        <!-- Audio Status and Alternative Options -->
+                        <div id="audioStatus" class="text-sm text-gray-500 hidden mb-3"></div>
+                        
+                        <!-- Alternative Download Links -->
+                        <div id="audioAlternatives" class="hidden">
+                            <div class="border-t pt-3 mt-3" style="border-color: #E0F2F1;">
+                                <p class="text-sm text-gray-600 mb-2" data-lang-key="audio_alternatives_text">無法播放？試試以下選項：</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="https://www.keke-ai-shorts.com/assets/vibe-coding-pod.mp3" 
+                                       download="vibe-coding-guide.mp3"
+                                       class="inline-flex items-center px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors">
+                                        📥 <span data-lang-key="audio_download">下載 MP3</span>
+                                    </a>
+                                    <button onclick="openInNewTab()" 
+                                            class="inline-flex items-center px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors">
+                                        🔗 <span data-lang-key="audio_new_tab">在新分頁開啟</span>
+                                    </button>
+                                    <a href="mailto:sofia@webbrain.app?subject=音訊播放問題&body=我在 Vibe Coding 頁面遇到音訊播放問題" 
+                                       class="inline-flex items-center px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors">
+                                        📧 <span data-lang-key="audio_report">回報問題</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -551,6 +582,13 @@ document.addEventListener('DOMContentLoaded', function() {
             audio_title: '用聽的探索 Vibe Coding',
             audio_desc: '完整指南，由 AI 為您朗讀。',
             audio_fallback: '您的瀏覽器不支援音訊播放。',
+            audio_loading: '正在載入音訊...',
+            audio_error: '音訊載入失敗，請嘗試下方的替代選項。',
+            audio_ready: '音訊已就緒，點擊播放按鈕開始聆聽。',
+            audio_alternatives_text: '無法播放？試試以下選項：',
+            audio_download: '下載 MP3',
+            audio_new_tab: '在新分頁開啟',
+            audio_report: '回報問題',
             contactTitle: '需要企業級 AI 落地方案？',
             contactDesc1: 'WebBrain – Team of AI Experts 提供企業級 AI 顧問服務',
             contactDesc2: '從流程自動化、內部培訓到生成式 AI 整合，全面陪伴你的 AI 轉型之旅。',
@@ -662,6 +700,13 @@ document.addEventListener('DOMContentLoaded', function() {
             audio_title: 'Listen to the Vibe Coding Guide',
             audio_desc: 'The complete guide, narrated for you by AI.',
             audio_fallback: 'Your browser does not support the audio element.',
+            audio_loading: 'Loading audio...',
+            audio_error: 'Failed to load audio. Please try the alternative options below.',
+            audio_ready: 'Audio is ready. Click the play button to start listening.',
+            audio_alternatives_text: 'Can\'t play? Try these options:',
+            audio_download: 'Download MP3',
+            audio_new_tab: 'Open in New Tab',
+            audio_report: 'Report Issue',
             contactTitle: 'Need Enterprise-Level AI Solutions?',
             contactDesc1: 'WebBrain – Team of AI Experts offers enterprise-level AI consulting services.',
             contactDesc2: 'From process automation and internal training to generative AI integration, we accompany you on your entire AI transformation journey.',
@@ -683,6 +728,58 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     let charts = {}; // Store chart instances to update them later
+
+    // Audio handling functions
+    function handleAudioLoadStart() {
+        const currentLang = localStorage.getItem('preferredLang') || 'zh-Hant';
+        showAudioStatus(languageData[currentLang].audio_loading, 'text-blue-600');
+    }
+
+    function handleAudioCanPlay() {
+        const currentLang = localStorage.getItem('preferredLang') || 'zh-Hant';
+        showAudioStatus(languageData[currentLang].audio_ready, 'text-green-600');
+        setTimeout(() => {
+            document.getElementById('audioStatus').classList.add('hidden');
+        }, 3000);
+    }
+
+    function handleAudioError() {
+        const currentLang = localStorage.getItem('preferredLang') || 'zh-Hant';
+        showAudioStatus(languageData[currentLang].audio_error, 'text-red-600');
+        document.getElementById('audioAlternatives').classList.remove('hidden');
+        
+        // Try to load from alternative source
+        const audio = document.getElementById('audioPlayer');
+        if (audio && audio.currentSrc.includes('https://www.keke-ai-shorts.com/')) {
+            setTimeout(() => {
+                audio.src = '../assets/vibe-coding-pod.mp3';
+                audio.load();
+            }, 1000);
+        }
+    }
+
+    function showAudioStatus(message, colorClass) {
+        const statusDiv = document.getElementById('audioStatus');
+        statusDiv.textContent = message;
+        statusDiv.className = `text-sm mb-3 ${colorClass}`;
+        statusDiv.classList.remove('hidden');
+    }
+
+    function openInNewTab() {
+        const audioSources = [
+            'https://www.keke-ai-shorts.com/assets/vibe-coding-pod.mp3',
+            '../assets/vibe-coding-pod.mp3'
+        ];
+        
+        audioSources.forEach(src => {
+            try {
+                window.open(src, '_blank');
+                return;
+            } catch (e) {
+                console.log('Failed to open:', src);
+            }
+        });
+    }
 
     function updateLanguage(lang) {
         document.documentElement.lang = lang; // Set HTML lang attribute
