@@ -3,9 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>讓 AI 更聰明：揭秘背後的溝通藝術</title>
+    <title>讓 AI 更聰明：揭秘背後的溝通藝術 | 科科 AI Shorts</title>
+    
+    <!-- SEO and AI Search Optimization -->
+    <meta name="description" content="深入了解如何透過思維鏈 (CoT)、思維樹 (ToT)、RAG 等先進技術，與 AI 進行更有效的溝通。本頁提供互動式教學、提示詞 (Prompt) 解析與企業級 AI 解決方案。">
+    <meta name="keywords" content="AI, 人工智慧, 提示工程, Prompt Engineering, 思維鏈, CoT, 思維樹, ToT, RAG, 大型語言模型, LLM, AI溝通, AI團隊, WebBrain, 科科 AI Shorts">
+    <meta name="author" content="科科 AI Shorts">
+    <link rel="canonical" href="https://www.keke-ai-shorts.com/subsite/AI-prompt.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.keke-ai-shorts.com/subsite/AI-prompt.html">
+    <meta property="og:title" content="讓 AI 更聰明：揭秘背後的溝通藝術 | 科科 AI Shorts">
+    <meta property="og:description" content="深入了解如何透過思維鏈 (CoT)、思維樹 (ToT)、RAG 等先進技術，與 AI 進行更有效的溝通。本頁提供互動式教學、提示詞 (Prompt) 解析與企業級 AI 解決方案。">
+    <meta property="og:image" content="https://www.keke-ai-shorts.com/assets/og-prompt-page.jpg">
+    <meta property="og:site_name" content="科科 AI Shorts">
+    <meta property="og:locale" content="zh_TW">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.keke-ai-shorts.com/subsite/AI-prompt.html">
+    <meta property="twitter:title" content="讓 AI 更聰明：揭秘背後的溝通藝術 | 科科 AI Shorts">
+    <meta property="twitter:description" content="深入了解如何透過思維鏈 (CoT)、思維樹 (ToT)、RAG 等先進技術，與 AI 進行更有效的溝通。本頁提供互動式教學、提示詞 (Prompt) 解析與企業級 AI 解決方案。">
+    <meta property="twitter:image" content="https://www.keke-ai-shorts.com/assets/og-prompt-page.jpg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Structured Data for AI Search (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "讓 AI 更聰明：揭秘背後的溝通藝術",
+      "description": "一篇關於如何優化與 AI 溝通的深度指南。文章涵蓋了從基本概念（如將 AI 視為團隊）到高級技術（如 CoT、ToT、RAG）的全面介紹，並提供互動練習和專家提示詞解析，幫助讀者掌握與 AI 高效協作的藝術。",
+      "author": {
+        "@type": "Organization",
+        "name": "科科 AI Shorts"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WebBrain",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.keke-ai-shorts.com/images/logo.png"
+        }
+      },
+      "datePublished": "2024-05-21",
+      "dateModified": "2024-05-21",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.keke-ai-shorts.com/subsite/AI-prompt.html"
+      },
+      "image": "https://www.keke-ai-shorts.com/images/og-prompt-page.jpg",
+      "keywords": "AI, 人工智慧, 提示工程, Prompt Engineering, 思維鏈, CoT, 思維樹, ToT, RAG, 大型語言模型, LLM, AI溝通, AI團隊, WebBrain, 科科 AI Shorts",
+      "inLanguage": "zh-Hant"
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -83,7 +138,7 @@
         
         <!-- Language Switcher and Back to Home -->
         <div class="mb-8 flex justify-between items-center">
-            <a href="../index.html" class="text-teal-400 hover:text-teal-300 transition-colors duration-300" data-lang-key="backToHome">&larr; 回到首頁</a>
+            <a href="index.html" class="text-teal-400 hover:text-teal-300 transition-colors duration-300" data-lang-key="backToHome">&larr; 回到首頁</a>
             <div class="flex items-center space-x-2 text-sm">
                 <button id="lang-zh" class="px-3 py-1 rounded-md text-slate-600 bg-white">繁中</button>
                 <button id="lang-en" class="px-3 py-1 rounded-md text-slate-600 bg-white">EN</button>
@@ -721,14 +776,14 @@ document.addEventListener('DOMContentLoaded', () => {
             englishOriginal: '英文原文',
             chineseTranslation: '中文翻譯',
             chineseAnalysis: '中文解析：',
-            plannerAnalysis1: '<strong>定義基本結構</strong>：開頭就告訴 AI，一個「計畫」是由「步驟」組成的，且可以使用 <code>&lt;if_block&gt;</code> 來處理條件分支。這是在設定最基本的語法規則。',
-            plannerAnalysis2: '<strong>設定思考框架</strong>：明確指示 AI 規劃時要專注於「下一步的目標」，而不是整個問題的最終目標，避免好高騖遠。同時，所有計畫都必須遵循政策文件。',
-            plannerAnalysis3: '<strong>強制輸出格式</strong>：用 <code>&lt;step&gt;</code> 標籤嚴格規定了每一步的輸出格式，要求必須包含「動作名稱」和「描述」。這種結構化的要求，比模糊的自然語言指令更有效。',
-            plannerAnalysis4: '<strong>強調規則與禁止事項</strong>：用大寫的 "NEVER" 和 "ALWAYS" 來強調關鍵規則，例如「絕不能假設任何資訊」、「永遠要將幫助中心的結果視為標準答案」。這是人類工程師常用的強調手法，對 AI 同樣有效。',
-            managerAnalysis1: '<strong>賦予權威角色</strong>：第一句話就為 AI 設定了「管理者」的角色，並強調其工作「非常重要」。這能引導 AI 採取更嚴謹、更具批判性的視角。',
-            managerAnalysis2: '<strong>明確任務與輸出</strong>：清楚定義任務是「批准或拒絕」一個行動，並給出 <code>&lt;manager_verify&gt;</code> 這樣精確的輸出格式，讓 AI 的回答標準化。',
-            managerAnalysis3: '<strong>提供清晰的思考步驟</strong>：用編號列表 (1-5) 給出了一個明確的思考流程，這就像內建的「思維鏈」，引導 AI 必須先分析上下文、再核對政策、最後才做出決策。',
-            managerAnalysis4: '<strong>動態注入上下文 (RAG)</strong>：提示詞中大量的 <code>{...}</code> 佔位符，如 <code>{wiki_system_prompt}</code>，表明系統會在運行時，將最新的公司政策、客戶對話等即時資訊「填」進來，讓 AI 能基於最準確的資料做判斷。',
+            plannerAnalysis1: '<strong>定義基本結構</strong>：開頭就告訴 AI，一個「計畫」是由「步驟」組成的，且可以使用 <code>&lt;if_block&gt;</code> 來處理條件分支。這是在設定最基本的語法規則。</li>',
+            plannerAnalysis2: '<strong>設定思考框架</strong>：明確指示 AI 規劃時要專注於「下一步的目標」，而不是整個問題的最終目標，避免好高騖遠。同時，所有計畫都必須遵循政策文件。</li>',
+            plannerAnalysis3: '<strong>強制輸出格式</strong>：用 <code>&lt;step&gt;</code> 標籤嚴格規定了每一步的輸出格式，要求必須包含「動作名稱」和「描述」。這種結構化的要求，比模糊的自然語言指令更有效。</li>',
+            plannerAnalysis4: '<strong>強調規則與禁止事項</strong>：用大寫的 "NEVER" 和 "ALWAYS" 來強調關鍵規則，例如「絕不能假設任何資訊」、「永遠要將幫助中心的結果視為標準答案」。這是人類工程師常用的強調手法，對 AI 同樣有效。</li>',
+            managerAnalysis1: '<strong>賦予權威角色</strong>：第一句話就為 AI 設定了「管理者」的角色，並強調其工作「非常重要」。這能引導 AI 採取更嚴謹、更具批判性的視角。</li>',
+            managerAnalysis2: '<strong>明確任務與輸出</strong>：清楚定義任務是「批准或拒絕」一個行動，並給出 <code>&lt;manager_verify&gt;</code> 這樣精確的輸出格式，讓 AI 的回答標準化。</li>',
+            managerAnalysis3: '<strong>提供清晰的思考步驟</strong>：用編號列表 (1-5) 給出了一個明確的思考流程，這就像內建的「思維鏈」，引導 AI 必須先分析上下文、再核對政策、最後才做出決策。</li>',
+            managerAnalysis4: '<strong>動態注入上下文 (RAG)</strong>：提示詞中大量的 <code>{...}</code> 佔位符，如 <code>{wiki_system_prompt}</code>，表明系統會在運行時，將最新的公司政策、客戶對話等即時資訊「填」進來，讓 AI 能基於最準確的資料做判斷。</li>',
             interactiveTitle: '動手試試：體驗 AI 團隊合作',
             interactiveDesc: '現在您已經了解了背後的原理，親手來體驗一下「規劃師」和「品管員」是如何協同工作的吧！',
             plannerTitle: 'AI 規劃師',
