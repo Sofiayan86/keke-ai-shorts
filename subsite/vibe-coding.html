@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Coding: 互動式探索指南</title>
+    <title id="docTitle">Vibe Coding: 互動式探索指南</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap&subset=chinese-traditional" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Custom Teal #00A99D - All Titles Unified -->
-    <!-- Application Structure Plan: A single-page, scrolling application with a fixed top navigation. This structure provides immediate access to all sections, promoting non-linear exploration. The top navigation is designed to be responsive, stacking vertically on smaller screens and horizontally on larger screens. The flow guides the user from high-level concepts to practical applications, challenges, and future trends, with interactive elements like a direct comparative table and animated charts. The 'Related Links' section is redesigned to match the provided screenshot, featuring a prominent button link. -->
+    <!-- Application Structure Plan: A single-page, scrolling application with a fixed top navigation. This structure provides immediate access to all sections, promoting non-linear exploration. The top navigation is designed to be responsive, stacking vertically on smaller screens and horizontally on larger screens. The flow guides the user from high-level concepts to practical applications, challenges, and future trends, with interactive elements like a direct comparative table and animated charts. The 'Related Links' section is redesigned to match the provided screenshot, featuring a prominent button link. A new language toggle is added for Traditional Chinese and English. -->
     <!-- Visualization & Content Choices: 
     - Report Info: Comparison of coding paradigms (Table 1). Goal: Compare. Viz/Method: A direct columnar table displaying attributes side-by-side for easy comparison. Interaction: Direct visual comparison, no clicks needed to see different paradigms. Justification: Addresses user feedback for "at a glance" comparison, improving clarity. Library/Method: HTML/CSS/JS (grid layout).
     - Report Info: Quantifiable benefits (55% faster, 80% automation). Goal: Inform/Impact. Viz/Method: Two animated donut charts. Interaction: On-scroll animation to draw attention. Justification: Visualizes percentages effectively and adds a dynamic "wow" factor. Library/Method: Chart.js.
     - Report Info: Developer role evolution towards 2030. Goal: Show change over time. Viz/Method: A horizontal bar chart representing the shift in skills from 'Manual Coding' to 'AI Orchestration'. Interaction: Hovering over bars for tooltips. Justification: Clearly illustrates the transition and the changing nature of the developer role. Library/Method: Chart.js.
     - Report Info: Use cases and Tools. Goal: Organize/Inform. Viz/Method: Grid of clickable cards with icons. Interaction: Click to reveal detailed description. Justification: Organizes a large amount of information cleanly and encourages user exploration. Library/Method: HTML/CSS/JS.
     - Report Info: Original Research Report Link. Goal: Provide reference in a prominent, actionable way. Viz/Method: A styled button within a card, matching the screenshot. Interaction: Click to navigate to the original report in a new tab. Justification: Provides a clear call to action and visual consistency with user's desired style. Library/Method: HTML/CSS/JS.
+    - Language Switching: Goal: Provide bilingual content. Method: JavaScript toggling content based on a data structure, using localStorage for persistence. Justification: Enhances accessibility for diverse users.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Noto Sans TC', 'Inter', sans-serif; /* Noto Sans TC for Chinese, Inter for English */
             background-color: #F0F9F8; /* Light lake green background - kept light for contrast */
             color: #334155; /* Dark slate text */
         }
@@ -101,6 +103,15 @@
         .text-blue-700 { /* For tool names, keeping this as teal for contrast with the blue titles */
             color: #00A99D; /* Keeping this as the custom teal */
         }
+        .lang-toggle {
+            cursor: pointer;
+            font-weight: bold;
+            color: #64748B;
+            transition: color 0.3s ease;
+        }
+        .lang-toggle.active-lang {
+            color: #00A99D;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -108,15 +119,20 @@
     <!-- Top Navigation -->
     <nav class="w-full sticky top-0 z-10 py-4 px-6 bg-gray-50 border-b border-gray-200" style="background-color: #E0F2F1; border-color: #A7F3D0;">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-8">
-            <a href="#intro" class="nav-link active">簡介</a>
-            <a href="#compare" class="nav-link">典範比較</a>
-            <a href="#benefits" class="nav-link">核心優勢</a>
-            <a href="#applications" class="nav-link">實際應用</a>
-            <a href="#challenges" class="nav-link">挑戰與考量</a>
-            <a href="#future" class="nav-link">未來軌跡</a>
-            <a href="#tools" class="nav-link">關鍵工具</a>
-            <a href="#strategy" class="nav-link">採用策略</a>
-            <a href="#related-links" class="nav-link">重要連結</a> <!-- Changed nav link text -->
+            <a href="#intro" class="nav-link" data-lang-key="nav_intro">簡介</a>
+            <a href="#compare" class="nav-link" data-lang-key="nav_compare">典範比較</a>
+            <a href="#benefits" class="nav-link" data-lang-key="nav_benefits">核心優勢</a>
+            <a href="#applications" class="nav-link" data-lang-key="nav_applications">實際應用</a>
+            <a href="#challenges" class="nav-link" data-lang-key="nav_challenges">挑戰與考量</a>
+            <a href="#future" class="nav-link" data-lang-key="nav_future">未來軌跡</a>
+            <a href="#tools" class="nav-link" data-lang-key="nav_tools">關鍵工具</a>
+            <a href="#strategy" class="nav-link" data-lang-key="nav_strategy">採用策略</a>
+            <a href="#related-links" class="nav-link" data-lang-key="nav_links">重要連結</a> 
+            <div class="flex space-x-2 ml-4">
+                <span id="lang-zh" class="lang-toggle active-lang" data-lang="zh-Hant">繁中</span>
+                <span>/</span>
+                <span id="lang-en" class="lang-toggle" data-lang="en">EN</span>
+            </div>
         </div>
     </nav>
 
@@ -126,13 +142,13 @@
 
             <!-- Section 1: Introduction -->
             <section id="intro" class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Vibe Coding</h1>
-                <p class="text-xl md:text-2xl text-gray-600 mb-6">軟體開發的下一個典範轉移</p>
+                <h1 id="intro_title" class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Vibe Coding</h1>
+                <p id="intro_subtitle" class="text-xl md:text-2xl text-gray-600 mb-6">軟體開發的下一個典範轉移</p>
                 <div class="section-card">
-                     <p class="text-lg text-left text-gray-700 leading-relaxed">
+                     <p id="intro_text" class="text-lg text-left text-gray-700 leading-relaxed">
                         歡迎來到 Vibe Coding 的世界。這不只是一種新技術，更是一種全新的軟體開發哲學。本互動指南將帶您深入探索 Vibe Coding 的起源、核心概念、變革性優勢，以及它如何重塑開發的未來。您將了解此方法如何從傳統的手動編碼，轉向由 AI 輔助、以人類意圖為中心的創作過程。
                     </p>
-                    <blockquote class="mt-6 border-l-4 border-blue-500 pl-4 italic text-gray-500">
+                    <blockquote id="intro_quote" class="mt-6 border-l-4 border-blue-500 pl-4 italic text-gray-500">
                         「完全沉浸於氛圍中，擁抱指數級增長，並忘記程式碼的存在。」 - Andrej Karpathy
                     </blockquote>
                 </div>
@@ -140,16 +156,16 @@
             
             <!-- Section 2: Comparison -->
             <section id="compare">
-                 <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">典範比較</h2>
-                 <p class="text-lg text-gray-600 text-center mb-8">Vibe Coding 如何脫穎而出？</p>
+                 <h2 id="compare_title" class="text-3xl font-bold text-center mb-2 text-blue-600">典範比較</h2>
+                 <p id="compare_subtitle" class="text-lg text-gray-600 text-center mb-8">Vibe Coding 如何脫穎而出？</p>
                 <div class="section-card">
-                   <p class="mb-6 text-gray-600">軟體開發方法不斷演進。從需要精確語法的傳統編碼，到視覺化的低/無程式碼平台，每一步都降低了技術門檻。Vibe Coding 則實現了終極飛躍：使用自然語言作為主要介面。此互動比較將展示三種典範在核心方法、開發者角色和進入門檻上的根本差異。</p>
+                   <p id="compare_text" class="mb-6 text-gray-600">軟體開發方法不斷演進。從需要精確語法的傳統編碼，到視覺化的低/無程式碼平台，每一步都降低了技術門檻。Vibe Coding 則實現了終極飛躍：使用自然語言作為主要介面。此互動比較將展示三種典範在核心方法、開發者角色和進入門檻上的根本差異。</p>
                     <!-- New Comparison Table Structure -->
                     <div class="grid grid-cols-4 gap-4 text-center font-semibold bg-gray-100 p-3 rounded-t-lg" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
-                        <div></div> <!-- Empty cell for the aspect labels -->
-                        <div style="color: #00A99D;">Vibe Coding</div>
-                        <div style="color: #00A99D;">低/無程式碼</div>
-                        <div style="color: #00A99D;">傳統編碼</div>
+                        <div data-lang-key="compare_header_empty"></div> <!-- Empty cell for the aspect labels -->
+                        <div style="color: #00A99D;" data-lang-key="compare_header_vibe">Vibe Coding</div>
+                        <div style="color: #00A99D;" data-lang-key="compare_header_lowcode">低/無程式碼</div>
+                        <div style="color: #00A99D;" data-lang-key="compare_header_traditional">傳統編碼</div>
                     </div>
                     <div id="comparison-table-content" class="bg-white rounded-b-lg border border-t-0" style="border-color: #A7F3D0;">
                         <!-- Comparison rows will be injected here by JS -->
@@ -159,24 +175,24 @@
 
             <!-- Section 3: Benefits -->
             <section id="benefits">
-                <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">核心優勢</h2>
-                <p class="text-lg text-gray-600 text-center mb-8">量化 Vibe Coding 帶來的變革</p>
+                <h2 id="benefits_title" class="text-3xl font-bold text-center mb-2 text-blue-600">核心優勢</h2>
+                <p id="benefits_subtitle" class="text-lg text-gray-600 text-center mb-8">量化 Vibe Coding 帶來的變革</p>
                 <div class="section-card">
-                    <p class="mb-8 text-gray-600">Vibe Coding 的影響不僅是理論上的，更是可以量化的。它極大地提升了開發速度和生產力，同時降低了技術門檻，使更多人能夠參與軟體創作。下方的圖表直觀地展示了這些驚人的效益，從專案完成時間的縮短到日常任務的自動化，這些數據揭示了 Vibe Coding 如何從根本上改變工作流程。</p>
+                    <p id="benefits_text" class="mb-8 text-gray-600">Vibe Coding 的影響不僅是理論上的，更是可以量化的。它極大地提升了開發速度和生產力，同時降低了技術門檻，使更多人能夠參與軟體創作。下方的圖表直觀地展示了這些驚人的效益，從專案完成時間的縮短到日常任務的自動化，這些數據揭示了 Vibe Coding 如何從根本上改變工作流程。</p>
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div class="text-center">
                             <div class="chart-container mx-auto">
                                 <canvas id="speedChart"></canvas>
                             </div>
-                            <h3 class="text-xl font-semibold mt-4">加速開發</h3>
-                            <p class="text-gray-600 mt-2">專案完成時間縮短最高達 56%，實現快速原型設計與迭代。</p>
+                            <h3 id="benefit_speed_title" class="text-xl font-semibold mt-4">加速開發</h3>
+                            <p id="benefit_speed_text" class="text-gray-600 mt-2">專案完成時間縮短最高達 56%，實現快速原型設計與迭代。</p>
                         </div>
                         <div class="text-center">
                            <div class="chart-container mx-auto">
                                 <canvas id="automationChart"></canvas>
                             </div>
-                            <h3 class="text-xl font-semibold mt-4">提升生產力</h3>
-                            <p class="text-gray-600 mt-2">預計到 2030 年，AI 可自動化高達 80% 的日常編碼任務。</p>
+                            <h3 id="benefit_automation_title" class="text-xl font-semibold mt-4">提升生產力</h3>
+                            <p id="benefit_automation_text" class="text-gray-600 mt-2">預計到 2030 年，AI 可自動化高達 80% 的日常編碼任務。</p>
                         </div>
                     </div>
                 </div>
@@ -184,30 +200,30 @@
 
             <!-- Section 4: Applications -->
             <section id="applications">
-                <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">實際應用</h2>
-                <p class="text-lg text-gray-600 text-center mb-8">Vibe Coding 在各領域的實踐</p>
+                <h2 id="applications_title" class="text-3xl font-bold text-center mb-2 text-blue-600">實際應用</h2>
+                <p id="applications_subtitle" class="text-lg text-gray-600 text-center mb-8">Vibe Coding 在各領域的實踐</p>
                  <div class="section-card">
-                    <p class="mb-8 text-gray-600">Vibe Coding 不僅僅是一個概念，它已經在許多領域展現出強大的實用價值。從新創公司的快速產品驗證，到大型企業的內部創新，再到 DevOps 流程的自動化，它正在改變團隊構建和測試想法的方式。點擊下方卡片，探索 Vibe Coding 在不同場景下的具體應用案例。</p>
+                    <p id="applications_text" class="mb-8 text-gray-600">Vibe Coding 不僅僅是一個概念，它已經在許多領域展現出強大的實用價值。從新創公司的快速產品驗證，到大型企業的內部創新，再到 DevOps 流程的自動化，它正在改變團隊構建和測試想法的方式。點擊下方卡片，探索 Vibe Coding 在不同場景下的具體應用案例。</p>
                     <div id="applications-grid" class="grid md:grid-cols-2 gap-6"></div>
                 </div>
             </section>
 
             <!-- Section 5: Challenges -->
             <section id="challenges">
-                <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">挑戰與關鍵考量</h2>
-                <p class="text-lg text-gray-600 text-center mb-8">擁抱新典範的務實視角</p>
+                <h2 id="challenges_title" class="text-3xl font-bold text-center mb-2 text-blue-600">挑戰與關鍵考量</h2>
+                <p id="challenges_subtitle" class="text-lg text-gray-600 text-center mb-8">擁抱新典範的務實視角</p>
                 <div class="section-card">
-                    <p class="mb-8 text-gray-600">儘管 Vibe Coding 潛力巨大，但它並非萬靈丹。採用這項新技術需要我們正視其挑戰，包括程式碼品質、安全性、開發人員技能的演變，以及在企業級應用中的擴展性限制。了解這些挑戰是成功整合 Vibe Coding、並在創新與穩定之間取得平衡的關鍵。</p>
+                    <p id="challenges_text" class="mb-8 text-gray-600">儘管 Vibe Coding 潛力巨大，但它並非萬靈丹。採用這項新技術需要我們正視其挑戰，包括程式碼品質、安全性、開發人員技能的演變，以及在企業級應用中的擴展性限制。了解這些挑戰是成功整合 Vibe Coding、並在創新與穩定之間取得平衡的關鍵。</p>
                     <div id="challenges-container" class="space-y-4"></div>
                 </div>
             </section>
             
             <!-- Section 6: Future -->
             <section id="future">
-                <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">未來軌跡</h2>
-                <p class="text-lg text-gray-600 text-center mb-8">開發者角色的演變 (至 2030年)</p>
+                <h2 id="future_title" class="text-3xl font-bold text-center mb-2 text-blue-600">未來軌跡</h2>
+                <p id="future_subtitle" class="text-lg text-gray-600 text-center mb-8">開發者角色的演變 (至 2030年)</p>
                 <div class="section-card">
-                     <p class="mb-8 text-gray-600">Vibe Coding 正在推動開發人員角色的根本性演變。未來，開發人員的價值將從手動編寫每一行程式碼，轉變為更高層次的策略性工作。下圖展示了這種趨勢：傳統的編碼技能佔比將會下降，而如系統架構設計、提示工程和 AI 協調等「元技能」將變得至關重要。開發人員將成為引導 AI 的建築師，而非僅僅是工匠。</p>
+                     <p id="future_text" class="mb-8 text-gray-600">Vibe Coding 正在推動開發人員角色的根本性演變。未來，開發人員的價值將從手動編寫每一行程式碼，轉變為更高層次的策略性工作。下圖展示了這種趨勢：傳統的編碼技能佔比將會下降，而如系統架構設計、提示工程和 AI 協調等「元技能」將變得至關重要。開發人員將成為引導 AI 的建築師，而非僅僅是工匠。</p>
                     <div class="chart-container h-96 md:h-[450px] max-w-full">
                         <canvas id="futureChart"></canvas>
                     </div>
@@ -216,27 +232,27 @@
 
             <!-- Section 7: Tools -->
             <section id="tools">
-                 <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">關鍵工具生態系</h2>
-                 <p class="text-lg text-gray-600 text-center mb-8">驅動 Vibe Coding 革命的平台</p>
+                 <h2 id="tools_title" class="text-3xl font-bold text-center mb-2 text-blue-600">關鍵工具生態系</h2>
+                 <p id="tools_subtitle" class="text-lg text-gray-600 text-center mb-8">驅動 Vibe Coding 革命的平台</p>
                 <div class="section-card">
-                    <p class="mb-8 text-gray-600">一個充滿活力的工具生態系正在圍繞 Vibe Coding 形成。從通用的程式碼建議工具到專門的 UI 生成器和全端應用構建平台，這些工具是將 Vibe Coding 理念付諸實踐的載體。以下是一些市場上領先的工具，它們各自針對不同的開發需求，共同推動著這場由 AI 驅動的開發革命。</p>
+                    <p id="tools_text" class="mb-8 text-gray-600">一個充滿活力的工具生態系正在圍繞 Vibe Coding 形成。從通用的程式碼建議工具到專門的 UI 生成器和全端應用構建平台，這些工具是將 Vibe Coding 理念付諸實踐的載體。以下是一些市場上領先的工具，它們各自針對不同的開發需求，共同推動著這場由 AI 驅動的開發革命。</p>
                     <div id="tools-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center"></div>
                 </div>
             </section>
 
             <!-- Section 8: Strategy -->
             <section id="strategy">
-                <h2 class="text-3xl font-bold text-center mb-2 text-blue-600">採用策略</h2>
-                <p class="text-lg text-gray-600 text-center mb-8">給個人與組織的建議</p>
+                <h2 id="strategy_title" class="text-3xl font-bold text-center mb-2 text-blue-600">採用策略</h2>
+                <p id="strategy_subtitle" class="text-lg text-gray-600 text-center mb-8">給個人與組織的建議</p>
                 <div class="section-card">
-                    <p class="mb-8 text-gray-600">成功採用 Vibe Coding 需要策略性的規劃。對於個人開發者而言，這意味著培養新技能；對於組織而言，則需要建立治理和培訓體系。本節提供可操作的建議，幫助您在這個新時代中蓬勃發展，無論您是獨立開發者還是大型團隊的領導者。</p>
+                    <p id="strategy_text" class="mb-8 text-gray-600">成功採用 Vibe Coding 需要策略性的規劃。對於個人開發者而言，這意味著培養新技能；對於組織而言，則需要建立治理和培訓體系。本節提供可操作的建議，幫助您在這個新時代中蓬勃發展，無論您是獨立開發者還是大型團隊的領導者。</p>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-xl font-semibold mb-4 text-blue-600">🚀 個人開發者</h3>
+                            <h3 id="strategy_individual_title" class="text-xl font-semibold mb-4 text-blue-600">🚀 個人開發者</h3>
                             <ul id="individual-strategy" class="space-y-3 list-inside"></ul>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-4 text-green-600">🏢 組織團隊</h3>
+                            <h3 id="strategy_org_title" class="text-xl font-semibold mb-4 text-green-600">🏢 組織團隊</h3>
                             <ul id="org-strategy" class="space-y-3 list-inside"></ul>
                         </div>
                     </div>
@@ -245,14 +261,14 @@
 
             <!-- Section 9: Related Links - Updated to match screenshot style -->
             <section id="related-links" class="text-center">
-                <h2 class="text-3xl font-bold text-blue-600 mb-2">重要連結</h2>
-                <p class="text-lg text-gray-600 mb-8">此處提供本儀表板內容所依據的完整分析報告原文，供您參考。</p>
+                <h2 id="links_title" class="text-3xl font-bold text-blue-600 mb-2">重要連結</h2>
+                <p id="links_subtitle" class="text-lg text-gray-600 mb-8">此處提供本儀表板內容所依據的完整分析報告原文，供您參考。</p>
                 <div class="section-card max-w-lg mx-auto">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6" style="color: #00A99D;">完整 Vibe Coding 分析報告</h3>
-                    <a href="https://docs.google.com/document/d/1KoYKez_1b9pp3YZqZm1H9DihJM1f6M2JcmYYObWTZMA/edit?usp=sharing" target="_blank" class="inline-block bg-[#00A99D] text-white py-3 px-8 rounded-lg font-semibold hover:bg-opacity-90 transition-colors shadow-md">
+                    <h3 id="links_report_title" class="text-xl font-bold text-gray-800 mb-6" style="color: #00A99D;">完整 Vibe Coding 分析報告</h3>
+                    <a href="https://docs.google.com/document/d/1KoYKez_1b9pp3YZqZm1H9DihJM1f6M2JcmYYObWTZMA/edit?usp=sharing" target="_blank" id="links_button" class="inline-block bg-[#00A99D] text-white py-3 px-8 rounded-lg font-semibold hover:bg-opacity-90 transition-colors shadow-md">
                         點擊此處閱讀完整報告
                     </a>
-                    <p class="text-gray-500 text-sm mt-4">將在新分頁中開啟文件</p>
+                    <p id="links_new_tab_text" class="text-gray-500 text-sm mt-4">將在新分頁中開啟文件</p>
                 </div>
             </section>
 
@@ -262,178 +278,439 @@
     <!-- Footer -->
     <footer class="bg-gray-50 text-gray-600 py-6 px-4 sm:px-6 lg:px-10 mt-12" style="background-color: #E0F2F1; border-top: 1px solid #A7F3D0;">
         <div class="max-w-6xl mx-auto text-center text-sm md:text-base">
-            <p>&copy; 2025 Vibe Coding 互動式報告. All rights reserved.</p>
-            <p class="mt-2">本報告基於公開資料編纂，旨在提供 Vibe Coding 的概覽與趨勢分析。</p>
+            <p id="footer_copyright">&copy; 2025 Vibe Coding 互動式報告. All rights reserved.</p>
+            <p id="footer_text" class="mt-2">本報告基於公開資料編纂，旨在提供 Vibe Coding 的概覽與趨勢分析。</p>
         </div>
     </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    
-    const comparisonData = {
-        'vibe-coding': {
-            title: 'Vibe Coding',
-            items: [
-                { label: '方法', text: 'AI 輔助、意圖驅動' },
-                { label: '開發人員角色', text: 'AI 協調者/產品工程師' },
-                { label: '抽象層次', text: '高層次、概念性' },
-                { label: '主要輸入', text: '自然語言提示' },
-                { label: '進入門檻', text: '低' }
-            ]
+
+    // Language data structure
+    const languageData = {
+        'zh-Hant': {
+            docTitle: 'Vibe Coding: 互動式探索指南',
+            nav_intro: '簡介',
+            nav_compare: '典範比較',
+            nav_benefits: '核心優勢',
+            nav_applications: '實際應用',
+            nav_challenges: '挑戰與考量',
+            nav_future: '未來軌跡',
+            nav_tools: '關鍵工具',
+            nav_strategy: '採用策略',
+            nav_links: '重要連結',
+            intro_title: 'Vibe Coding',
+            intro_subtitle: '軟體開發的下一個典範轉移',
+            intro_text: '歡迎來到 Vibe Coding 的世界。這不只是一種新技術，更是一種全新的軟體開發哲學。本互動指南將帶您深入探索 Vibe Coding 的起源、核心概念、變革性優勢，以及它如何重塑開發的未來。您將了解此方法如何從傳統的手動編碼，轉向由 AI 輔助、以人類意圖為中心的創作過程。',
+            intro_quote: '「完全沉浸於氛圍中，擁抱指數級增長，並忘記程式碼的存在。」 - Andrej Karpathy',
+            compare_title: '典範比較',
+            compare_subtitle: 'Vibe Coding 如何脫穎而出？',
+            compare_text: '軟體開發方法不斷演進。從需要精確語法的傳統編碼，到視覺化的低/無程式碼平台，每一步都降低了技術門檻。Vibe Coding 則實現了終極飛躍：使用自然語言作為主要介面。此互動比較將展示三種典範在核心方法、開發者角色和進入門檻上的根本差異。',
+            compare_header_empty: '',
+            compare_header_vibe: 'Vibe Coding',
+            compare_header_lowcode: '低/無程式碼',
+            compare_header_traditional: '傳統編碼',
+            comparison_table: {
+                '方法': {
+                    'vibe-coding': 'AI 輔助、意圖驅動',
+                    'low-code': '視覺、組件式',
+                    'traditional': '手動、語法驅動'
+                },
+                '開發人員角色': {
+                    'vibe-coding': 'AI 協調者/產品工程師',
+                    'low-code': '公民開發者/業務使用者',
+                    'traditional': '編碼者/工程師'
+                },
+                '抽象層次': {
+                    'vibe-coding': '高層次、概念性',
+                    'low-code': '中層次',
+                    'traditional': '低層次、詳細'
+                },
+                '主要輸入': {
+                    'vibe-coding': '自然語言提示',
+                    'low-code': '拖放、配置',
+                    'traditional': '特定程式語言'
+                },
+                '進入門檻': {
+                    'vibe-coding': '低',
+                    'low-code': '中',
+                    'traditional': '高'
+                }
+            },
+            benefits_title: '核心優勢',
+            benefits_subtitle: '量化 Vibe Coding 帶來的變革',
+            benefits_text: 'Vibe Coding 的影響不僅是理論上的，更是可以量化的。它極大地提升了開發速度和生產力，同時降低了技術門檻，使更多人能夠參與軟體創作。下方的圖表直觀地展示了這些驚人的效益，從專案完成時間的縮短到日常任務的自動化，這些數據揭示了 Vibe Coding 如何從根本上改變工作流程。',
+            benefit_speed_title: '加速開發',
+            benefit_speed_text: '專案完成時間縮短最高達 56%，實現快速原型設計與迭代。',
+            benefit_automation_title: '提升生產力',
+            benefit_automation_text: '預計到 2030 年，AI 可自動化高達 80% 的日常編碼任務。',
+            applications_title: '實際應用',
+            applications_subtitle: 'Vibe Coding 在各領域的實踐',
+            applications_text: 'Vibe Coding 不僅僅是一個概念，它已經在許多領域展現出強大的實用價值。從新創公司的快速產品驗證，到大型企業的內部創新，再到 DevOps 流程的自動化，它正在改變團隊構建和測試想法的方式。點擊下方卡片，探索 Vibe Coding 在不同場景下的具體應用案例。',
+            applicationsData: [
+                { title: '快速原型與 MVP', text: '被視為原型設計和 MVP 開發的「聖杯」，允許公司在數小時內自發地構建和測試想法，而非數週。', icon: '💡' },
+                { title: 'DevOps 自動化', text: '快速生成 CI/CD 管線、IaC 範本（如 Terraform）、監控腳本和策略即程式碼，實現元層次的自動化。', icon: '⚙️' },
+                { title: '客戶自訂軟體', text: '簡化客戶專案的開發，特別是在需要高度透明度和快速迭代的場景中。', icon: '🤝' },
+                { title: '學習與實驗', text: '為初學者和愛好者提供一個低摩擦的「遊樂場」，以實用的方式探索和學習程式設計概念。', icon: '🧪' }
+            ],
+            challenges_title: '挑戰與關鍵考量',
+            challenges_subtitle: '擁抱新典範的務實視角',
+            challenges_text: '儘管 Vibe Coding 潛力巨大，但它並非萬靈丹。採用這項新技術需要我們正視其挑戰，包括程式碼品質、安全性、開發人員技能的演變，以及在企業級應用中的擴展性限制。了解這些挑戰是成功整合 Vibe Coding、並在創新與穩定之間取得平衡的關鍵。',
+            challengesData: [
+                { title: '程式碼品質與偵錯', text: 'AI 可能產生有缺陷或效率低下的「幻覺」程式碼，若開發者不理解底層邏輯，偵錯和長期維護將變得困難。', icon: '🐞' },
+                { title: '安全漏洞', text: 'AI 可能無意中引入安全漏洞，如洩漏的秘密或易受攻擊的依賴項。需要「信任但驗證」的嚴格安全實踐。', icon: '🔒' }, 
+                { title: '過度依賴與技能退化', text: '過度依賴 AI 可能阻礙核心編碼和問題解決能力的發展，開發人員需策略性地進行「認知卸載」。', icon: '🧠' },
+                { title: '企業級可擴展性', text: '目前最適合簡單應用或原型。對於大型複雜系統，其有效性可能會降低。', icon: '🏢' }
+            ],
+            future_title: '未來軌跡',
+            future_subtitle: '開發者角色的演變 (至 2030年)',
+            future_text: 'Vibe Coding 正在推動開發人員角色的根本性演變。未來，開發人員的價值將從手動編寫每一行程式碼，轉變為更高層次的策略性工作。下圖展示了這種趨勢：傳統的編碼技能佔比將會下降，而如系統架構設計、提示工程和 AI 協調等「元技能」將變得至關重要。開發人員將成為引導 AI 的建築師，而非僅僅是工匠。',
+            futureChartLabels: ['傳統編碼技能', '系統架構設計', 'AI 協調與提示工程', '人機協作與審查'],
+            futureChartCurrent: '當前技能佔比',
+            futureChartPredicted: '2030 預測技能佔比',
+            tools_title: '關鍵工具生態系',
+            tools_subtitle: '驅動 Vibe Coding 革命的平台',
+            tools_text: '一個充滿活力的工具生態系正在圍繞 Vibe Coding 形成。從通用的程式碼建議工具到專門的 UI 生成器和全端應用構建平台，這些工具是將 Vibe Coding 理念付諸實踐的載體。以下是一些市場上領先的工具，它們各自針對不同的開發需求，共同推動著這場由 AI 驅動的開發革命。',
+            toolsData: [
+                { name: 'GitHub Copilot', desc: '即時程式碼建議' },
+                { name: 'Replit AI', desc: '全端網頁/行動應用' },
+                { name: 'v0 by Vercel', desc: 'UI 組件生成' },
+                { name: 'Lovable', desc: '簡化軟體開發' },
+                { name: 'Anysphere', desc: 'AI 驅動編碼' },
+                { name: 'Windsurf', desc: 'AI 編碼助手' },
+                { name: 'Rork App', desc: '行動應用構建' },
+                { name: 'Stitch', desc: '快速原型設計' },
+            ],
+            strategy_title: '採用策略',
+            strategy_subtitle: '給個人與組織的建議',
+            strategy_text: '成功採用 Vibe Coding 需要策略性的規劃。對於個人開發者而言，這意味著培養新技能；對於組織而言，則需要建立治理和培訓體系。本節提供可操作的建議，幫助您在這個新時代中蓬勃發展，無論您是獨立開發者還是大型團隊的領導者。',
+            strategy_individual_title: '🚀 個人開發者',
+            individual_strategy: [
+                "培養清晰的提示工程技能", "平衡 AI 生產力與核心編碼基礎", "實踐批判性思維和程式碼審查", "專注於架構層次的思維", "保持靈活性並探索 AI 工具"
+            ],
+            strategy_org_title: '🏢 組織團隊',
+            organization_strategy: [
+                "建立 AI 工具使用治理", "在管線中嵌入程式碼審查和掃描", "培訓團隊安全地使用 AI", "務實地採用混合方法", "培養 Vibe Coding 文化"
+            ],
+            links_title: '重要連結',
+            links_subtitle: '此處提供本儀表板內容所依據的完整分析報告原文，供您參考。',
+            links_report_title: '完整 Vibe Coding 分析報告',
+            links_button: '點擊此處閱讀完整報告',
+            links_new_tab_text: '將在新分頁中開啟文件',
+            footer_copyright: '&copy; 2025 Vibe Coding 互動式報告. All rights reserved.',
+            footer_text: '本報告基於公開資料編纂，旨在提供 Vibe Coding 的概覽與趨勢分析。',
+            chart_speed_label_short: '開發時間縮短',
+            chart_speed_label_long: '剩餘時間',
+            chart_automation_label_short: '自動化任務',
+            chart_automation_label_long: '手動任務',
         },
-        'low-code': {
-            title: '低/無程式碼',
-            items: [
-                { label: '方法', text: '視覺、組件式' },
-                { label: '開發人員角色', text: '公民開發者/業務使用者' },
-                { label: '抽象層次', text: '中層次' },
-                { label: '主要輸入', text: '拖放、配置' },
-                { label: '進入門檻', text: '中' }
-            ]
-        },
-        'traditional': {
-            title: '傳統編碼',
-            items: [
-                { label: '方法', text: '手動、語法驅動' },
-                { label: '開發人員角色', text: '編碼者/工程師' },
-                { label: '抽象層次', text: '低層次、詳細' },
-                { label: '主要輸入', text: '特定程式語言' },
-                { label: '進入門檻', text: '高' }
-            ]
+        'en': {
+            docTitle: 'Vibe Coding: Interactive Exploration Guide',
+            nav_intro: 'Introduction',
+            nav_compare: 'Paradigm Comparison',
+            nav_benefits: 'Core Benefits',
+            nav_applications: 'Practical Applications',
+            nav_challenges: 'Challenges & Considerations',
+            nav_future: 'Future Trajectory',
+            nav_tools: 'Key Tools',
+            nav_strategy: 'Adoption Strategy',
+            nav_links: 'Important Links',
+            intro_title: 'Vibe Coding',
+            intro_subtitle: 'The Next Paradigm Shift in Software Development',
+            intro_text: 'Welcome to the world of Vibe Coding. This is more than just a new technology; it\'s an entirely new philosophy of software development. This interactive guide will take you deep into the origins, core concepts, transformative benefits, and how Vibe Coding is reshaping the future of development. You will learn how this approach shifts from traditional manual coding to an AI-assisted, human-intent-centric creative process.',
+            intro_quote: '"Fully immerse in the vibe, embrace exponential growth, and forget about the code." - Andrej Karpathy',
+            compare_title: 'Paradigm Comparison',
+            compare_subtitle: 'How Vibe Coding Stands Out',
+            compare_text: 'Software development methodologies are constantly evolving. From traditional coding requiring precise syntax to visual low/no-code platforms, each step has lowered the technical barrier. Vibe Coding takes the ultimate leap: using natural language as the primary interface. This interactive comparison will highlight the fundamental differences in core approach, developer role, and barrier to entry across the three paradigms.',
+            compare_header_empty: 'Aspect',
+            compare_header_vibe: 'Vibe Coding',
+            compare_header_lowcode: 'Low/No-Code',
+            compare_header_traditional: 'Traditional Coding',
+            comparison_table: {
+                'Method': {
+                    'vibe-coding': 'AI-assisted, Intent-driven',
+                    'low-code': 'Visual, Component-based',
+                    'traditional': 'Manual, Syntax-driven'
+                },
+                'Developer Role': {
+                    'vibe-coding': 'AI Orchestrator / Product Engineer',
+                    'low-code': 'Citizen Developer / Business User',
+                    'traditional': 'Coder / Engineer'
+                },
+                'Abstraction Level': {
+                    'vibe-coding': 'High-level, Conceptual',
+                    'low-code': 'Mid-level',
+                    'traditional': 'Low-level, Detailed'
+                },
+                'Primary Input': {
+                    'vibe-coding': 'Natural Language Prompts',
+                    'low-code': 'Drag-and-drop, Configuration',
+                    'traditional': 'Specific Programming Language'
+                },
+                'Entry Barrier': {
+                    'vibe-coding': 'Low',
+                    'low-code': 'Medium',
+                    'traditional': 'High'
+                }
+            },
+            benefits_title: 'Core Benefits',
+            benefits_subtitle: 'Quantifying the Transformation Driven by Vibe Coding',
+            benefits_text: 'The impact of Vibe Coding is not just theoretical; it\'s quantifiable. It significantly boosts development speed and productivity while lowering the technical barrier, enabling more people to participate in software creation. The charts below visually demonstrate these impressive benefits, from reduced project completion times to the automation of routine tasks, revealing how Vibe Coding fundamentally changes workflows.',
+            benefit_speed_title: 'Accelerated Development',
+            benefit_speed_text: 'Project completion time reduced by up to 56%, enabling rapid prototyping and iteration.',
+            benefit_automation_title: 'Enhanced Productivity',
+            benefit_automation_text: 'AI is projected to automate up to 80% of routine coding tasks by 2030.',
+            applications_title: 'Practical Applications',
+            applications_subtitle: 'Vibe Coding in Various Domains',
+            applications_text: 'Vibe Coding is more than just a concept; it has demonstrated strong practical value in many fields. From rapid product validation for startups to internal innovation in large enterprises, and automation of DevOps processes, it is changing how teams build and test ideas. Click the cards below to explore specific use cases of Vibe Coding in different scenarios.',
+            applicationsData: [
+                { title: 'Rapid Prototyping & MVP', text: 'Considered the "holy grail" for prototyping and MVP development, allowing companies to spontaneously build and test ideas in hours, not weeks.', icon: '💡' },
+                { title: 'DevOps Automation', text: 'Quickly generate CI/CD pipelines, IaC templates (e.g., Terraform), monitoring scripts, and policy-as-code, enabling meta-level automation.', icon: '⚙️' },
+                { title: 'Custom Software for Clients', text: 'Streamlines client project development, especially in scenarios requiring high transparency and rapid iteration.', icon: '🤝' },
+                { title: 'Learning & Experimentation', text: 'Provides a low-friction "playground" for beginners and enthusiasts to explore and learn programming concepts in a practical way.', icon: '🧪' }
+            ],
+            challenges_title: 'Challenges & Key Considerations',
+            challenges_subtitle: 'A Pragmatic View on Embracing the New Paradigm',
+            challenges_text: 'Despite its immense potential, Vibe Coding is not a panacea. Adopting this new technology requires us to address its challenges, including code quality, security, the evolution of developer skills, and scalability limitations in enterprise-grade applications. Understanding these challenges is key to successfully integrating Vibe Coding and balancing innovation with stability.',
+            challengesData: [
+                { title: 'Code Quality & Debugging', text: 'AI can "hallucinate" code that is flawed or inefficient; debugging and long-term maintenance become difficult if developers don\'t understand the underlying logic.', icon: '🐞' },
+                { title: 'Security Vulnerabilities', text: 'AI may unintentionally introduce security vulnerabilities like leaked secrets or vulnerable dependencies. Strict "trust but verify" security practices are needed.', icon: '🔒' }, 
+                { title: 'Over-reliance & Skill Erosion', text: 'Over-reliance on AI may hinder the development of core coding and problem-solving abilities; developers need to strategically "offload cognitive burden."', icon: '🧠' },
+                { title: 'Enterprise Scalability', text: 'Currently best suited for simpler applications or prototypes. For large, complex systems, its effectiveness may diminish.', icon: '🏢' }
+            ],
+            future_title: 'Future Trajectory',
+            future_subtitle: 'Evolution of Developer Roles (to 2030)',
+            future_text: 'Vibe Coding is driving a fundamental evolution in the developer role. In the future, the developer\'s value will shift from manually writing every line of code to higher-level strategic work. The chart below illustrates this trend: the proportion of traditional coding skills will decrease, while "meta-skills" such as system architecture design, prompt engineering, and AI orchestration will become crucial. Developers will become architects guiding AI, rather than just craftsmen.',
+            futureChartLabels: ['Traditional Coding Skills', 'System Architecture Design', 'AI Orchestration & Prompt Engineering', 'Human-AI Collaboration & Review'],
+            futureChartCurrent: 'Current Skill Share',
+            futureChartPredicted: 'Predicted Skill Share by 2030',
+            tools_title: 'Key Tool Ecosystem',
+            tools_subtitle: 'Platforms Driving the Vibe Coding Revolution',
+            tools_text: 'A vibrant tool ecosystem is forming around Vibe Coding. From general-purpose code suggestion tools to specialized UI generators and full-stack application building platforms, these tools are the vehicles for putting Vibe Coding principles into practice. Here are some leading tools in the market, each addressing different development needs, collectively driving this AI-powered development revolution.',
+            toolsData: [
+                { name: 'GitHub Copilot', desc: 'Real-time code suggestions' },
+                { name: 'Replit AI', desc: 'Full-stack web/mobile apps' },
+                { name: 'v0 by Vercel', desc: 'UI component generation' },
+                { name: 'Lovable', desc: 'Simplifies software development' },
+                { name: 'Anysphere', desc: 'AI-driven coding' },
+                { name: 'Windsurf', desc: 'AI coding assistant' },
+                { name: 'Rork App', desc: 'Mobile app building' },
+                { name: 'Stitch', desc: 'Rapid prototyping' },
+            ],
+            strategy_title: 'Adoption Strategy',
+            strategy_subtitle: 'Advice for Individuals and Organizations',
+            strategy_text: 'Successful adoption of Vibe Coding requires strategic planning. For individual developers, this means cultivating new skills; for organizations, it requires establishing governance and training systems. This section provides actionable advice to help you thrive in this new era, whether you are an independent developer or a leader of a large team.',
+            strategy_individual_title: '🚀 Individual Developers',
+            individual_strategy: [
+                "Cultivate clear prompt engineering skills", "Balance AI productivity with core coding fundamentals", "Practice critical thinking and code review", "Focus on architectural-level thinking", "Stay flexible and explore the AI tool ecosystem"
+            ],
+            strategy_org_title: '🏢 Organizational Teams',
+            organization_strategy: [
+                "Establish AI tool usage governance", "Embed code review and scanning in pipelines", "Train teams to use AI safely", "Adopt a pragmatic hybrid approach", "Foster a Vibe Coding culture"
+            ],
+            links_title: 'Important Links',
+            links_subtitle: 'Here you can find the original full analysis report that this dashboard content is based on, for your reference.',
+            links_report_title: 'Full Vibe Coding Analysis Report',
+            links_button: 'Click here to read the full report',
+            links_new_tab_text: 'Will open document in a new tab',
+            footer_copyright: '&copy; 2025 Vibe Coding Interactive Report. All rights reserved.',
+            footer_text: 'This report is compiled based on publicly available data, aiming to provide an overview and trend analysis of Vibe Coding.',
+            chart_speed_label_short: 'Dev Time Reduction',
+            chart_speed_label_long: 'Remaining Time',
+            chart_automation_label_short: 'Automated Tasks',
+            chart_automation_label_long: 'Manual Tasks',
         }
     };
 
-    const applicationsData = [
-        { title: '快速原型與 MVP', text: '被視為原型設計和 MVP 開發的「聖杯」，允許公司在數小時內自發地構建和測試想法，而非數週。', icon: '💡' },
-        { title: 'DevOps 自動化', text: '快速生成 CI/CD 管線、IaC 範本（如 Terraform）、監控腳本和策略即程式碼，實現元層次的自動化。', icon: '⚙️' },
-        { title: '客戶自訂軟體', text: '簡化客戶專案的開發，特別是在需要高度透明度和快速迭代的場景中。', icon: '🤝' },
-        { title: '學習與實驗', text: '為初學者和愛好者提供一個低摩擦的「遊樂場」，以實用的方式探索和學習程式設計概念。', icon: '🧪' }
-    ];
+    let charts = {}; // Store chart instances to update them later
 
-    const challengesData = [
-        { title: '程式碼品質與偵錯', text: 'AI 可能產生有缺陷或效率低下的「幻覺」程式碼，若開發者不理解底層邏輯，偵錯和長期維護將變得困難。', icon: '🐞' },
-        { title: '安全漏洞', text: 'AI 可能無意中引入安全漏洞，如洩漏的秘密或易受攻擊的依賴項。需要「信任但驗證」的嚴格安全實踐。', icon: '🔒' }, 
-        { title: '過度依賴與技能退化', text: '過度依賴 AI 可能阻礙核心編碼和問題解決能力的發展，開發人員需策略性地進行「認知卸載」。', icon: '🧠' },
-        { title: '企業級可擴展性', text: '目前最適合簡單應用或原型。對於大型複雜系統，其有效性可能會降低。', icon: '🏢' }
-    ];
+    function updateLanguage(lang) {
+        document.documentElement.lang = lang; // Set HTML lang attribute
+        document.getElementById('docTitle').textContent = languageData[lang].docTitle;
 
-    const toolsData = [
-        { name: 'GitHub Copilot', desc: '即時程式碼建議' },
-        { name: 'Replit AI', desc: '全端網頁/行動應用' },
-        { name: 'v0 by Vercel', desc: 'UI 組件生成' },
-        { name: 'Lovable', desc: '簡化軟體開發' },
-        { name: 'Anysphere', desc: 'AI 驅動編碼' },
-        { name: 'Windsurf', desc: 'AI 編碼助手' },
-        { name: 'Rork App', desc: '行動應用構建' },
-        { name: 'Stitch', desc: '快速原型設計' },
-    ];
+        // Update nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const key = link.getAttribute('data-lang-key');
+            if (key) {
+                link.textContent = languageData[lang][key];
+            }
+        });
 
-    const strategyData = {
-        individual: [
-            "培養清晰的提示工程技能", "平衡 AI 生產力與核心編碼基礎", "實踐批判性思維和程式碼審查", "專注於架構層次的思維", "保持靈活性並探索 AI 工具"
-        ],
-        organization: [
-            "建立 AI 工具使用治理", "在管線中嵌入程式碼審查和掃描", "培訓團隊安全地使用 AI", "務實地採用混合方法", "培養 Vibe Coding 文化"
-        ]
-    };
+        // Update static text content by ID
+        const elementsToUpdate = [
+            'intro_title', 'intro_subtitle', 'intro_text', 'intro_quote',
+            'compare_title', 'compare_subtitle', 'compare_text',
+            'benefits_title', 'benefits_subtitle', 'benefits_text',
+            'benefit_speed_title', 'benefit_speed_text', 'benefit_automation_title', 'benefit_automation_text',
+            'applications_title', 'applications_subtitle', 'applications_text',
+            'challenges_title', 'challenges_subtitle', 'challenges_text',
+            'future_title', 'future_subtitle', 'future_text',
+            'tools_title', 'tools_subtitle', 'tools_text',
+            'strategy_title', 'strategy_subtitle', 'strategy_text',
+            'strategy_individual_title', 'strategy_org_title',
+            'links_title', 'links_subtitle', 'links_report_title', 'links_button', 'links_new_tab_text',
+            'footer_copyright', 'footer_text'
+        ];
+        elementsToUpdate.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.innerHTML = languageData[lang][id]; // Use innerHTML for quotes potentially containing HTML entities
+            }
+        });
 
-    function renderComparisonTable() {
+        // Update comparison table headers
+        document.querySelector('[data-lang-key="compare_header_empty"]').textContent = languageData[lang].compare_header_empty;
+        document.querySelector('[data-lang-key="compare_header_vibe"]').textContent = languageData[lang].compare_header_vibe;
+        document.querySelector('[data-lang-key="compare_header_lowcode"]').textContent = languageData[lang].compare_header_lowcode;
+        document.querySelector('[data-lang-key="compare_header_traditional"]').textContent = languageData[lang].compare_header_traditional;
+        
+        // Re-render comparison table content
+        renderComparisonTable(lang);
+
+        // Re-render applications grid
+        renderApplicationsGrid(lang);
+
+        // Re-render challenges accordion
+        renderChallengesAccordion(lang);
+
+        // Re-render tools grid
+        renderToolsGrid(lang);
+
+        // Re-render strategy lists
+        renderStrategyLists(lang);
+
+        // Update Chart Labels
+        if (charts.speedChart) {
+            charts.speedChart.data.labels = [languageData[lang].chart_speed_label_short, languageData[lang].chart_speed_label_long];
+            charts.speedChart.update();
+        }
+        if (charts.automationChart) {
+            charts.automationChart.data.labels = [languageData[lang].chart_automation_label_short, languageData[lang].chart_automation_label_long];
+            charts.automationChart.update();
+        }
+        if (charts.futureChart) {
+            charts.futureChart.data.labels = languageData[lang].futureChartLabels;
+            charts.futureChart.data.datasets[0].label = languageData[lang].futureChartCurrent;
+            charts.futureChart.data.datasets[1].label = languageData[lang].futureChartPredicted;
+            charts.futureChart.update();
+        }
+
+        // Update language toggle active state
+        document.getElementById('lang-zh').classList.toggle('active-lang', lang === 'zh-Hant');
+        document.getElementById('lang-en').classList.toggle('active-lang', lang === 'en');
+
+        localStorage.setItem('preferredLang', lang);
+    }
+
+    function renderComparisonTable(lang) {
         const tableContentDiv = document.getElementById('comparison-table-content');
         let html = '';
 
-        const labels = comparisonData['vibe-coding'].items.map(item => item.label);
+        const labels = Object.keys(languageData[lang].comparison_table);
 
         labels.forEach(label => {
             html += `
                 <div class="grid grid-cols-4 gap-4 py-3 px-3 border-b border-gray-100 last:border-b-0" style="border-color: #E0F2F1;">
                     <div class="font-medium text-gray-700" style="color: #4B5563;">${label}</div>
-                    <div class="text-gray-700" style="color: #4B5563;">${comparisonData['vibe-coding'].items.find(item => item.label === label).text}</div>
-                    <div class="text-gray-700" style="color: #4B5563;">${comparisonData['low-code'].items.find(item => item.label === label).text}</div>
-                    <div class="text-gray-700" style="color: #4B5563;">${comparisonData['traditional'].items.find(item => item.label === label).text}</div>
+                    <div class="text-gray-700" style="color: #4B5563;">${languageData[lang].comparison_table[label]['vibe-coding']}</div>
+                    <div class="text-gray-700" style="color: #4B5563;">${languageData[lang].comparison_table[label]['low-code']}</div>
+                    <div class="text-gray-700" style="color: #4B5563;">${languageData[lang].comparison_table[label]['traditional']}</div>
                 </div>
             `;
         });
         tableContentDiv.innerHTML = html;
     }
 
-    renderComparisonTable();
-    
-    const applicationsGrid = document.getElementById('applications-grid');
-    applicationsGrid.innerHTML = applicationsData.map(app => `
-        <div class="p-6 rounded-lg hover:bg-teal-50 transition-colors duration-300" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
-            <div class="text-4xl mb-3">${app.icon}</div>
-            <h3 class="text-xl font-semibold mb-2" style="color: #00A99D;">${app.title}</h3>
-            <p class="text-gray-600" style="color: #4B5563;">${app.text}</p>
-        </div>
-    `).join('');
-
-    const challengesContainer = document.getElementById('challenges-container');
-    challengesContainer.innerHTML = challengesData.map(challenge => `
-        <div class="accordion-item border rounded-lg" style="border-color: #A7F3D0;">
-            <button class="accordion-header w-full flex justify-between items-center text-left p-4 hover:bg-teal-50 transition-colors" style="background-color: #E0F2F1;">
-                <div class="flex items-center">
-                    <span class="text-2xl mr-4">${challenge.icon}</span>
-                    <span class="font-semibold text-lg" style="color: #00A99D;">${challenge.title}</span>
-                </div>
-                <span class="accordion-icon text-2xl text-gray-500 transform transition-transform duration-300" style="color: #6B7280;">+</span>
-            </button>
-            <div class="accordion-content">
-                <p class="p-4 bg-white" style="color: #4B5563;">${challenge.text}</p>
+    function renderApplicationsGrid(lang) {
+        const applicationsGrid = document.getElementById('applications-grid');
+        applicationsGrid.innerHTML = languageData[lang].applicationsData.map(app => `
+            <div class="p-6 rounded-lg hover:bg-teal-50 transition-colors duration-300" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
+                <div class="text-4xl mb-3">${app.icon}</div>
+                <h3 class="text-xl font-semibold mb-2" style="color: #00A99D;">${app.title}</h3>
+                <p class="text-gray-600" style="color: #4B5563;">${app.text}</p>
             </div>
-        </div>
-    `).join('');
+        `).join('');
+    }
 
-    document.querySelectorAll('.accordion-header').forEach(header => {
-        header.addEventListener('click', () => {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector('.accordion-icon');
-            
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                icon.textContent = '+';
-                icon.classList.remove('rotate-45');
-            } else {
-                document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-                document.querySelectorAll('.accordion-icon').forEach(i => {
-                    i.textContent = '+';
-                    i.classList.remove('rotate-45');
-                });
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.textContent = '-';
-            }
+    function renderChallengesAccordion(lang) {
+        const challengesContainer = document.getElementById('challenges-container');
+        challengesContainer.innerHTML = languageData[lang].challengesData.map(challenge => `
+            <div class="accordion-item border rounded-lg" style="border-color: #A7F3D0;">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-4 hover:bg-teal-50 transition-colors" style="background-color: #E0F2F1;">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-4">${challenge.icon}</span>
+                        <span class="font-semibold text-lg" style="color: #00A99D;">${challenge.title}</span>
+                    </div>
+                    <span class="accordion-icon text-2xl text-gray-500 transform transition-transform duration-300" style="color: #6B7280;">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p class="p-4 bg-white" style="color: #4B5563;">${challenge.text}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // Re-attach accordion event listeners after re-rendering
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.textContent = '+';
+                    icon.classList.remove('rotate-45');
+                } else {
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                    document.querySelectorAll('.accordion-icon').forEach(i => {
+                        i.textContent = '+';
+                        i.classList.remove('rotate-45');
+                    });
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.textContent = '-';
+                }
+            });
         });
-    });
+    }
 
-    const toolsGrid = document.getElementById('tools-grid');
-toolsGrid.innerHTML = toolsData.map(tool => `
-    <div class="p-4 rounded-lg flex flex-col items-center justify-center h-full hover:bg-teal-50 transition-colors" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
-        <h4 class="font-bold text-lg" style="color: #00A99D;">${tool.name}</h4>
-        <p class="text-sm mt-1" style="color: #6B7280;">${tool.desc}</p>
-    </div>
-`).join('');
+    function renderToolsGrid(lang) {
+        const toolsGrid = document.getElementById('tools-grid');
+        toolsGrid.innerHTML = languageData[lang].toolsData.map(tool => `
+            <div class="p-4 rounded-lg flex flex-col items-center justify-center h-full hover:bg-teal-50 transition-colors" style="background-color: #E0F2F1; border: 1px solid #A7F3D0;">
+                <h4 class="font-bold text-lg" style="color: #00A99D;">${tool.name}</h4>
+                <p class="text-sm mt-1" style="color: #6B7280;">${tool.desc}</p>
+            </div>
+        `).join('');
+    }
+
+    function renderStrategyLists(lang) {
+        const individualList = document.getElementById('individual-strategy');
+        individualList.innerHTML = languageData[lang].individual_strategy.map(item => `
+            <li class="flex items-start">
+                <span class="mr-2" style="color: #00A99D;">✓</span>
+                <span style="color: #4B5563;">${item}</span>
+            </li>
+        `).join('');
+
+        const orgList = document.getElementById('org-strategy');
+        orgList.innerHTML = languageData[lang].organization_strategy.map(item => `
+            <li class="flex items-start">
+                <span class="mr-2" style="color: #00A99D;">✓</span>
+                <span style="color: #4B5563;">${item}</span>
+            </li>
+        `).join('');
+    }
 
 
-    const individualList = document.getElementById('individual-strategy');
-    individualList.innerHTML = strategyData.individual.map(item => `
-        <li class="flex items-start">
-            <span class="mr-2" style="color: #00A99D;">✓</span>
-            <span style="color: #4B5563;">${item}</span>
-        </li>
-    `).join('');
+    const createChart = (ctx, type, data, options, chartId) => {
+        // Destroy existing chart instance if it exists
+        if (charts[chartId]) {
+            charts[chartId].destroy();
+        }
 
-    const orgList = document.getElementById('org-strategy');
-    orgList.innerHTML = strategyData.organization.map(item => `
-        <li class="flex items-start">
-            <span class="mr-2" style="color: #00A99D;">✓</span>
-            <span style="color: #4B5563;">${item}</span>
-        </li>
-    `).join('');
-
-    const createChart = (ctx, type, data, options) => {
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    new Chart(ctx, { type, data, options });
+                    charts[chartId] = new Chart(ctx, { type, data, options });
                     observer.unobserve(entry.target);
                 }
             });
@@ -441,9 +718,10 @@ toolsGrid.innerHTML = toolsData.map(tool => `
         observer.observe(ctx.canvas);
     };
     
+    // Initial chart rendering
     const speedCtx = document.getElementById('speedChart').getContext('2d');
     createChart(speedCtx, 'doughnut', {
-        labels: ['開發時間縮短', '剩餘時間'],
+        labels: [languageData['zh-Hant'].chart_speed_label_short, languageData['zh-Hant'].chart_speed_label_long],
         datasets: [{
             data: [56, 44],
             backgroundColor: ['#00A99D', '#CCFBF1'], /* Custom Teal and a lighter shade */
@@ -451,11 +729,11 @@ toolsGrid.innerHTML = toolsData.map(tool => `
             borderWidth: 4,
             hoverOffset: 8
         }]
-    }, { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true } } });
+    }, { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true } } }, 'speedChart');
 
     const automationCtx = document.getElementById('automationChart').getContext('2d');
     createChart(automationCtx, 'doughnut', {
-        labels: ['自動化任務', '手動任務'],
+        labels: [languageData['zh-Hant'].chart_automation_label_short, languageData['zh-Hant'].chart_automation_label_long],
         datasets: [{
             data: [80, 20],
             backgroundColor: ['#00A99D', '#D1FAE5'], /* Custom Teal and a lighter shade */
@@ -463,18 +741,18 @@ toolsGrid.innerHTML = toolsData.map(tool => `
             borderWidth: 4,
             hoverOffset: 8
         }]
-    }, { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true } } });
+    }, { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true } } }, 'automationChart');
 
     const futureCtx = document.getElementById('futureChart').getContext('2d');
     createChart(futureCtx, 'bar', {
-        labels: ['傳統編碼技能', '系統架構設計', 'AI 協調與提示工程', '人機協作與審查'],
+        labels: languageData['zh-Hant'].futureChartLabels,
         datasets: [{
-            label: '當前技能佔比',
+            label: languageData['zh-Hant'].futureChartCurrent,
             data: [70, 15, 5, 10],
             backgroundColor: '#A7F3D0', /* Lighter shade for current */
             borderRadius: 4
         }, {
-            label: '2030 預測技能佔比',
+            label: languageData['zh-Hant'].futureChartPredicted,
             data: [20, 30, 35, 15],
             backgroundColor: '#00A99D', /* Custom Teal for future */
             borderRadius: 4
@@ -487,7 +765,8 @@ toolsGrid.innerHTML = toolsData.map(tool => `
             tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${context.raw}%` } },
             legend: { position: 'bottom' }
         }
-    });
+    }, 'futureChart');
+
 
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -501,6 +780,18 @@ toolsGrid.innerHTML = toolsData.map(tool => `
         });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
     sections.forEach(section => observer.observe(section));
+
+    // Language toggle event listeners
+    document.getElementById('lang-zh').addEventListener('click', () => updateLanguage('zh-Hant'));
+    document.getElementById('lang-en').addEventListener('click', () => updateLanguage('en'));
+
+    // Set initial language based on localStorage or default to Traditional Chinese
+    const savedLang = localStorage.getItem('preferredLang') || 'zh-Hant';
+    updateLanguage(savedLang);
+
+    // Set active class for the initial language on page load
+    document.getElementById('lang-zh').classList.toggle('active-lang', savedLang === 'zh-Hant');
+    document.getElementById('lang-en').classList.toggle('active-lang', savedLang === 'en');
 });
 </script>
 </body>
