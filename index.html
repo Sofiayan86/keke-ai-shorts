@@ -9,13 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 使用 Noto Sans TC 作為主要中文字體，Inter 作為英文字體 */
+        /* Use Noto Sans TC for Chinese and Inter for English */
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             background-color: #0a0a0a;
             color: #e5e5e5;
         }
-        /* 自定義青綠色 */
+        /* Custom teal color */
         .text-custom-teal {
             color: #00f2c3;
         }
@@ -25,15 +25,20 @@
         .border-custom-teal {
             border-color: #00f2c3;
         }
-        /* 標題字體 */
+        /* Title font */
         h1, h2, h3 {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             font-weight: 900;
         }
-        /* 導覽列模糊背景效果 */
+        /* Navbar blur effect */
         .backdrop-blur-sm {
             -webkit-backdrop-filter: blur(4px);
             backdrop-filter: blur(4px);
+        }
+        /* Active language switcher style */
+        .lang-switcher.active {
+            color: #00f2c3;
+            font-weight: 700;
         }
 
         /* --- Lively Animations --- */
@@ -118,15 +123,19 @@
                 <div class="flex-shrink-0 interactive-emoji-wrapper">
                     <a href="#" class="flex items-center gap-2 text-2xl font-black text-white">
                         <span class="interactive-emoji text-2xl">🤖</span>
-                        <span>科科 <span class="bg-custom-teal text-black px-2 rounded-md">AI</span> Shorts</span>
+                        <span data-lang="logo-text-1">科科</span> <span class="bg-custom-teal text-black px-2 rounded-md">AI</span> <span data-lang="logo-text-2">Shorts</span>
                     </a>
                 </div>
                 <!-- Navigation Links -->
-                <nav class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#playlists" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium transition-colors">精選播放清單</a>
-                        <a href="#reading" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium transition-colors">延伸閱讀</a>
-                        <a href="#contact" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium transition-colors">聯絡我們</a>
+                <nav class="hidden md:flex items-center space-x-4">
+                    <a href="#playlists" data-lang="nav-playlists" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium transition-colors">精選播放清單</a>
+                    <a href="#reading" data-lang="nav-reading" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium transition-colors">延伸閱讀</a>
+                    <a href="#contact" data-lang="nav-contact" class="text-gray-300 hover:text-custom-teal px-3 py-2 rounded-md text-sm font-medium transition-colors">聯絡我們</a>
+                    <!-- Language Switcher -->
+                    <div id="lang-switcher-desktop" class="text-gray-400 text-sm font-medium">
+                        <a href="#" class="lang-switcher active" data-lang-switch="zh-Hant">繁中</a>
+                        <span>/</span>
+                        <a href="#" class="lang-switcher" data-lang-switch="en">EN</a>
                     </div>
                 </nav>
                 <!-- Mobile Menu Button (Optional) -->
@@ -147,9 +156,15 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="md:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#playlists" class="text-gray-300 hover:text-custom-teal block px-3 py-2 rounded-md text-base font-medium">精選播放清單</a>
-                <a href="#reading" class="text-gray-300 hover:text-custom-teal block px-3 py-2 rounded-md text-base font-medium">延伸閱讀</a>
-                <a href="#contact" class="text-gray-300 hover:text-custom-teal block px-3 py-2 rounded-md text-base font-medium">聯絡我們</a>
+                <a href="#playlists" data-lang="nav-playlists-mobile" class="text-gray-300 hover:text-custom-teal block px-3 py-2 rounded-md text-base font-medium">精選播放清單</a>
+                <a href="#reading" data-lang="nav-reading-mobile" class="text-gray-300 hover:text-custom-teal block px-3 py-2 rounded-md text-base font-medium">延伸閱讀</a>
+                <a href="#contact" data-lang="nav-contact-mobile" class="text-gray-300 hover:text-custom-teal block px-3 py-2 rounded-md text-base font-medium">聯絡我們</a>
+                 <!-- Language Switcher Mobile -->
+                <div id="lang-switcher-mobile" class="px-3 pt-3 text-gray-400 text-base font-medium">
+                    <a href="#" class="lang-switcher active" data-lang-switch="zh-Hant">繁中</a>
+                    <span>/</span>
+                    <a href="#" class="lang-switcher" data-lang-switch="en">EN</a>
+                </div>
             </div>
         </div>
     </header>
@@ -159,14 +174,14 @@
         <section id="intro" class="hero-aurora pt-24 pb-28">
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white">
-                    科科 <span class="bg-custom-teal text-black px-4 rounded-xl">AI</span> Shorts
+                    <span data-lang="hero-title-1">科科</span> <span class="bg-custom-teal text-black px-4 rounded-xl">AI</span> <span data-lang="hero-title-2">Shorts</span>
                 </h1>
-                <h2 class="mt-8 max-w-3xl mx-auto text-2xl md:text-3xl font-bold text-white"><span class="interactive-emoji mr-3">💡</span>5 分鐘看懂 AI 新工具，陪你獨自升級</h2>
+                <h2 class="mt-8 max-w-3xl mx-auto text-2xl md:text-3xl font-bold text-white"><span class="interactive-emoji mr-3">💡</span><span data-lang="hero-subtitle">5 分鐘看懂 AI 新工具，陪你獨自升級</span></h2>
                 <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-300">
-                    本頻道由直立猿與 AI Agent 共同創作。</p>不定時更新短片 Demo 或科技新趨勢，先踩雷幫你省時間。
+                    <span data-lang="hero-desc-1">本頻道由直立猿與 AI Agent 共同創作。</span><span data-lang="hero-desc-2">不定時更新短片 Demo 或科技新趨勢，先踩雷幫你省時間。</span>
                 </p>
                 <div class="mt-10">
-                    <a href="#playlists" class="btn-glow">前往播放清單 👇</a>
+                    <a href="#playlists" class="btn-glow" data-lang="hero-cta">前往播放清單 👇</a>
                 </div>
             </div>
         </section>
@@ -175,20 +190,20 @@
         <section id="playlists" class="py-20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl"><span class="interactive-emoji mr-3">🎬</span>精選播放清單</h2>
-                    <p class="mt-4 text-lg text-gray-400">從趨勢洞見到工具實測，給你最真實的 AI 成果展示。</p>
+                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl"><span class="interactive-emoji mr-3">🎬</span><span data-lang="playlists-title">精選播放清單</span></h2>
+                    <p class="mt-4 text-lg text-gray-400" data-lang="playlists-subtitle">從趨勢洞見到工具實測，給你最真實的 AI 成果展示。</p>
                 </div>
                 <!-- Playlist: AI 工具踩雷實測 -->
                 <div class="mb-20">
                     <div class="mb-8 p-6 bg-gray-900 rounded-xl">
-                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper">AI 工具踩雷實測 <span class="interactive-emoji">🧪</span></h3>
-                        <p class="mt-2 text-gray-400">開箱、評比、Live demo 各種最新 AI 模型、工具，我們花錢訂閱搶先測試，直接說真話、只給你乾貨。</p>
+                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper" data-lang="playlist-1-title">AI 工具踩雷實測 <span class="interactive-emoji">🧪</span></h3>
+                        <p class="mt-2 text-gray-400" data-lang="playlist-1-desc">開箱、評比、Live demo 各種最新 AI 模型、工具，我們花錢訂閱搶先測試，直接說真話、只給你乾貨。</p>
                     </div>
                      <!-- YouTube Embeds -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=k1XBMuFDdZg" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/k1XBMuFDdZg/hqdefault.jpg" alt="AI 工具踩雷實測 1">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/k1XBMuFDdZg/hqdefault.jpg" alt="AI 工具踩雷實測 1" data-lang="playlist-1-img-alt-1">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -196,7 +211,7 @@
                         </div>
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=5Hx2MGgYRzg" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/5Hx2MGgYRzg/hqdefault.jpg" alt="AI 工具踩雷實測 2">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/5Hx2MGgYRzg/hqdefault.jpg" alt="AI 工具踩雷實測 2" data-lang="playlist-1-img-alt-2">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -204,7 +219,7 @@
                         </div>
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=U2oJEQoR4W0" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/U2oJEQoR4W0/hqdefault.jpg" alt="AI 工具踩雷實測 3">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/U2oJEQoR4W0/hqdefault.jpg" alt="AI 工具踩雷實測 3" data-lang="playlist-1-img-alt-3">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -216,14 +231,14 @@
                 <!-- Playlist: 新手 Vibe Coder 進階指南 -->
                 <div class="mb-20">
                     <div class="mb-8 p-6 bg-gray-900 rounded-xl">
-                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper">新手 Vibe Coder 進階指南 <span class="interactive-emoji">💡</span></h3>
-                        <p class="mt-2 text-gray-400">一行 code 都不會寫？只給你最聽得懂的教學、最實用的基礎應用！</p>
+                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper" data-lang="playlist-2-title">新手 Vibe Coder 進階指南 <span class="interactive-emoji">💡</span></h3>
+                        <p class="mt-2 text-gray-400" data-lang="playlist-2-desc">一行 code 都不會寫？只給你最聽得懂的教學、最實用的基礎應用！</p>
                     </div>
                      <!-- YouTube Embeds -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
+                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=Y4_B8j9bJbE" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/Y4_B8j9bJbE/hqdefault.jpg" alt="新手 Vibe Coder 進階指南 1">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/Y4_B8j9bJbE/hqdefault.jpg" alt="新手 Vibe Coder 進階指南 1" data-lang="playlist-2-img-alt-1">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -231,7 +246,7 @@
                         </div>
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=jKGqsNXeKnM" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/jKGqsNXeKnM/hqdefault.jpg" alt="新手 Vibe Coder 進階指南 2">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/jKGqsNXeKnM/hqdefault.jpg" alt="新手 Vibe Coder 進階指南 2" data-lang="playlist-2-img-alt-2">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -239,7 +254,7 @@
                         </div>
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=K8WmE9ce-ck" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/K8WmE9ce-ck/hqdefault.jpg" alt="新手 Vibe Coder 進階指南 3">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/K8WmE9ce-ck/hqdefault.jpg" alt="新手 Vibe Coder 進階指南 3" data-lang="playlist-2-img-alt-3">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -251,34 +266,33 @@
                 <!-- Playlist: Pod 精讀筆記 -->
                 <div class="mb-20">
                     <div class="mb-8 p-6 bg-gray-900 rounded-xl">
-                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper">Pod 精讀筆記 <span class="interactive-emoji">🎧</span></h3>
-                        <p class="mt-2 text-gray-400">用 5 分鐘中文影片，快速拆解 30–60 分鐘的英文 Podcast 重點，給你結論、實用範例與行動清單，一次補齊 AI × 產品 × 成長思維的最新洞見。</p>
+                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper" data-lang="playlist-3-title">Pod 精讀筆記 <span class="interactive-emoji">🎧</span></h3>
+                        <p class="mt-2 text-gray-400" data-lang="playlist-3-desc">用 5 分鐘中文影片，快速拆解 30–60 分鐘的英文 Podcast 重點，給你結論、實用範例與行動清單，一次補齊 AI × 產品 × 成長思維的最新洞見。</p>
                     </div>
                     <!-- YouTube Embeds -->
-                    <!-- NOTE: 這邊的影片是範例，請替換成您播放清單最新的影片ID -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=efmrneDb3VU" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/efmrneDb3VU/hqdefault.jpg" alt="YC 大神分享矽谷公司都在用的 prompt 秘笈">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/efmrneDb3VU/hqdefault.jpg" alt="YC 大神分享矽谷公司都在用的 prompt 秘笈" data-lang="playlist-3-img-alt-1">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
                             </a>
                         </div>
-                    </div>                       
+                    </div>                   
                 </div>
 
                 <!-- Playlist: AI 對決實驗室 -->
                 <div class="mb-20">
                     <div class="mb-8 p-6 bg-gray-900 rounded-xl">
-                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper">AI 對決實驗室 <span class="interactive-emoji">⚡</span></h3>
-                        <p class="mt-2 text-gray-400">AI 工具百百種，哪個才是真本事？我們把兩到三款 AI 工具放上擂台，實測同一個任務，從畫圖、寫文、剪影片到生成動畫，全程公開對比、毫不護航。</p>
+                        <h3 class="text-2xl font-bold text-custom-teal interactive-emoji-wrapper" data-lang="playlist-4-title">AI 對決實驗室 <span class="interactive-emoji">⚡</span></h3>
+                        <p class="mt-2 text-gray-400" data-lang="playlist-4-desc">AI 工具百百種，哪個才是真本事？我們把兩到三款 AI 工具放上擂台，實測同一個任務，從畫圖、寫文、剪影片到生成動畫，全程公開對比、毫不護航。</p>
                     </div>
                      <!-- YouTube Embeds -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=YtjVS99Iipw" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/YtjVS99Iipw/hqdefault.jpg" alt="AI 動畫大對決：Veo vs Sora vs Kling">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/YtjVS99Iipw/hqdefault.jpg" alt="AI 動畫大對決：Veo vs Sora vs Kling" data-lang="playlist-4-img-alt-1">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -286,7 +300,7 @@
                         </div>
                         <div class="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg group">
                             <a href="https://www.youtube.com/watch?v=L0PXH5aEOvU" target="_blank" rel="noopener noreferrer">
-                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/L0PXH5aEOvU/hqdefault.jpg" alt="Claude 最新模型實測">
+                                <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/L0PXH5aEOvU/hqdefault.jpg" alt="Claude 最新模型實測" data-lang="playlist-4-img-alt-2">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                 </div>
@@ -301,21 +315,21 @@
         <section id="reading" class="py-20 bg-gray-900">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-extrabold text-white"><span class="interactive-emoji mr-3">📚</span>延伸閱讀</h2>
-                    <p class="mt-4 text-lg text-gray-400">探索更多 AI 相關的深度內容與實用資源。</p>
+                    <h2 class="text-3xl font-extrabold text-white"><span class="interactive-emoji mr-3">📚</span><span data-lang="reading-title">延伸閱讀</span></h2>
+                    <p class="mt-4 text-lg text-gray-400" data-lang="reading-subtitle">探索更多 AI 相關的深度內容與實用資源。</p>
                 </div>
                 <div class="mt-10 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                     <a href="subsite/vibe-coding.html" class="block p-8 bg-gray-800 rounded-xl shadow-lg hover:bg-gray-700 transition-colors duration-300 ease-in-out transform hover:-translate-y-1">
-                        <h3 class="text-xl font-bold text-custom-teal">Vibe Coding: 互動式探索指南</h3>
-                        <p class="mt-3 text-base text-gray-400">Vibe Coding 是一種全新的軟體開發哲學。我們整理了自 "Vibe Coding" 一詞自 2025 年 2 月問世以來的詳細說明，並製作了本互動指南，帶你深入探索 Vibe Coding 的起源、核心概念、變革性優勢，及它如何重塑軟體開發的未來。</p>
-                        <p class="mt-4 font-semibold text-white hover:text-custom-teal transition-colors">
+                        <h3 class="text-xl font-bold text-custom-teal" data-lang="reading-1-title">Vibe Coding: 互動式探索指南</h3>
+                        <p class="mt-3 text-base text-gray-400" data-lang="reading-1-desc">Vibe Coding 是一種全新的軟體開發哲學。我們整理了自 "Vibe Coding" 一詞自 2025 年 2 月問世以來的詳細說明，並製作了本互動指南，帶你深入探索 Vibe Coding 的起源、核心概念、變革性優勢，及它如何重塑軟體開發的未來。</p>
+                        <p class="mt-4 font-semibold text-white hover:text-custom-teal transition-colors" data-lang="reading-1-link">
                             前往探索 <span aria-hidden="true">&rarr;</span>
                         </p>
                     </a>
                     <a href="subsite/AI-prompt.html" class="block p-8 bg-gray-800 rounded-xl shadow-lg hover:bg-gray-700 transition-colors duration-300 ease-in-out transform hover:-translate-y-1">
-                        <h3 class="text-xl font-bold text-custom-teal">「YC Prompt 秘笈」：AI Prompt 指令產生器</h3>
-                        <p class="mt-3 text-base text-gray-400">這是「Pod 精讀筆記」影片中提到的 Prompt 案例分享。我們在影片中拆解了 YC 分享的 Prompt Engineering 技巧，我們整理了文字說明，也做了一個示範小工具，你可以用這個工具來體驗如何打造高品質指令。</p>
-                        <p class="mt-4 font-semibold text-white hover:text-custom-teal transition-colors">
+                        <h3 class="text-xl font-bold text-custom-teal" data-lang="reading-2-title">「YC Prompt 秘笈」：AI Prompt 指令產生器</h3>
+                        <p class="mt-3 text-base text-gray-400" data-lang="reading-2-desc">這是「Pod 精讀筆記」影片中提到的 Prompt 案例分享。我們在影片中拆解了 YC 分享的 Prompt Engineering 技巧，我們整理了文字說明，也做了一個示範小工具，你可以用這個工具來體驗如何打造高品質指令。</p>
+                        <p class="mt-4 font-semibold text-white hover:text-custom-teal transition-colors" data-lang="reading-2-link">
                             前往使用 <span aria-hidden="true">&rarr;</span>
                         </p>
                     </a>
@@ -328,8 +342,8 @@
     <footer id="contact" class="bg-black">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-8">
-                <h2 class="text-2xl font-bold text-white"><span class="interactive-emoji mr-3">📨</span>聯絡我們</h2>
-                <p class="text-gray-400 mt-2">在這些平台追蹤我們，或透過 Email 聯絡</p>
+                <h2 class="text-2xl font-bold text-white"><span class="interactive-emoji mr-3">📨</span><span data-lang="contact-title">聯絡我們</span></h2>
+                <p class="text-gray-400 mt-2" data-lang="contact-subtitle">在這些平台追蹤我們，或透過 Email 聯絡</p>
             </div>
             <div class="flex justify-center space-x-6">
                 <!-- Email -->
@@ -356,54 +370,194 @@
                 <!-- Threads -->
                 <a href="https://www.threads.com/@kekeaishorts" target="_blank" rel="noopener noreferrer" class="footer-icon text-gray-400 hover:text-custom-teal">
                     <span class="sr-only">Threads</span>
-                    <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 440 511.43"><path fill="#fff" fill-rule="nonzero" d="M342.383 237.038a177.282 177.282 0 00-6.707-3.046c-3.948-72.737-43.692-114.379-110.429-114.805-38.505-.255-72.972 15.445-94.454 48.041l36.702 25.178c15.265-23.159 39.221-28.096 56.864-28.096.204 0 .408 0 .61.002 21.974.14 38.555 6.529 49.287 18.987 7.81 9.071 13.034 21.606 15.621 37.425-19.483-3.311-40.553-4.329-63.077-3.038-63.45 3.655-104.24 40.661-101.501 92.08 1.391 26.083 14.385 48.523 36.587 63.181 18.772 12.391 42.95 18.45 68.077 17.079 33.183-1.819 59.215-14.48 77.377-37.63 13.793-17.58 22.516-40.363 26.368-69.069 15.814 9.544 27.535 22.103 34.007 37.2 11.006 25.665 11.648 67.84-22.764 102.223-30.15 30.121-66.392 43.151-121.164 43.554-60.758-.45-106.708-19.935-136.583-57.915-27.976-35.562-42.434-86.93-42.973-152.674.539-65.746 14.997-117.114 42.973-152.676 29.875-37.979 75.824-57.463 136.582-57.914 61.197.455 107.948 20.033 138.967 58.195 15.21 18.713 26.676 42.248 34.236 69.688L440 161.532c-9.163-33.775-23.582-62.881-43.203-87.017C357.031 25.59 298.872.519 223.936 0h-.3C148.851.518 91.344 25.683 52.709 74.795 18.331 118.499.598 179.308.002 255.535l-.002.18.002.18c.596 76.225 18.329 137.037 52.707 180.741 38.635 49.11 96.142 74.277 170.927 74.794h.3c66.486-.462 113.352-17.868 151.96-56.442 50.51-50.463 48.99-113.718 32.342-152.549-11.945-27.847-34.716-50.463-65.855-65.401zM227.587 344.967c-27.808 1.567-56.699-10.916-58.124-37.651-1.056-19.823 14.108-41.942 59.831-44.577a266.87 266.87 0 0115.422-.45c16.609 0 32.145 1.613 46.271 4.701-5.268 65.798-36.172 76.483-63.4 77.977z"/></svg>
+                    <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 440 511.43"><path fill-rule="nonzero" d="M342.383 237.038a177.282 177.282 0 00-6.707-3.046c-3.948-72.737-43.692-114.379-110.429-114.805-38.505-.255-72.972 15.445-94.454 48.041l36.702 25.178c15.265-23.159 39.221-28.096 56.864-28.096.204 0 .408 0 .61.002 21.974.14 38.555 6.529 49.287 18.987 7.81 9.071 13.034 21.606 15.621 37.425-19.483-3.311-40.553-4.329-63.077-3.038-63.45 3.655-104.24 40.661-101.501 92.08 1.391 26.083 14.385 48.523 36.587 63.181 18.772 12.391 42.95 18.45 68.077 17.079 33.183-1.819 59.215-14.48 77.377-37.63 13.793-17.58 22.516-40.363 26.368-69.069 15.814 9.544 27.535 22.103 34.007 37.2 11.006 25.665 11.648 67.84-22.764 102.223-30.15 30.121-66.392 43.151-121.164 43.554-60.758-.45-106.708-19.935-136.583-57.915-27.976-35.562-42.434-86.93-42.973-152.674.539-65.746 14.997-117.114 42.973-152.676 29.875-37.979 75.824-57.463 136.582-57.914 61.197.455 107.948 20.033 138.967 58.195 15.21 18.713 26.676 42.248 34.236 69.688L440 161.532c-9.163-33.775-23.582-62.881-43.203-87.017C357.031 25.59 298.872.519 223.936 0h-.3C148.851.518 91.344 25.683 52.709 74.795 18.331 118.499.598 179.308.002 255.535l-.002.18.002.18c.596 76.225 18.329 137.037 52.707 180.741 38.635 49.11 96.142 74.277 170.927 74.794h.3c66.486-.462 113.352-17.868 151.96-56.442 50.51-50.463 48.99-113.718 32.342-152.549-11.945-27.847-34.716-50.463-65.855-65.401zM227.587 344.967c-27.808 1.567-56.699-10.916-58.124-37.651-1.056-19.823 14.108-41.942 59.831-44.577a266.87 266.87 0 0115.422-.45c16.609 0 32.145 1.613 46.271 4.701-5.268 65.798-36.172 76.483-63.4 77.977z"/></svg>
                 </a>
             </div>
             <div class="mt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2025 科科 AI Shorts. All Rights Reserved.</p>
-                <p>由直立猿與 AI Agent 共同創作。</p>
+                <p data-lang="footer-copyright">&copy; 2025 科科 AI Shorts. All Rights Reserved.</p>
+                <p data-lang="footer-credit">由直立猿與 AI Agent 共同創作。</p>
             </div>
         </div>
     </footer>
     
     <script>
-        // NOTE: 自動更新影片的功能說明
-        // 要讓播放清單自動抓取最新的三支影片，通常需要後端程式的協助。
-        // 流程如下：
-        // 1. 後端伺服器 (例如使用 Node.js, Python) 定期 (例如每天一次) 透過 YouTube Data API 取得每個播放清單的影片列表。
-        // 2. API 會回傳該播放清單所有影片的資訊，按發布日期排序。
-        // 3. 後端伺服器選取最新的三支影片，取出它們的影片 ID。
-        // 4. 後端伺服器將這三組 ID 儲存成一個簡單的 JSON 檔案，並提供一個 API 端點讓前端網頁讀取。
-        // 5. 這個前端網頁在載入時，使用 JavaScript 的 fetch() 功能去讀取後端提供的 JSON 檔案，然後動態地將影片 ID 填入 <iframe> 的 src 屬性中。
-        //
-        // 由於這個環境無法執行後端程式，目前是手動放入影片ID作為展示。
-        // 若未來您架設自己的伺服器，可以依照上述邏輯來實現自動更新。
+        // --- LANGUAGE SWITCHER SCRIPT ---
 
-        // Mobile Menu Toggle
-        const btn = document.querySelector("button[aria-controls='mobile-menu']");
-        const mobileMenu = document.getElementById('mobile-menu');
+        const translations = {
+            'zh-Hant': {
+                'page-title': '科科 AI Shorts | 官方網站',
+                'logo-text-1': '科科',
+                'logo-text-2': 'Shorts',
+                'nav-playlists': '精選播放清單',
+                'nav-reading': '延伸閱讀',
+                'nav-contact': '聯絡我們',
+                'nav-playlists-mobile': '精選播放清單',
+                'nav-reading-mobile': '延伸閱讀',
+                'nav-contact-mobile': '聯絡我們',
+                'hero-title-1': '科科',
+                'hero-title-2': 'Shorts',
+                'hero-subtitle': '5 分鐘看懂 AI 新工具，陪你獨自升級',
+                'hero-desc-1': '本頻道由直立猿與 AI Agent 共同創作。',
+                'hero-desc-2': '不定時更新短片 Demo 或科技新趨勢，先踩雷幫你省時間。',
+                'hero-cta': '前往播放清單 👇',
+                'playlists-title': '精選播放清單',
+                'playlists-subtitle': '從趨勢洞見到工具實測，給你最真實的 AI 成果展示。',
+                'playlist-1-title': 'AI 工具踩雷實測 <span class="interactive-emoji">🧪</span>',
+                'playlist-1-desc': '開箱、評比、Live demo 各種最新 AI 模型、工具，我們花錢訂閱搶先測試，直接說真話、只給你乾貨。',
+                'playlist-1-img-alt-1': 'AI 工具踩雷實測 1',
+                'playlist-1-img-alt-2': 'AI 工具踩雷實測 2',
+                'playlist-1-img-alt-3': 'AI 工具踩雷實測 3',
+                'playlist-2-title': '新手 Vibe Coder 進階指南 <span class="interactive-emoji">💡</span>',
+                'playlist-2-desc': '一行 code 都不會寫？只給你最聽得懂的教學、最實用的基礎應用！',
+                'playlist-2-img-alt-1': '新手 Vibe Coder 進階指南 1',
+                'playlist-2-img-alt-2': '新手 Vibe Coder 進階指南 2',
+                'playlist-2-img-alt-3': '新手 Vibe Coder 進階指南 3',
+                'playlist-3-title': 'Pod 精讀筆記 <span class="interactive-emoji">🎧</span>',
+                'playlist-3-desc': '用 5 分鐘中文影片，快速拆解 30–60 分鐘的英文 Podcast 重點，給你結論、實用範例與行動清單，一次補齊 AI × 產品 × 成長思維的最新洞見。',
+                'playlist-3-img-alt-1': 'YC 大神分享矽谷公司都在用的 prompt 秘笈',
+                'playlist-4-title': 'AI 對決實驗室 <span class="interactive-emoji">⚡</span>',
+                'playlist-4-desc': 'AI 工具百百種，哪個才是真本事？我們把兩到三款 AI 工具放上擂台，實測同一個任務，從畫圖、寫文、剪影片到生成動畫，全程公開對比、毫不護航。',
+                'playlist-4-img-alt-1': 'AI 動畫大對決：Veo vs Sora vs Kling',
+                'playlist-4-img-alt-2': 'Claude 最新模型實測',
+                'reading-title': '延伸閱讀',
+                'reading-subtitle': '探索更多 AI 相關的深度內容與實用資源。',
+                'reading-1-title': 'Vibe Coding: 互動式探索指南',
+                'reading-1-desc': 'Vibe Coding 是一種全新的軟體開發哲學。我們整理了自 "Vibe Coding" 一詞自 2025 年 2 月問世以來的詳細說明，並製作了本互動指南，帶你深入探索 Vibe Coding 的起源、核心概念、變革性優勢，及它如何重塑軟體開發的未來。',
+                'reading-1-link': '前往探索 <span aria-hidden="true">&rarr;</span>',
+                'reading-2-title': '「YC Prompt 秘笈」：AI Prompt 指令產生器',
+                'reading-2-desc': '這是「Pod 精讀筆記」影片中提到的 Prompt 案例分享。我們在影片中拆解了 YC 分享的 Prompt Engineering 技巧，我們整理了文字說明，也做了一個示範小工具，你可以用這個工具來體驗如何打造高品質指令。',
+                'reading-2-link': '前往使用 <span aria-hidden="true">&rarr;</span>',
+                'contact-title': '聯絡我們',
+                'contact-subtitle': '在這些平台追蹤我們，或透過 Email 聯絡',
+                'footer-copyright': '&copy; 2025 科科 AI Shorts. All Rights Reserved.',
+                'footer-credit': '由直立猿與 AI Agent 共同創作。',
+            },
+            'en': {
+                'page-title': 'Keke AI Shorts | Official Website',
+                'logo-text-1': 'Keke',
+                'logo-text-2': 'Shorts',
+                'nav-playlists': 'Playlists',
+                'nav-reading': 'Further Reading',
+                'nav-contact': 'Contact Us',
+                'nav-playlists-mobile': 'Playlists',
+                'nav-reading-mobile': 'Further Reading',
+                'nav-contact-mobile': 'Contact Us',
+                'hero-title-1': 'Keke',
+                'hero-title-2': 'Shorts',
+                'hero-subtitle': 'Understand new AI tools in 5 minutes, leveling up on your own.',
+                'hero-desc-1': 'This channel is co-created by Erectus and an AI Agent.',
+                'hero-desc-2': 'We release demos and tech trends, testing them to save you time.',
+                'hero-cta': 'Go to Playlists 👇',
+                'playlists-title': 'Featured Playlists',
+                'playlists-subtitle': 'From trend insights to hands-on tool testing, we show you real AI results.',
+                'playlist-1-title': 'AI Tool Reviews <span class="interactive-emoji">🧪</span>',
+                'playlist-1-desc': 'Unboxing, reviews, and live demos of the latest AI models and tools. We subscribe and test them first, giving you honest, no-fluff insights.',
+                'playlist-1-img-alt-1': 'AI Tool Review 1',
+                'playlist-1-img-alt-2': 'AI Tool Review 2',
+                'playlist-1-img-alt-3': 'AI Tool Review 3',
+                'playlist-2-title': 'Advanced Guide for Vibe Coders <span class="interactive-emoji">💡</span>',
+                'playlist-2-desc': "Can't write a single line of code? We provide easy-to-understand tutorials and practical basic applications.",
+                'playlist-2-img-alt-1': 'Advanced Guide for Vibe Coders 1',
+                'playlist-2-img-alt-2': 'Advanced Guide for Vibe Coders 2',
+                'playlist-2-img-alt-3': 'Advanced Guide for Vibe Coders 3',
+                'playlist-3-title': 'Podcast Notes <span class="interactive-emoji">🎧</span>',
+                'playlist-3-desc': 'Quickly grasp key points from 30-60 minute English podcasts in a 5-minute Chinese video. Get summaries, examples, and action lists on AI, product, and growth.',
+                'playlist-3-img-alt-1': 'YC Guru shares prompt secrets used by Silicon Valley',
+                'playlist-4-title': 'AI Battle Lab <span class="interactive-emoji">⚡</span>',
+                'playlist-4-desc': 'Which AI tool is the best? We put 2-3 AI tools head-to-head on the same task—from drawing and writing to video editing and animation—with full transparency.',
+                'playlist-4-img-alt-1': 'AI Animation Showdown: Veo vs Sora vs Kling',
+                'playlist-4-img-alt-2': 'Testing Claude\'s Latest Model',
+                'reading-title': 'Further Reading',
+                'reading-subtitle': 'Explore more in-depth content and useful resources about AI.',
+                'reading-1-title': 'Vibe Coding: An Interactive Exploration Guide',
+                'reading-1-desc': 'Vibe Coding is a new philosophy in software development. This guide explores its origins, core concepts, and transformative advantages since its inception in Feb 2025.',
+                'reading-1-link': 'Explore Now <span aria-hidden="true">&rarr;</span>',
+                'reading-2-title': '"YC Prompt Guide": AI Prompt Generator',
+                'reading-2-desc': 'This is the prompt case study from our "Podcast Notes" video. We break down YC\'s Prompt Engineering techniques and provide a small tool for you to practice crafting high-quality prompts.',
+                'reading-2-link': 'Try it Out <span aria-hidden="true">&rarr;</span>',
+                'contact-title': 'Contact Us',
+                'contact-subtitle': 'Follow us on these platforms or contact us via Email.',
+                'footer-copyright': '&copy; 2025 Keke AI Shorts. All Rights Reserved.',
+                'footer-credit': 'Co-created by Erectus and an AI Agent.',
+            }
+        };
 
-        if (btn && mobileMenu) {
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                const isExpanded = btn.getAttribute("aria-expanded") === "true";
-                btn.setAttribute("aria-expanded", !isExpanded);
-                mobileMenu.classList.toggle('open');
-                const icons = btn.querySelectorAll('svg');
-                icons[0].classList.toggle('hidden');
-                icons[1].classList.toggle('hidden');
+        let currentLang = 'zh-Hant';
+
+        function switchLanguage(lang) {
+            if (!translations[lang]) return;
+
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.title = translations[lang]['page-title'];
+
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    // Use innerHTML to allow for HTML tags like <span> inside translations
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Update image alt tags
+            document.querySelectorAll('img[data-lang-alt]').forEach(element => {
+                const key = element.getAttribute('data-lang-alt');
+                 if (translations[lang][key]) {
+                    element.alt = translations[lang][key];
+                }
             });
 
-            // Close menu when a link is clicked
-            mobileMenu.addEventListener('click', () => {
-                 btn.setAttribute("aria-expanded", "false");
-                 mobileMenu.classList.remove('open');
-                 const icons = btn.querySelectorAll('svg');
-                 icons[0].classList.remove('hidden');
-                 icons[1].classList.add('hidden');
+            // Update active state on switchers
+            document.querySelectorAll('.lang-switcher').forEach(switcher => {
+                if (switcher.getAttribute('data-lang-switch') === lang) {
+                    switcher.classList.add('active');
+                } else {
+                    switcher.classList.remove('active');
+                }
             });
         }
-    </script>
 
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial language
+            switchLanguage(currentLang);
+
+            // Add event listeners to all language switchers
+            document.querySelectorAll('[data-lang-switch]').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = e.target.getAttribute('data-lang-switch');
+                    switchLanguage(lang);
+                });
+            });
+
+            // --- Original Mobile Menu Toggle Script ---
+            const btn = document.querySelector("button[aria-controls='mobile-menu']");
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (btn && mobileMenu) {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const isExpanded = btn.getAttribute("aria-expanded") === "true";
+                    btn.setAttribute("aria-expanded", !isExpanded);
+                    mobileMenu.classList.toggle('open');
+                    const icons = btn.querySelectorAll('svg');
+                    icons[0].classList.toggle('hidden');
+                    icons[1].classList.toggle('hidden');
+                });
+
+                // Close menu when a link is clicked
+                mobileMenu.addEventListener('click', (e) => {
+                    // Only close if a link (or the lang switcher) is clicked, not just the background
+                    if (e.target.tagName === 'A') {
+                        btn.setAttribute("aria-expanded", "false");
+                        mobileMenu.classList.remove('open');
+                        const icons = btn.querySelectorAll('svg');
+                        icons[0].classList.remove('hidden');
+                        icons[1].classList.add('hidden');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
