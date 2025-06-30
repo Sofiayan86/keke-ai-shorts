@@ -1,0 +1,10 @@
+# Temporary Favicon File
+# This file should be replaced with an actual ICO file containing the following design:
+# - Background: #00A99D (科科 AI Shorts brand color)
+# - Text: "KK" in white, representing "科科"
+# - Size: Multi-resolution ICO (16x16, 32x32, 48x48)
+# 
+# To create the actual ICO file:
+# 1. Design a 512x512 image with "KK" text on #00A99D background
+# 2. Use an online converter like https://realfavicongenerator.net/
+# 3. Replace this file with the generated favicon.ico

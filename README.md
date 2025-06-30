@@ -58,6 +58,8 @@
 ```
 keke-ai-shorts/
 ├── index.html                 # 主頁面
+├── favicon.ico                # 網站圖示
+├── site.webmanifest          # Web App Manifest
 ├── subsite/                   # 子頁面目錄
 │   ├── AI-prompt.html         # AI Prompt 指南頁面
 │   └── vibe-coding.html       # Vibe Coding 指南頁面
@@ -68,6 +70,14 @@ keke-ai-shorts/
 │   ├── index.js               # 雲端函數
 │   └── package.json           # 依賴配置
 ├── assets/                    # 靜態資源
+│   └── icons/                 # Favicon 和應用圖示
+│       ├── favicon.svg        # SVG 格式圖示
+│       ├── favicon-16x16.png  # 16x16 PNG 圖示
+│       ├── favicon-32x32.png  # 32x32 PNG 圖示
+│       ├── apple-touch-icon.png # Apple 觸控圖示
+│       ├── android-chrome-192x192.png # Android 圖示
+│       ├── android-chrome-512x512.png # Android 大圖示
+│       └── README.md          # 圖示文件說明
 ├── firebase.json              # Firebase 配置
 ├── .firebaserc               # Firebase 項目配置
 └── README.md                 # 項目說明文件
